@@ -1,9 +1,11 @@
 var mainPremission = require('./Premission/MainPremissionCheck');
+var Function=require('./Other/Funcion');
+var TAG="main";
 module.exports = {
 
     
     listen: function (io) {
-        console.log('line 5');
+        Function.logd(TAG,'line 5');
         // var idc = 0;
         // io.path('/myownpath');
         io.of('/main').on('connection', function (client) {
