@@ -4,12 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 
 var app = express();
 var server = require('http').Server(app);
+
 var io = require('socket.io')(server);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,8 +28,8 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 // app.use('/users', mainRouter);
 
 
@@ -48,6 +49,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var main = require('./routes/main');
-main.lissen(io);
+var main = require('./Contoller/main');
+main.listen(io);
 module.exports = {app: app, server: server};
