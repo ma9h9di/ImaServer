@@ -28,9 +28,10 @@ module.exports = {
     	//todo check koliat az ghabil in ke in methode vojod dare age nadare
 		//for authentication don`t need
 		// user=DB.getUserByPhoneNumber(data.data.phone_number);//
+		//baraye tamam method ha be joz signup, signin, sendCode va sendSMS status bayad active bashad
         Function.logd(TAG,"check MainPremissionCheck")
 		switch (data.method) {
-			case 'chackPhone':
+			case 'checkPhone':
 			case 'sendCode':
 			case 'sendSms':
 			case 'signUp':
