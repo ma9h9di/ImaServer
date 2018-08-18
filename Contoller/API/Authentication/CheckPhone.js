@@ -2,9 +2,8 @@ module.exports = {
     /*
     *
     * */
-    check: function (data,user) {
-        var bannd=user.spam;
-        var result={'registered':user.status!=='deactive','banned':user.spam}
-        return ;
+    call: function (data,user) {
+        var result={'registered':user.status!=='active'};
+        return result;
     }
 }

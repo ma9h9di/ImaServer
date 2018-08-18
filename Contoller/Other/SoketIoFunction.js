@@ -1,8 +1,10 @@
+var logd=require('./Funcion').logd;
+
 module.exports = function(io) {
-    function oneSessionEmit(socketId,user,sendData) {
+    function oneSessionEmit(socketId,sendData) {
         var date = new Date();
         sendData.data.time=date.getTime();
-        io.to(socketId).emit(sendData.event,sendData.data)
+        io.of('/main').connected[socketId].emit(sendData.event,sendData.data)
     }
     return {
         oneSessionEmit: oneSessionEmit,
@@ -10,9 +12,14 @@ module.exports = function(io) {
             //todo for send to all active session
 
         },
-        authenticationEmit: function(socketId,user,sendData) {
-            oneSessionEmit(socketId,user,sendData)
-            io.to(socketId).disconnect()
+        authenticationEmit: function(socketId,sendData) {
+            oneSessionEmit(socketId,sendData)
+            io.of('/main').connected[socketId].emit('disconnect');
+        },
+        ErrorEmit: function(socketId,sendData) {
+            oneSessionEmit(socketId,sendData);
+            console.log("%j",sendData)
+            // io.of('/main').connected[socketId].emit('disconnect');
         }
     }
 }

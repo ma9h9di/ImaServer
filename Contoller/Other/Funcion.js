@@ -19,7 +19,7 @@ var log = function (name,str) {
         LE['log'](obj);
     }
     if(typeof str===typeof {})
-        str=JSON_stringify(str);
+        str=JSON.stringify(str);
     if(name)
         console.log(name+" : "+str);
     else
