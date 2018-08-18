@@ -1,8 +1,10 @@
 module.exports = {
     CreateNewDevice:function (device) {
-        return device.authentication={
+        device.IP={};
+        device.authentication={
             nextAccessTime:0,
             totalCount:0
         }
+        return device;
     }
-}
+};

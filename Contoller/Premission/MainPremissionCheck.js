@@ -17,16 +17,16 @@ module.exports = {
             return new err(pv.errCode.data_not_found).jsonErr();
         var data=input.data;
         var user=false;
-        if (pv.permission.notNeedTokenApi.hasOwnProperty(input.method)){
+        if ( pv.permission.notNeedTokenApi.indexOf((input.method))>-1){
             if (!data.hasOwnProperty('phone_number'))
                 return new err(pv.errCode.invalid_arguments,undefined,{params:['phone_number']}).jsonErr();
-            if (data.phone_number.length<11)
-                return new err(pv.errCode.authentication.phone_not_valid,'phone number less than 11').jsonErr();
+            if (data.phone_number.length>14)
+                return new err(pv.errCode.authentication.phone_not_valid,'phone number longer than 14').jsonErr();
             if (data.phone_number[0]!=='+')
                 return new err(pv.errCode.authentication.phone_not_valid,'phone number format not valid').jsonErr();
             // user=db.getUserByPhoneNumber(data.phone_number);
         }else{
-            if (!data.includes('token'))
+            if (!data.hasOwnProperty('token'))
                 return new err(pv.errCode.token_field_not_found).jsonErr();
             // user=db.getUserByToken(data.token);
             if (user===false){

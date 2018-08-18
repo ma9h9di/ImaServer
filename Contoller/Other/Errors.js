@@ -2,6 +2,13 @@ var pv=require('./PublicValue');
 var Errors=[ //if error occure data is nothing
     // global error
     {
+        'title': 'json parse error',
+        'code': pv.errCode.json_parse_err,
+        'message': 'can`t parse  requite data',
+        'type':pv.apiType.all,
+        'error_data': {}
+    },
+    {
         'title': 'error code not found',
         'code': pv.errCode.error_code_not_found,
         'message': 'can`t found error code',
@@ -73,7 +80,6 @@ var Errors=[ //if error occure data is nothing
         'code': pv.errCode.authentication.token_illegal_sing_up,
         'message': 'this phone number can`t sing up by this token',
         'type':pv.apiType.authentication,
-
         'error_data': {}
     },
     {
@@ -89,7 +95,6 @@ var Errors=[ //if error occure data is nothing
         'code': pv.errCode.authentication.phone_not_valid,
         'message': 'this phone number not in valid format',
         'type':pv.apiType.authentication,
-
         'error_data': {}
     },
     {
@@ -97,15 +102,6 @@ var Errors=[ //if error occure data is nothing
         'code': pv.errCode.authentication.country_not_support,
         'message': 'we don`t support your country',
         'type':pv.apiType.authentication,
-
-        'error_data': {}
-    },
-    {
-        'title': 'language not support',
-        'code': pv.errCode.authentication.language_not_support,
-        'message': 'we don`t support this language and we use default language (en) for you',
-        'type':pv.apiType.authentication,
-
         'error_data': {}
     },
     {
