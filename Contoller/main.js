@@ -10,6 +10,7 @@ module.exports = {
         var soketFunction = require('./Other/SoketIoFunction')(io);
         // var idc = 0;
         // io.path('/myownpath');
+
         io.of('/main').on('connection', function (client) {
             logd('clinet connect', client.id);
             client.on('disconnect', function () {
