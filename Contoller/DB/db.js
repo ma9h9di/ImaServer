@@ -17,7 +17,6 @@ function connectDB(callback){
         }
         var dbo = db.db("ima");
         DBConnection = dbo;
-        var myobj = {username: "MajeedAskari", address: ""};
         callback();
     });
 

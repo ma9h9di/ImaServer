@@ -1,19 +1,29 @@
 "use strict";
 
-var db = require('../db');
+var mongoUtil = require('../mongoUtil');
+
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
-        db.db1.collection("Users").findOne({}, function (err, res) {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
             if (err) {
                 throw err;
             }
-            console.log("hellloooo")
+            if (!res) {
+                const date = new Date();
+                var userDefault =
+                userCollection.insertOne(userDefault, function () {
+                    console.log("inserted default");
+                    callback(userDefault);
+                });
+            }
+            console.log(res);
             callback(res);
         });
     } catch (e) {
-        db.connectToDB(function () {
+        mongoUtil.connectToServer(function () {
             getUserByPhoneNumber(phone_number, callback);
-    });
+        });
     }
 }

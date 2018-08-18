@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var mongoUtil = require( 'Contoller/DB/mongoUtil' );
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
@@ -49,9 +49,10 @@ app.use(function(err, req, res, next) {
 });
 
 
+mongoUtil.connectToServer( function( err ) {
+    var main = require('./Contoller/main');
+    main.listen(io);
+});
 
 
-
-var main = require('./Contoller/main');
-main.listen(io);
 module.exports = {app: app, server: server};
