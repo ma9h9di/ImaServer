@@ -1,4 +1,4 @@
-var authenticationPremission = require('./Authentication/AuthenticationMainPremissionCheck');
+var authenticationPermission = require('./Authentication/AuthenticationMainPermissionCheck');
 var logd=require('../Other/Funcion').logd;
 var err=require('../Model/error');
 var pv=require('../Other/PublicValue');
@@ -43,7 +43,7 @@ module.exports = {
 			case pv.api.authentication.signUp:
 			case pv.api.authentication.logOut:
 			case pv.api.authentication.removeSession:
-                const authenticationPermissionResult = authenticationPremission.check(input, user, client);
+                const authenticationPermissionResult = authenticationPermission.check(input, user, client);
                 authenticationPermissionResult.type=pv.apiType.authentication;
 				return authenticationPermissionResult;
             default:
