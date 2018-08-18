@@ -1,6 +1,7 @@
 "use strict";
 
 var mongoUtil = require('../mongoUtil');
+var logd = require('../../Other/Funcion').logd;
 
 
 function getUserByPhoneNumber(phone_number, callback) {
@@ -10,16 +11,20 @@ function getUserByPhoneNumber(phone_number, callback) {
             if (err) {
                 throw err;
             }
+            logd(res);
             if (!res) {
-                const date = new Date();
-                var userDefault =
-                    userCollection.insertOne(userDefault, function () {
-                        console.log("inserted default");
-                        callback(userDefault);
-                    });
+                // const date = new Date();
+                // var userDefault =
+                //     userCollection.insertOne(userDefault, function () {
+                //         console.log("inserted default");
+                //         callback(userDefault);
+                //     });
+                res=false;
+                callback(res);
+            }else{
+                callback(res);
             }
-            console.log(res);
-            callback(res);
+
         });
     } catch (e) {
         mongoUtil.connectToServer(function () {

@@ -5,7 +5,7 @@ var _db;
 
 function connectToServer( callback ) {
     // TODO Release: change develop user to release user
-    var url = 'mongodb://develop:LlW06iTdiaG5OgerXT9uPbr6w@localhost:27017/ima';
+    var url = 'mongodb://develop:LlW06iTdiaG5OgerXT9uPbr6w@198.143.180.99:27017/ima';
     MongoClient.connect( url, function( err, db ) {
         _db = db;
         return callback( err );
