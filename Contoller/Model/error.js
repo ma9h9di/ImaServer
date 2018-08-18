@@ -1,28 +1,28 @@
 var errors = require('../Other/Errors');
-var logd=require('../Other/Funcion').logd;
+var logd = require('../Other/Funcion').logd;
 
 var pv = require('../Other/PublicValue');
 
- class Error {
+class Error {
 
-    jsonErr(){
+    jsonErr() {
         return {
-            error:[this.mErr],
-            type:pv.apiType.err
+            error: [this.mErr],
+            type: pv.apiType.err
         }
     }
 
     findThisErr(code) {
         logd(code);
         for (let i = 0; i < errors.err.length; i++) {
-            if (errors.err[i].code===code)
+            if (errors.err[i].code === code)
                 return errors.err[i];
         }
     }
 
     constructor(code, message, error_data) {
         this.mErr = this.findThisErr(code);
-        console.log('find %j',this.mErr);
+        console.log('find %j', this.mErr);
         if (message !== undefined)
             this.mErr.message = message;
         if (error_data !== undefined)
@@ -31,4 +31,5 @@ var pv = require('../Other/PublicValue');
 
 
 }
+
 module.exports = Error;

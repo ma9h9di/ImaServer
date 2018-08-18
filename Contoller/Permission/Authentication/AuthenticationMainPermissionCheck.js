@@ -1,4 +1,4 @@
-var checkPhonePremission = require('./checkPhonePremissionCheck');
+var checkPhonePermission = require('./checkPhonePermissionCheck');
 var err=require('../../Model/error');
 var Device=require('../../Model/device');
 var logd=require('../../Other/Funcion').logd;
@@ -51,7 +51,7 @@ module.exports = {
 
         switch (input.method) {
             case pv.api.authentication.checkPhone:
-                return checkPhonePremission.check(data, user);
+                return checkPhonePermission.check(data, user);
             case pv.api.authentication.sendCode:
             case pv.api.authentication.sendSms:
             case pv.api.authentication.signIn:

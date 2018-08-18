@@ -1,4 +1,4 @@
-var mainPremission = require('./Premission/MainPremissionCheck');
+var mainPermission = require('./Permission/MainPermissionCheck');
 var logd = require('./Other/Funcion').logd;
 var pv = require('./Other/PublicValue');
 var err = require('./Model/error');
@@ -24,7 +24,7 @@ module.exports = {
                     // decrypt_msg = JSON.parse(decrypt_msg);
 
 
-                    var output = mainPremission.check(decrypt_msg, client);
+                    var output = mainPermission.check(decrypt_msg, client);
                     logd('output', output);
                     var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
                     method = method + '_result';
