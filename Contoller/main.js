@@ -1,22 +1,41 @@
 var mainPremission = require('./Premission/MainPremissionCheck');
+var logd=require('./Other/Funcion').logd;
+var pv=require('./Other/PublicValue');
+
+var TAG="main";
 module.exports = {
 
     
     listen: function (io) {
-        console.log('line 5');
+        var soketFunction=require('./Other/SoketIoFunction')(io);
         // var idc = 0;
         // io.path('/myownpath');
         io.of('/main').on('connection', function (client) {
-            console.log('open socket ' + client.id);
+            logd('clinet connect',client.id)
+            client.on('disconnect', function () {
+                logd('disconnect socket',client.id );
+                client.disconnect(true);
+            });
             client.on('run', function (msg, err) {
                 //todo decrypt msg
                 var decrypt_msg=msg;
-                console.log(msg);
-                console.log(msg.phone_number);
-                //db.getUserByPhoneNumber();
+                decrypt_msg=JSON.parse(decrypt_msg);
+                var output=mainPremission.check(decrypt_msg,client);
+                logd('output',output);
+                var method=decrypt_msg.method===undefined?'err':decrypt_msg.method;
+                method=method+'_result';
+                var sendData={'event':method,'data':output};
+                switch (output.type) {
+                    case pv.apiType.err:
+                        soketFunction.ErrorEmit(client.id,sendData);
+                        break;
+                    case pv.apiType.authentication:
+                        soketFunction.authenticationEmit(client.id,sendData);
+                        break;
+                }
 
-                // var result={'registerd':0,'banned':true}
-                client.emit(decrypt_msg.method + '_result',mainPremission.check(decrypt_msg))
+
+                client.emit(decrypt_msg.method + '_result','ddd')
 
                 if (err != undefined){
                     //todo err handel
@@ -24,15 +43,8 @@ module.exports = {
                 }
             });
         });
-        io.sockets.on('disconnection', function (client) {
-            console.log('disconnection socket ' + client.id);
-        });
-        return {slm:"hello"}
-        try{
-            
-        }catch (e) {
-            
-        }
+
+
     }
 
 }
