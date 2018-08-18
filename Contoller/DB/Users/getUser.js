@@ -27,3 +27,10 @@ function getUserByPhoneNumber(phone_number, callback) {
         });
     }
 }
+
+
+module.exports =
+    {
+        getUserByPhoneNumber: getUserByPhoneNumber
+    }
+;
