@@ -13,10 +13,10 @@ function getUserByPhoneNumber(phone_number, callback) {
             if (!res) {
                 const date = new Date();
                 var userDefault =
-                userCollection.insertOne(userDefault, function () {
-                    console.log("inserted default");
-                    callback(userDefault);
-                });
+                    userCollection.insertOne(userDefault, function () {
+                        console.log("inserted default");
+                        callback(userDefault);
+                    });
             }
             console.log(res);
             callback(res);
