@@ -13,16 +13,16 @@ module.exports = {
         //todo #DB
         var data=input.data;
         var device;
-        if (!data.includes('device')) {
+        if (!data.hasOwnProperty('device')) {
             return new err(pv.errCode.authentication.device_argument,'device argument not found',{'params':['device']}).jsonErr();
         }else {
-            if (!data.device.includes('platform')) {
+            if (!data.device.hasOwnProperty('platform')) {
                 return new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr();
-            }if (!data.device.includes('unique_device_key')) {
+            }if (!data.device.hasOwnProperty('unique_device_key')) {
                 return new err(pv.errCode.authentication.device_argument, 'unique_device_key in device argument not found', {'params': ['unique_device_key']}).jsonErr();
-            }if (!data.device.includes('platform_versions')) {
+            }if (!data.device.hasOwnProperty('platform_version')) {
                 return new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr();
-            }if (!data.device.includes('model')) {
+            }if (!data.device.hasOwnProperty('model')) {
                 return new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr();
             }
             
@@ -30,14 +30,14 @@ module.exports = {
         // device=db.getDevice(data.device);
         device=Device.CreateNewDevice(data.device);
         var address=client.handshake.address;
-        if (device.IP.includes(address.address)){
-            if (device.IP[address.address].includes(address.port)){
-                device.IP[address.address][address.port]=device.IP[address.address][address.port]+1;
+        if (device.IP.hasOwnProperty(address.address)){
+            if (device.IP[address.address].hasOwnProperty(address.port)){
+                device.IP[address.address][address.port]++;
             } else {
-                device.IP[address.address][address.port]=1;
+                device.IP[address.address]={[address.port]:1};
             }
         }else{
-            device.IP[address.address][address.port]=1;
+            device.IP={[address.address]:{[address.port]:1}};
         }
         device.authentication.totalCount=device.authentication.totalCount+1;
         var date=new Date();
