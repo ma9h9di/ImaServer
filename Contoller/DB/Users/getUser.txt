@@ -1,0 +1,11 @@
+
+getUser(params){
+    sikh ro parameter ha
+    UsersDB.findOne(folan o parameter ha);
+    sikh rosh baz
+    return data;
+
+
+
+
+}

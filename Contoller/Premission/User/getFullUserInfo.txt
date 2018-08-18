@@ -1,0 +1,12 @@
+Parameter validation: size count type ...
+
+Special Premission checks:
+    ex: group photo can only be changed by admin
+        you can not send message to users you have blocked
+        you can only access your own chats
+        ...
+
+
+
+return API.Users.getFullUserInfo(params);
+        
