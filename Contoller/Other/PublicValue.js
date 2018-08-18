@@ -1,18 +1,27 @@
-var allApi = {
+var allApi= {
     authentication: {
-        'checkPhone': 1,
-        'sendCode': 2,
-        'sendSms': 3,
-        'signUp': 4,
-        'signIn': 5,
-        'logOut': 6,
-        'removeSession': 7
+        'checkPhone': 'checkPhone',
+        'sendCode': 'sendCode',
+        'sendSms':'sendSms',
+        'signUp': 'signUp',
+        'signIn': 'signIn',
+        'logOut': 'logOut',
+        'removeSession': 'removeSession'
+    }
+};
+var suportValue={
+    country: {
+        iran: '+98'
+    },
+    language:{
+        en:'en'
     }
 };
 module.exports = {
-    api: allApi,
+    api:allApi,
     apiType: {
         err: 'Error',
+        warning: 'Warning',
         all: 'API_All',
         authentication: 'API_Authentication',
 
@@ -24,27 +33,31 @@ module.exports = {
             allApi.authentication.sendSms,
             allApi.authentication.signUp,
         ],
-        NumberOfAuthenticationReq: 20
+        NumberOfAuthenticationReq:20
+    },
+    support:suportValue,
+    defultValue:{
+        language:suportValue.language.english
     },
     errCode: {
-        'error_code_not_found': '0001',
-        'user_delete_spam': '0002',
-        'token_field_not_found': '0003',
-        'token_user_not_found': '0004',
-        'invalid_arguments': '0005',
-        'arguments_not_found': '0006',
-        'method_not_found': '0007',
-        'data_not_found': '0008',
+        'json_parse_err': 'json_parse_err',
+        'error_code_not_found': 'error_code_not_found',
+        'token_field_not_found': 'token_field_not_found',
+        'token_user_not_found': 'token_user_not_found',
+        'invalid_arguments': 'invalid_arguments',
+        'arguments_not_found': 'arguments_not_found',
+        'method_not_found': 'method_not_found',
+        'data_not_found': 'data_not_found',
         'authentication': {
-
-            'phone_number_not_found': '0101',
-            'token_illegal_sign_up': '0102',
-            'user_already_exists': '0103',
-            'phone_number_not_valid': '0104',
-            'country_not_supported': '0105',
-            'language_not_supported': '0106',
-            'device_spam': '0107',
-            'device_invalid': '0108'
+            'user_delete_spam': 'user_delete_spam',
+            'phone_number_not_found': 'phone_number_not_found',
+            'token_illegal_sing_up': 'token_illegal_sing_up',
+            'user_already_exist': 'user_already_exist',
+            'phone_not_valid': 'phone_not_valid',
+            'country_not_support': 'country_not_support',
+            'language_not_support': 'language_not_support',
+            'device_spam': 'device_spam',
+            'device_argument': 'device_argument'
         }
     }
-};
+}

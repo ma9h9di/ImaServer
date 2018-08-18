@@ -1,7 +1,7 @@
-var mainPermission = require('./Premission/MainPermissionCheck');
+var mainPremission = require('./Premission/MainPremissionCheck');
 var logd = require('./Other/Funcion').logd;
 var pv = require('./Other/PublicValue');
-
+var err = require('./Model/error');
 var TAG = "main";
 module.exports = {
 
@@ -11,33 +11,38 @@ module.exports = {
         // var idc = 0;
         // io.path('/myownpath');
         io.of('/main').on('connection', function (client) {
-            logd('clinet connect', client.id)
+            logd('clinet connect', client.id);
             client.on('disconnect', function () {
                 logd('disconnect socket', client.id);
                 client.disconnect(true);
             });
-            client.on('run', function (msg, err) {
+            client.on('run', function (msg, errs) {
                 //todo decrypt msg
                 var decrypt_msg = msg;
-                decrypt_msg = JSON.parse(decrypt_msg);
-                var output = mainPermission.check(decrypt_msg, client);
-                logd('output', output);
-                var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
-                method = method + '_result';
-                var sendData = {'event': method, 'data': output};
-                switch (output.type) {
-                    case pv.apiType.err:
-                        soketFunction.ErrorEmit(client.id, sendData);
-                        break;
-                    case pv.apiType.authentication:
-                        soketFunction.authenticationEmit(client.id, sendData);
-                        break;
+                try {
+                    // decrypt_msg = JSON.parse(decrypt_msg);
+
+
+                    var output = mainPremission.check(decrypt_msg, client);
+                    logd('output', output);
+                    var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
+                    method = method + '_result';
+                    var sendData = {'event': method, 'data': output};
+                    switch (output.type) {
+                        case pv.apiType.err:
+                            soketFunction.ErrorEmit(client.id, sendData);
+                            break;
+                        case pv.apiType.authentication:
+                            soketFunction.authenticationEmit(client.id, sendData);
+                            break;
+                    }
+                } catch (e) {
+                    var sendData={'event':'err_result','data':new err(pv.errCode.json_parse_err).jsonErr()};
+                    soketFunction.ErrorEmit(client.id, sendData);
                 }
 
 
-                client.emit(decrypt_msg.method + '_result', 'ddd')
-
-                if (err !== undefined) {
+                if (errs != undefined) {
                     //todo err handel
 
                 }

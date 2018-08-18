@@ -1,9 +1,11 @@
 module.exports = {
-    CreateNewUser: function (phone_number) {
+    CreateNewUser: function (userParamInput) {
         const date = new Date();
         return {
             status: 'deactivate',
-            phone_number: phone_number,
+            phone_number: userParamInput.phone_number ,
+            country: userParamInput.country ,
+            language: userParamInput.language ,
             lastActivityTime: date.getTime(),
             lastProfileChange: date.getTime(),
             dataUsage: {   // df: 0 for all
@@ -11,6 +13,7 @@ module.exports = {
                 useDataInMonth: 0,
                 useDataInTotal: 0
             },
+            spam:[]
         };
     }
 }
