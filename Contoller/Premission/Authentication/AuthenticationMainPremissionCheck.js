@@ -1,4 +1,4 @@
-var checkPhonePremission = require('./checkPhonePremissionCheck');
+var checkPhonePremission = require('./checkPhonePermissionCheck');
 var err=require('../../Model/error');
 var Device=require('../../Model/device');
 var logd=require('../../Other/Funcion').logd;
