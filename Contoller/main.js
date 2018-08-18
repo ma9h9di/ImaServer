@@ -1,4 +1,4 @@
-var mainPermission = require('./Premission/MainPermissionCheck');
+var mainPermission = require('./Permission/MainPermissionCheck');
 var logd = require('./Other/Funcion').logd;
 var pv = require('./Other/PublicValue');
 var err = require('./Model/error');
