@@ -3,8 +3,8 @@ var allApi = {
         checkPhone: 'checkPhone',
         sendCode: 'sendCode',
         sendSms: 'sendSms',
-        signUp: 'signUp',
-        signIn: 'signIn',
+        signUp: 'singUp',
+        signIn: 'singIn',
         logOut: 'logOut',
         removeSession: 'removeSession'
     }
