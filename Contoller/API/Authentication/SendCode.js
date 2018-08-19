@@ -4,10 +4,10 @@ var logd = require('../../Other/Funcion').logd;
 
 module.exports = function (user) {
     return {
-        call: function () {
+        call: function (outputCallBack) {
             require('./SendSmS')(user).checkNeedNewVerifyCode();
             //sendCode to app
-            return {'data': {'successful': true}};
+            outputCallBack({'data': {'successful': true}});
         },
 
 

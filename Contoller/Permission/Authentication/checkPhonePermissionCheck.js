@@ -4,20 +4,26 @@ var warn = require('../../Model/warning');
 var User = require('../../Model/user');
 var pv = require('../../Other/PublicValue');
 module.exports = {
-    check: function (data, user) {
+    check: function (data, user, outputCallBack) {
         //check all for chackPhone
         var extraData;
         if (!user) {
 
-            if (!data.hasOwnProperty('country'))
-                return new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr();
+            if (!data.hasOwnProperty('country')) {
+                outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr());
+                return;
+            }
             else {
-                if (!pv.support.country.hasOwnProperty(data.country))
-                    return new err(pv.errCode.authentication.country_not_support).jsonErr();
+                if (!pv.support.country.hasOwnProperty(data.country)) {
+                    outputCallBack(new err(pv.errCode.authentication.country_not_support).jsonErr());
+                    return;
+                }
             }
             // db.createUser(data.phone_number);
-            if (!data.hasOwnProperty('language'))
-                return new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr();
+            if (!data.hasOwnProperty('language')) {
+                outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr());
+                return;
+            }
             else {
                 if (!pv.support.language.hasOwnProperty(data.language)) {
                     extraData = new warn(pv.errCode.authentication.language_not_support).findThisWarning();
@@ -36,15 +42,18 @@ module.exports = {
                 }
             }
             if (mSpam.length > 0) {
-                return new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam);
+                outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam));
+                return;
             }
 
         }
 
-        var result = CheckPhone.call(user);
-        if (extraData!==undefined)
-            result.warning = extraData;
-        return result;
+        CheckPhone.call(user, (result) => {
+            if (extraData !== undefined)
+                result.warning = extraData;
+            outputCallBack(result);
+        });
+
     }
 };
 

@@ -29,10 +29,10 @@ module.exports = function (user) {
 
 
     return {
-        call: function () {
+        call: function (outputCallBack) {
             checkNeedNewVerifyCode();
             //sendSms
-            return {'data': {'successful': true}};
+            outputCallBack({'data': {'successful': true}});
         },
         checkNeedNewVerifyCode:checkNeedNewVerifyCode
 

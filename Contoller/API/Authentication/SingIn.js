@@ -4,7 +4,7 @@ var pv = require('../../Other/PublicValue');
 var logd = require('../../Other/Funcion').logd;
 
 
-module.exports = function (user) {
+module.exports = function (user,outputCallBack) {
     var result={};
     function addSession(device,app) {
         return require('../../Model/session').CreateNewSession(device,app,'',user.session.length()+1);
@@ -25,7 +25,7 @@ module.exports = function (user) {
                 result.successful=false;
                 result.token="";
             }
-            return result;
+            outputCallBack(result);
         }
 
     }

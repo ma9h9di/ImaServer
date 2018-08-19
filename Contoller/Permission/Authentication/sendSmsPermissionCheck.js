@@ -3,11 +3,12 @@ var warn = require('../../Model/warning');
 var User = require('../../Model/user');
 var pv = require('../../Other/PublicValue');
 module.exports = {
-    check: function (data, user) {
+    check: function (data, user,outputCallBack) {
         //check all for checkPhone
         var extraData=undefined;
         if (!user) {
-            return new err(pv.errCode.authentication.phone_number_not_found).jsonErr();
+            outputCallBack(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
+            return;
         }
         if (user.spam.length > 0) {
             var mSpam = [];
@@ -17,13 +18,15 @@ module.exports = {
                 }
             }
             if (mSpam.length > 0) {
-                return new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam);
+                outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam));
+                return;
             }
 
         }
-        var result = require('../../API/Authentication/SendSmS')(user).call();
-        if (extraData!==undefined)
-            result.warning = extraData;
-        return result;
+        require('../../API/Authentication/SendSmS')(user).call((result) => {
+            if (extraData !== undefined)
+                result.warning = extraData;
+            outputCallBack(result);
+        });
     }
 };
