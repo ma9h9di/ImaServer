@@ -6,41 +6,48 @@ var logd = require('../../Other/Funcion').logd;
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
-        // logd(mongoUtil.getDb().collection);
         var userCollection = mongoUtil.getDb().collection("Users");
-        logd('getUserByPhoneNumber phoneNumber :',phone_number);
+        logd('getUserByPhoneNumber phoneNumber :', phone_number);
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
-            logd('getUserByPhoneNumber res :',res);
-            logd('getUserByPhoneNumber err :',err);
+            logd('getUserByPhoneNumber res :', res);
+            logd('getUserByPhoneNumber err :', err);
             if (err) {
                 throw err;
             }
-
             if (!res) {
-                // const date = new Date();
-                // var userDefault =
-                //     userCollection.insertOne(userDefault, function () {
-                //         console.log("inserted default");
-                //         callback(userDefault);
-                //     });
-                console.log(" faaalseeee ")
                 res = false;
                 callback(res);
             } else {
-                console.log("fouuuuund  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                console.log(res.phone_number);
                 callback(res);
             }
-
         });
     } catch (e) {
         logd(e);
-        // mongoUtil.connectToServer(function () {
-        //     getUserByPhoneNumber(phone_number, callback);
-        // });
     }
 }
 
+
+function getUserByToken(token, callback) {
+    try {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        logd('getUserByToken token :', token);
+        userCollection.findOne({phone_number: {$eq: token}}, function (err, res) {
+            logd('getUserByToken res :', res);
+            logd('getUserByToken err :', err);
+            if (err) {
+                throw err;
+            }
+            if (!res) {
+                res = false;
+                callback(res);
+            } else {
+                callback(res);
+            }
+        });
+    } catch (e) {
+        logd(e);
+    }
+}
 
 module.exports =
     {
