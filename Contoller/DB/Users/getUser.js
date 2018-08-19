@@ -6,6 +6,8 @@ var logd = require('../../Other/Funcion').logd;
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
+        console.log("before line 10");
+        console.log(mongoUtil.getDb().collection);
         var userCollection = mongoUtil.getDb().collection("Users");
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
             if (err) {
@@ -19,17 +21,19 @@ function getUserByPhoneNumber(phone_number, callback) {
                 //         console.log("inserted default");
                 //         callback(userDefault);
                 //     });
-                res=false;
+                console.log(" faaalseeee ")
+                res = false;
                 callback(res);
-            }else{
+            } else {
                 callback(res);
             }
 
         });
     } catch (e) {
-        mongoUtil.connectToServer(function () {
-            getUserByPhoneNumber(phone_number, callback);
-        });
+        // mongoUtil.connectToServer(function () {
+        //     getUserByPhoneNumber(phone_number, callback);
+        // });
+        console.log("database error line 34 of getUser", e);
     }
 }
 
