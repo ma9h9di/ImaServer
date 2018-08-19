@@ -1,3 +1,11 @@
-\.idea
-slm.txt
-\node_modules
+*.iml
+.gradle
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.DS_Store
+/build
+/node_modules
+.externalNativeBuild
+
+\.idea/
