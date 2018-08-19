@@ -22,9 +22,40 @@ function insertUser(user, callback) {
     }
 }
 
+function updateUserByPhoneNumber(phone_number, newUser, callback) {
+    try {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        userCollection.update({phone_number: phone_number}, newUser, function (err, res) {
+            if (err) {
+                throw err;
+            }
+            console.log("new updated document is: ", res.ops[0]);
+            callback(res.ops[0]);
+        });
+    } catch (e) {
+        logd(e);
+    }
+}
+
+function updateUserByMongoID(id, newUser, callback) {
+    try {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        userCollection.update({_id: id}, newUser, function (err, res) {
+            if (err) {
+                throw err;
+            }
+            console.log("new updated document is: ", res.ops[0]);
+            callback(res.ops[0]);
+        });
+    } catch (e) {
+        logd(e);
+    }
+}
 
 module.exports =
     {
-        insertUser: insertUser
+        insertUser: insertUser,
+        updateUserByMongoID: updateUserByMongoID,
+        updateUserByPhoneNumber: updateUserByPhoneNumber
     }
 ;

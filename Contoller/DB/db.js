@@ -6,6 +6,8 @@ var setUser = require('./Users/setUser');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
-    insertUser: setUser.insertUser
+    insertUser: setUser.insertUser,
+    updateUserByMongoID: setUser.updateUserByMongoID,
+    updateUserByPhoneNumber: setUser.updateUserByPhoneNumber
 };
 
