@@ -19,6 +19,7 @@ module.exports = {
             });
             client.on('run', function (msg, errs) {
                 //todo decrypt msg
+
                 var decrypt_msg = msg;
                 try {
                     // decrypt_msg = JSON.parse(decrypt_msg);

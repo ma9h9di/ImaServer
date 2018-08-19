@@ -1,5 +1,5 @@
 var crypto = require('crypto');
-var biguint = require('biguint-format');
+var format = require('biguint-format');
 var pv = require('../../Other/PublicValue');
 var logd = require('../../Other/Funcion').logd;
 
@@ -7,7 +7,7 @@ var logd = require('../../Other/Funcion').logd;
 module.exports = function (user) {
     var date=new Date().getTime();
     function randomVerifyNumber(qty) {
-        return biguint.format(crypto.randomBytes(qty), 'dec')
+        return format(crypto.randomBytes(qty), 'dec')
     }
 
     function gnreateNewVerifyCode() {

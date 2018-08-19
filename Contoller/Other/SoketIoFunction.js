@@ -4,7 +4,7 @@ module.exports = function (io) {
     function oneSessionEmit(socketId, sendData) {
         var date = new Date();
         sendData.data.time = date.getTime();
-        io.of('/main').connected[socketId].emit(sendData.event, sendData.data)
+        io.of('/main').connected[socketId].emit(sendData.event, sendData.data);
     }
 
     return {

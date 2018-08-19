@@ -9,7 +9,7 @@ function getUserByPhoneNumber(phone_number, callback) {
         var userCollection = mongoUtil.getDb().collection("Users");
         logd('getUserByPhoneNumber phoneNumber :', phone_number);
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
-            logd('getUserByPhoneNumber res :', res);
+            // logd('getUserByPhoneNumber res :', res);
             logd('getUserByPhoneNumber err :', err);
             if (err) {
                 throw err;

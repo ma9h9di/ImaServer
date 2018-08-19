@@ -9,7 +9,7 @@ module.exports = {
 
     check: function (input, client, outputCallBack) {
         var callBackAfterUser = function (user) {
-            logd('enter callBackAfterUser', user);
+            // logd('enter callBackAfterUser', user);
             switch (input.method) {
                 case pv.api.authentication.checkPhone:
                 case pv.api.authentication.sendCode:
