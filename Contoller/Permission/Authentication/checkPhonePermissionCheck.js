@@ -8,6 +8,31 @@ module.exports = {
     check: function (data, user, outputCallBack) {
         //check all for chackPhone
         var extraData;
+
+        function callCheckPhone(newUser) {
+
+            if (newUser.spam.length > 0) {
+                var mSpam = [];
+                for (let i = 0; i < newUser.spam.length; i++) {
+                    if (newUser.spam[i].type === 'outApp') {
+                        mSpam.push(newUser.spam[i]);
+                    }
+                }
+                if (mSpam.length > 0) {
+                    outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam));
+                    return;
+                }
+
+            }
+
+            CheckPhone.call(newUser, (result) => {
+                if (extraData !== undefined)
+                    result.warning = extraData;
+                outputCallBack(result);
+            });
+
+        }
+
         if (!user) {
 
             if (!data.hasOwnProperty('country')) {
@@ -33,29 +58,9 @@ module.exports = {
             }
 
             user = User.CreateNewUser(data);
-            db.insertUser(user,(newUser)=>{
-
-                if (newUser.spam.length > 0) {
-                    var mSpam = [];
-                    for (let i = 0; i < newUser.spam.length; i++) {
-                        if (newUser.spam[i].type === 'outApp') {
-                            mSpam.push(newUser.spam[i]);
-                        }
-                    }
-                    if (mSpam.length > 0) {
-                        outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam));
-                        return;
-                    }
-
-                }
-
-                CheckPhone.call(newUser, (result) => {
-                    if (extraData !== undefined)
-                        result.warning = extraData;
-                    outputCallBack(result);
-                });
-
-            });
+            db.insertUser(user, callCheckPhone);
+        }else{
+            callCheckPhone(user);
         }
 
     }
