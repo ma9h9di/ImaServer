@@ -2,7 +2,7 @@ module.exports = {
     /*
     *
     * */
-    call: function (data, user) {
+    call: function (user) {
         return {'data': {'registered': user.status === 'active'}};
     }
-}
+};

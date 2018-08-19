@@ -1,4 +1,7 @@
 var checkPhonePermission = require('./checkPhonePermissionCheck');
+var sendSmsPermission = require('./sendSmsPermissionCheck');
+var sendCodePermissionCheck = require('./sendCodePermissionCheck');
+var singInPermissionCheck = require('./singInPermissionCheck');
 var err=require('../../Model/error');
 var Device=require('../../Model/device');
 var logd=require('../../Other/Funcion').logd;
@@ -40,21 +43,25 @@ module.exports = {
             device.IP={[address.address]:{[address.port]:1}};
         }
         device.authentication.totalCount=device.authentication.totalCount+1;
-        var date=new Date();
-        if (device.authentication.totalCount%pv.permission.NumberOfAuthenticationReq===0) {
-            var extraTime=Math.pow(6000, device.authentication.totalCount/pv.permission.NumberOfAuthenticationReq);
-            device.authentication.nextAccessTime=device.authentication.nextAccessTime+extraTime;
-        }else if (device.authentication.nextAccessTime>date.getTime())
-            return new err(pv.errCode.authentication.device_spam).jsonErr();
-
+        if  (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
+            var date = new Date();
+            if (device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq === 0) {
+                var extraTime = Math.pow(6000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
+                device.authentication.nextAccessTime = device.authentication.nextAccessTime + extraTime;
+            } else if (device.authentication.nextAccessTime > date.getTime())
+                return new err(pv.errCode.authentication.device_spam).jsonErr();
+        }
         // db,updateDevice(device);
-
+        data.device.IP=address.address;
         switch (input.method) {
             case pv.api.authentication.checkPhone:
                 return checkPhonePermission.check(data, user);
             case pv.api.authentication.sendCode:
+                return sendCodePermissionCheck.check(data, user);
             case pv.api.authentication.sendSms:
+                return sendSmsPermission.check(data, user);
             case pv.api.authentication.signIn:
+                return singInPermissionCheck.check(data, user);
             case pv.api.authentication.signUp:
             case pv.api.authentication.logOut:
             case pv.api.authentication.removeSession:
@@ -62,6 +69,8 @@ module.exports = {
                 return new err(pv.errCode.method_not_found).jsonErr();
 
         }
+
+
         logd(input);
     }
 };

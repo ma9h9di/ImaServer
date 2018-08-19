@@ -13,6 +13,10 @@ module.exports = {
                 useDataInMonth: 0,
                 useDataInTotal: 0
             },
+            accountDates:[],
+            blockedUsers:[],
+            authentication:{},
+            session:[],
             spam:[]
         };
     }

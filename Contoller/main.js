@@ -38,7 +38,8 @@ module.exports = {
                             break;
                     }
                 } catch (e) {
-                    var sendData={'event':'err_result','data':new err(pv.errCode.json_parse_err).jsonErr()};
+                    console.log('err in main %j ',e);
+                    var sendData={'event':'err_result','data':new err(pv.errCode.internal_err).jsonErr()};
                     soketFunction.ErrorEmit(client.id, sendData);
                 }
 

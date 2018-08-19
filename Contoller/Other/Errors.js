@@ -2,9 +2,9 @@ var pv=require('./PublicValue');
 var Errors=[ //if error occure data is nothing
     // global error
     {
-        'title': 'json parse error',
-        'code': pv.errCode.json_parse_err,
-        'message': 'can`t parse  requite data',
+        'title': 'internal error',
+        'code': pv.errCode.internal_err,
+        'message': 'Sorry, there is an internal problem for the system',
         'type':pv.apiType.all,
         'error_data': {}
     },
@@ -101,6 +101,13 @@ var Errors=[ //if error occure data is nothing
         'title': 'country not support',
         'code': pv.errCode.authentication.country_not_support,
         'message': 'we don`t support your country',
+        'type':pv.apiType.authentication,
+        'error_data': {}
+    },
+    {
+        'title': 'notification model not support',
+        'code': pv.errCode.authentication.notification_model_not_support,
+        'message': 'we don`t support your notification model',
         'type':pv.apiType.authentication,
         'error_data': {}
     },
