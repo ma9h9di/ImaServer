@@ -64,15 +64,22 @@ module.exports = {
         switch (input.method) {
             case pv.api.authentication.checkPhone:
                 checkPhonePermission.check(data, user,outputCallBack);
+                break;
             case pv.api.authentication.sendCode:
                 sendCodePermissionCheck.check(data, user,outputCallBack);
+                break;
             case pv.api.authentication.sendSms:
                 sendSmsPermission.check(data, user,outputCallBack);
+                break;
             case pv.api.authentication.signIn:
                 singInPermissionCheck.check(data, user,outputCallBack);
+                break;
             case pv.api.authentication.signUp:
+                break;
             case pv.api.authentication.logOut:
+                break;
             case pv.api.authentication.removeSession:
+                break;
             default:
                 outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                 return;
