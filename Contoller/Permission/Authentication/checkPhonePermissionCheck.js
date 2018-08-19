@@ -31,7 +31,7 @@ module.exports = {
                 }
             }
             // db.createUser(data.phone_number);
-            user = User.CreateNewUser(data)
+            user = User.CreateNewUser(data);
         }
 
         if (user.spam.length > 0) {
