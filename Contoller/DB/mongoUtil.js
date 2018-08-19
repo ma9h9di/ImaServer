@@ -1,24 +1,19 @@
 "use strict";
 var MongoClient = require('mongodb').MongoClient;
-var logd = require('../Other/Funcion').logd;
 
-var _db=false;
+var _db;
 
-function connectToServer(errcallback) {
+function connectToServer(callback) {
     // TODO Release: change develop user to release user
     var url = 'mongodb://majeed:majeedbluerian@localhost:27017/ima';
-    if (!_db) {
-
-        MongoClient.connect(url, function (err, db) {
-            if (db) {
-                logd('mogo Connect db ');
-                _db = db;
-            }
-            logd('mogo Connect err :', err);
-
-            return errcallback(err);
-        });
-    }
+    MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
+        if (err)
+            console.log(err);
+        else
+            console.log("connected to DB");
+        _db = client.db('ima');
+        return callback(err);
+    });
 }
 
 module.exports = {

@@ -27,10 +27,11 @@ module.exports = {
 
                     mainPermission.check(decrypt_msg, client,
                         function (output) {
-                            logd('output', output);
+
                             var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
                             method = method + '_result';
                             var sendData = {'event': method, 'data': output};
+                            logd('output', sendData);
                             switch (output.type) {
                                 case pv.apiType.err:
                                     soketFunction.ErrorEmit(client.id, sendData);
