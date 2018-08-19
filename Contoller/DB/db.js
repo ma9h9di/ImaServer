@@ -1,6 +1,5 @@
 "use strict";
 
-var MongoClient = require('mongodb').MongoClient;
 var getUser = require('./Users/getUser');
 
 

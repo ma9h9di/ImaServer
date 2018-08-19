@@ -22,7 +22,7 @@ class Error {
 
     constructor(code, message, error_data) {
         this.mErr = this.findThisErr(code);
-        console.log('find %j', this.mErr);
+        // console.log('find %j',this.mErr);
         if (message !== undefined)
             this.mErr.message = message;
         if (error_data !== undefined)

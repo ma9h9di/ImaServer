@@ -6,5 +6,7 @@ module.exports = {
             totalCount:0
         }
         return device;
-    }
+    },
+
+
 };

@@ -20,7 +20,6 @@ function connectToServer(callback) {
 module.exports = {
 
     connectToServer: connectToServer,
-
     getDb: function () {
         return _db;
     }

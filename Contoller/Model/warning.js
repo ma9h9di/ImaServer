@@ -22,7 +22,7 @@ class Warning {
 
     constructor(code, message, error_data) {
         this.mWarn = this.findThisWarning(code);
-        console.log('find %j',this.mWarn);
+        // console.log('find %j',this.mWarn);
         if (message !== undefined)
             this.mWarn.message = message;
         if (error_data !== undefined)

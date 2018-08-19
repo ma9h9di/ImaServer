@@ -6,14 +6,16 @@ var logd = require('../../Other/Funcion').logd;
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
-        console.log("before line 10");
-        console.log(mongoUtil.getDb().collection);
+        logd(mongoUtil.getDb().collection);
         var userCollection = mongoUtil.getDb().collection("Users");
+        logd('getUserByPhoneNumber phoneNumber :',phone_number);
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
+            logd('getUserByPhoneNumber res :',res);
+            logd('getUserByPhoneNumber err :',err);
             if (err) {
                 throw err;
             }
-            logd(res);
+
             if (!res) {
                 // const date = new Date();
                 // var userDefault =
@@ -30,10 +32,10 @@ function getUserByPhoneNumber(phone_number, callback) {
 
         });
     } catch (e) {
+        logd(e);
         // mongoUtil.connectToServer(function () {
         //     getUserByPhoneNumber(phone_number, callback);
         // });
-        console.log("database error line 34 of getUser", e);
     }
 }
 

@@ -2,7 +2,7 @@ module.exports = {
     /*
     *
     * */
-    call: function (data, user) {
-        return {'data': {'registered': user.status === 'active'}};
+    call: function (user,outputCallBack) {
+        outputCallBack({'data': {'registered': user.status === 'active'}});
     }
-}
+};
