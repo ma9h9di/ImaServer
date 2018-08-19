@@ -6,7 +6,7 @@ var logd = require('../../Other/Funcion').logd;
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
-        logd(mongoUtil.getDb().collection);
+        // logd(mongoUtil.getDb().collection);
         var userCollection = mongoUtil.getDb().collection("Users");
         logd('getUserByPhoneNumber phoneNumber :',phone_number);
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
@@ -27,6 +27,8 @@ function getUserByPhoneNumber(phone_number, callback) {
                 res = false;
                 callback(res);
             } else {
+                console.log("fouuuuund  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                console.log(res.phone_number);
                 callback(res);
             }
 
