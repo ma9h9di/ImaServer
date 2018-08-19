@@ -20,6 +20,7 @@ module.exports = {
                 case pv.api.authentication.removeSession:
                     authenticationPermission.check(input, user, client,(authenticationPermissionResult)=>{
                         authenticationPermissionResult.type = pv.apiType.authentication;
+                        db.updateUserByPhoneNumber(user,(newUser)=>{});
                         outputCallBack(authenticationPermissionResult);
                     });
 
@@ -28,6 +29,7 @@ module.exports = {
                     outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                     return;
             }
+
         };
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //for authentication don`t need
