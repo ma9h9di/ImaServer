@@ -17,7 +17,7 @@ module.exports = function (user) {
         return{
             uname:'ma7h5di',
             pass:'12170142',
-            from:'+9850001070107027',
+            from:'+98100020400',
             message:pv.string[user.language].verifySmsMessage.replace('{{code}}',user.authentication.validationCode),
             to:[user.phone_number],
             op:'send'
@@ -49,12 +49,19 @@ module.exports = function (user) {
             checkNeedNewVerifyCode();
             //sendSms
             var request = require('request');
-            request.post({
+            var option={
                 headers: {'content-type' : 'application/json'},
                 url:     pv.defaultValue.sendSmsServiceUrl,
-                body:    getSmsBody()
-            }, function(error, response, body){
-                // console.log(body);
+                body:    JSON.stringify(getSmsBody())
+            };
+            console.log(option);
+            request.post(option, function(error, response, body){
+                // console.log(response);
+                console.log(error);
+                body=JSON.parse(body);
+                console.log(body);
+                console.log(body[0]===3);
+
                 outputCallBack({'data': {'successful': body[0]===0}});
             });
 

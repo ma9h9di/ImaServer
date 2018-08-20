@@ -52,7 +52,7 @@ module.exports = {
             singUpFalse:'sorry your phone number can`t sing in Ima',
             singUpVerifyCodeErr:'your verify code not current try again',
             singUpTrue:'welcome to Ima',
-            verifySmsMessage:'به ایما خوش آمدید \nکد فعال سازی شما {{code}} می باشد',
+            verifySmsMessage:'{{code}} کد فعال سازی شما در ایما می باشد \n خوش آمدید.',
         }
     },
     errCode: {

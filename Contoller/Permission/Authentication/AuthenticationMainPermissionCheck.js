@@ -42,6 +42,7 @@ module.exports = {
         }
         // device=db.getDevice(data.device);
         db.getDevice(data.device.unique_device_key, (newDevice) => {
+
             var device = !newDevice ? Device.CreateNewDevice(data.device) : newDevice;
 
             if (device.IP.hasOwnProperty(address)) {
@@ -71,10 +72,15 @@ module.exports = {
                     device.authentication.nextAccessTime=(new Date()).getTime();
                     delete result.data.device;
                 }
-                if (!newDevice)
-                    db.insertDevice(device, (e)=>{});
-                else
-                    db.updateDevice(device, (e)=>{});
+                if (!newDevice) {
+                    logd('insertDevice ', device);
+                    db.insertDevice(device, (e) => {
+                    });
+                }
+                else {
+                    db.updateDevice(device, (e) => {
+                    });
+                }
                 outputCallBack(result);
             });
             // data.device.IP = address;
