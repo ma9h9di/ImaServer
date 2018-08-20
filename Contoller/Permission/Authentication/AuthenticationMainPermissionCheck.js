@@ -64,11 +64,11 @@ module.exports = {
 
             }
             findeMethodPermission((result)=>{
-                if (result.hasOwnProperty('device')){
+                if (result.hasOwnProperty(data)&&result.data.hasOwnProperty('deviceAuthenticationRest')){
                     device.authentication.totalCount-=device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq;
                     device.authentication.totalCount= Math.max(device.authentication.totalCount-2*pv.permission.NumberOfAuthenticationReq,0);
                     device.authentication.nextAccessTime=(new Date()).getTime();
-                    delete result.device;
+                    delete result.data.device;
                 }
                 if (!newDevice)
                     db.insertDevice(device, (e)=>{});

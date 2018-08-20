@@ -35,7 +35,7 @@ module.exports = function (user) {
                     result.successful = true;
                     user.authentication.validationCodeExpire = 0;
                     result.token = session.token;
-                    result.device=true;//for delete kardan on totul attentication
+                    result.deviceAuthenticationRest=true;//for delete kardan on totul attentication
                 } else {
                     result.message = pv.string[user.language].singUpVerifyCodeErr;
                     result.successful = false;
@@ -46,7 +46,7 @@ module.exports = function (user) {
                 result.successful = false;
                 result.token = "";
             }
-            outputCallBack(result);
+            outputCallBack({'data':result});
         }
 
     }
