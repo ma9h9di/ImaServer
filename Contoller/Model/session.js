@@ -1,5 +1,7 @@
+var crypto = require('crypto');
 function generateToken(){
-
+    var date=new Date();
+    return crypto.randomBytes(64).toString('hex')+(date.getTime()+'').substr(5);
 };
 module.exports = {
     CreateNewSession:function (device,app,socketId,index) {

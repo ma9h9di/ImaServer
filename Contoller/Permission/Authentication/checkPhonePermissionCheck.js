@@ -11,16 +11,13 @@ module.exports = {
 
         function callCheckPhone(newUser) {
 
-            if (newUser.spam.length > 0) {
-                var mSpam = [];
-                for (let i = 0; i < newUser.spam.length; i++) {
-                    if (newUser.spam[i].type === 'outApp') {
-                        mSpam.push(newUser.spam[i]);
+            if (user.spam.length > 0) {
+                let date=new Date().getTime();
+                for (let i = 0; i < user.spam.length; i++) {
+                    if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
+                        outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
+                        return;
                     }
-                }
-                if (mSpam.length > 0) {
-                    outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, mSpam));
-                    return;
                 }
 
             }

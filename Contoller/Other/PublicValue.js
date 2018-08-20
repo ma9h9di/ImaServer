@@ -43,12 +43,16 @@ module.exports = {
     defaultValue: {
         language: suportValue.language.en,
         verifyCodeLength: 6,
-        ExpireVerifyCodeTime: 5 * 60 * 1000
+        ExpireVerifyCodeTime: 5 * 60 * 1000,
+        sendSmsServiceUrl:'http://37.130.202.188/api/select'
     },
 
     string: {
         en: {
-            singUpFalse:'your phone number not active in imo please sing up'
+            singUpFalse:'sorry your phone number can`t sing in Ima',
+            singUpVerifyCodeErr:'your verify code not current try again',
+            singUpTrue:'welcome to Ima',
+            verifySmsMessage:'{{code}} کد فعال سازی شما در ایما می باشد \n خوش آمدید.',
         }
     },
     errCode: {

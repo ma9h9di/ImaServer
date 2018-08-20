@@ -18,9 +18,13 @@ module.exports = {
                 case pv.api.authentication.signUp:
                 case pv.api.authentication.logOut:
                 case pv.api.authentication.removeSession:
-                    authenticationPermission.check(input, user, client,(authenticationPermissionResult)=>{
+                    authenticationPermission.check(input, user, client, (authenticationPermissionResult) => {
                         authenticationPermissionResult.type = pv.apiType.authentication;
-                        db.updateUserByPhoneNumber(user,(newUser)=>{});
+                        let date=new Date().getTime();
+                        user.lastActivityTime=date;
+                        user.lastProfileChange=date;
+                        db.updateUserByPhoneNumber(user, (newUser) => {
+                        });
                         outputCallBack(authenticationPermissionResult);
                     });
 

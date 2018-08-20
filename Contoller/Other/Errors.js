@@ -85,7 +85,7 @@ var Errors=[ //if error occure data is nothing
     {
         'title': 'user is already exist',
         'code': pv.errCode.authentication.user_already_exist,
-        'message': 'can`t sing up the phone number when before this registered',
+        'message': 'can`t sing up the phone number ',
         'type':pv.apiType.authentication,
 
         'error_data': {}

@@ -4,10 +4,26 @@ var pv = require('../../Other/PublicValue');
 var logd = require('../../Other/Funcion').logd;
 
 
+
+
 module.exports = function (user) {
     var date=new Date().getTime();
     function randomVerifyNumber(qty) {
         return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
+        // return '111111';
+    }
+
+    function getSmsBody() {
+        return{
+            uname:'ma7h5di',
+            pass:'12170142',
+            from:'+98100020400',
+            message:pv.string[user.language].verifySmsMessage.replace('{{code}}',user.authentication.validationCode),
+            to:[user.phone_number],
+            op:'send'
+        }
+
+
     }
 
     function gnreateNewVerifyCode() {
@@ -32,7 +48,23 @@ module.exports = function (user) {
         call: function (outputCallBack) {
             checkNeedNewVerifyCode();
             //sendSms
-            outputCallBack({'data': {'successful': true}});
+            var request = require('request');
+            var option={
+                headers: {'content-type' : 'application/json'},
+                url:     pv.defaultValue.sendSmsServiceUrl,
+                body:    JSON.stringify(getSmsBody())
+            };
+            console.log(option);
+            request.post(option, function(error, response, body){
+                // console.log(response);
+                console.log(error);
+                body=JSON.parse(body);
+                console.log(body);
+                console.log(body[0]===3);
+
+                outputCallBack({'data': {'successful': body[0]===0}});
+            });
+
         },
         checkNeedNewVerifyCode:checkNeedNewVerifyCode
 
