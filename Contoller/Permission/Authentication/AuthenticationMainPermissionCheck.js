@@ -2,6 +2,7 @@ var checkPhonePermission = require('./checkPhonePermissionCheck');
 var sendSmsPermission = require('./sendSmsPermissionCheck');
 var sendCodePermissionCheck = require('./sendCodePermissionCheck');
 var singInPermissionCheck = require('./singInPermissionCheck');
+var singUpPermissionCheck = require('./singUpPermissionCheck');
 var err = require('../../Model/error');
 var Device = require('../../Model/device');
 var logd = require('../../Other/Funcion').logd;
@@ -96,6 +97,7 @@ module.exports = {
                     singInPermissionCheck.check(data, user, myCallBack);
                     break;
                 case pv.api.authentication.signUp:
+                    singUpPermissionCheck.check(data, user, myCallBack);
                     break;
                 case pv.api.authentication.logOut:
                     break;
