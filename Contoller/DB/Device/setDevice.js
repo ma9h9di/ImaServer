@@ -25,7 +25,7 @@ function updateDevice(device, callback) {
             if (err) {
                 throw err;
             }
-            callback(res.ops[0]);
+            callback({});
         });
     } catch (e) {
         logd(e);

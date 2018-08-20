@@ -7,7 +7,8 @@ var logd = require('../../Other/Funcion').logd;
 module.exports = function (user) {
     var date=new Date().getTime();
     function randomVerifyNumber(qty) {
-        return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
+        // return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
+        return '111111';
     }
 
     function gnreateNewVerifyCode() {

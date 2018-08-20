@@ -48,7 +48,9 @@ module.exports = {
 
     string: {
         en: {
-            singUpFalse:'your phone number not active in imo please sing up'
+            singUpFalse:'sorry your phone number can`t sing in Ima',
+            singUpVerifyCodeErr:'your verify code not current try again',
+            singUpTrue:'welcome to Ima',
         }
     },
     errCode: {
