@@ -25,7 +25,7 @@ module.exports = {
             return;
         }
         else{
-            if (data.verify_code.toString().length!==6){
+            if (data.verify_code.toString().length!==pv.defaultValue.verifyCodeLength){
                 outputCallBack( new err(pv.errCode.invalid_arguments, undefined, {params: ['verify_code']}).jsonErr());
                 return;
             }

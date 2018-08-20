@@ -42,7 +42,7 @@ module.exports = {
     support: suportValue,
     defaultValue: {
         language: suportValue.language.en,
-        verifyCodeLength: 6,
+        verifyCodeLength: 5,
         ExpireVerifyCodeTime: 5 * 60 * 1000,
         sendSmsServiceUrl:'http://37.130.202.188/api/select'
     },
