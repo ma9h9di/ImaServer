@@ -7,7 +7,7 @@ var logd = require('../../Other/Funcion').logd;
 function insertUser(user, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        mongoUtil.getDb().eval("getNewID('chatID')", function (err, res) {
+        mongoUtil.getDb().eval('getNewID("chatID")', function (err, res) {
             user.userID = res;
             userCollection.insertOne(user, function (err, res) {
                 if (err) {
