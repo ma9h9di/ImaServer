@@ -7,6 +7,10 @@ var mongoUtil = require( './Contoller/DB/mongoUtil' );
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
+var db = require('./Contoller/DB/db');
+
+
+
 var app = express();
 var server = require('http').Server(app);
 
@@ -52,6 +56,7 @@ app.use(function(err, req, res, next) {
 mongoUtil.connectToServer( function( err ) {
     var main = require('./Contoller/main');
     main.listen(io);
+    db.getFile(1);
 });
 
 
