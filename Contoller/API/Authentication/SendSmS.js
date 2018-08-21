@@ -9,13 +9,13 @@ var logd = require('../../Other/Funcion').logd;
 module.exports = function (user) {
     var date=new Date().getTime();
     function randomVerifyNumber(qty) {
-        // return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
-        return '11111';
+        return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
+        // return '11111';
     }
 
     function getSmsBody() {
         return{
-            uname:'ma7h5di2',
+            uname:'ma7h5di',
             //todo in bayad 2 vardashte beshe
             pass:'12170142',
             from:'+98100020400',
@@ -36,7 +36,7 @@ module.exports = function (user) {
 
     function checkNeedNewVerifyCode() {
         if (user.authentication.hasOwnProperty('validationCode')&&user.authentication.hasOwnProperty('validationCodeExpire')) {
-            if (user.authentication.validationCodeExpire<date)
+            if (user.authentication.validationCodeExpire<date+500)
                 gnreateNewVerifyCode();
         }else{
             gnreateNewVerifyCode();
@@ -62,7 +62,7 @@ module.exports = function (user) {
                 body=JSON.parse(body);
                 console.log(body);
                 //todo in bayad beshe 0
-                outputCallBack({'data': {'successful': (body[0]+'')===(962+'')}});
+                outputCallBack({'data': {'successful': (body[0]+'')===(0+'')}});
             });
 
         },

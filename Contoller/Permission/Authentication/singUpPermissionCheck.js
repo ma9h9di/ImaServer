@@ -57,7 +57,7 @@ module.exports = {
         if (!data.hasOwnProperty('email')) {
             data.email = '';
         } else {
-            if (data.email.indexOf('@') <= 0) {
+            if (data.email!==''&&data.email.indexOf('@') <= 0) {
                 outputCallBack(new err(pv.errCode.invalid_arguments, 'this mail not valid', {params: ['email']}).jsonErr());
                 return;
             }
