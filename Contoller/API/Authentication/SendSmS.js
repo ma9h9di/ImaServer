@@ -46,6 +46,9 @@ module.exports = function (user) {
 
 
     return {
+        stringTextVerifyCode:()=>{
+            return pv.string[user.language].verifySmsMessage.replace('{{code}}',user.authentication.validationCode);
+        },
         call: function (outputCallBack) {
             checkNeedNewVerifyCode();
             //sendSms

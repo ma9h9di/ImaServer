@@ -36,7 +36,7 @@ module.exports = function (user) {
                     user.authentication.validationCodeExpire = 0;
                     result.token = session.token;
                     result.deviceAuthenticationRest=true;//for delete kardan on totul attentication
-                } else { 
+                } else {
                     result.message = pv.string[user.language].singUpVerifyCodeErr;
                     result.successful = false;
                     result.token = "";
