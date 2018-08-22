@@ -58,6 +58,10 @@ module.exports = {
                 outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number longer than 14').jsonErr());
                 return;
             }
+            if (data.phone_number.length < 6) {
+                outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number less than 6').jsonErr());
+                return;
+            }
             if (data.phone_number[0] !== '+') {
                 outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number format not valid').jsonErr());
                 return;

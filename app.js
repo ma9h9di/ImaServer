@@ -51,7 +51,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+var admin = require("firebase-admin");
 
+var serviceAccount = require('./imamessanger-firebase-adminsdk.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://imamessanger.firebaseio.com"
+});
 
 mongoUtil.connectToServer( function( err ) {
     var main = require('./Contoller/main');

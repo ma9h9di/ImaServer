@@ -10,12 +10,13 @@ module.exports = function (user) {
     var date=new Date().getTime();
     function randomVerifyNumber(qty) {
         return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
-        // return '111111';
+        // return '11111';
     }
 
     function getSmsBody() {
         return{
-            uname:'ma7h5di8',
+            uname:'ma7h5di',
+            //todo in bayad 2 vardashte beshe
             pass:'12170142',
             from:'+98100020400',
             message:pv.string[user.language].verifySmsMessage.replace('{{code}}',user.authentication.validationCode),
@@ -35,7 +36,7 @@ module.exports = function (user) {
 
     function checkNeedNewVerifyCode() {
         if (user.authentication.hasOwnProperty('validationCode')&&user.authentication.hasOwnProperty('validationCodeExpire')) {
-            if (user.authentication.validationCodeExpire<date)
+            if (user.authentication.validationCodeExpire<date+500)
                 gnreateNewVerifyCode();
         }else{
             gnreateNewVerifyCode();
@@ -45,6 +46,9 @@ module.exports = function (user) {
 
 
     return {
+        stringTextVerifyCode:()=>{
+            return pv.string[user.language].verifySmsMessage.replace('{{code}}',user.authentication.validationCode);
+        },
         call: function (outputCallBack) {
             checkNeedNewVerifyCode();
             //sendSms
@@ -60,9 +64,8 @@ module.exports = function (user) {
                 console.log(error);
                 body=JSON.parse(body);
                 console.log(body);
-                console.log(body[0]===3);
-
-                outputCallBack({'data': {'successful': body[0]===0}});
+                //todo in bayad beshe 0
+                outputCallBack({'data': {'successful': (body[0]+'')===(0+'')}});
             });
 
         },

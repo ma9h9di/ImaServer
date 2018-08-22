@@ -57,7 +57,7 @@ module.exports = {
                 logd('device.authentication.totalCount :',device.authentication.totalCount);
                 if (device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq === 0) {
                     var extraTime = Math.pow(1*60*1000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
-                    device.authentication.nextAccessTime = device.authentication.nextAccessTime + extraTime;
+                    device.authentication.nextAccessTime = date.getTime() + extraTime;
                     logd('device.authentication.nextAccessTime :',device.authentication.nextAccessTime);
                 } else if (device.authentication.nextAccessTime > date.getTime()) {
                     outputCallBack(new err(pv.errCode.authentication.device_spam,undefined,{'next_active_time':device.authentication.nextAccessTime}).jsonErr());
