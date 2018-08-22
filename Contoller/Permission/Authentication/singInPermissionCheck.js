@@ -26,7 +26,7 @@ module.exports = {
         }
         else{
             if (data.verify_code.toString().length!==pv.defaultValue.verifyCodeLength){
-                outputCallBack( new err(pv.errCode.invalid_arguments, undefined, {params: ['verify_code']}).jsonErr());
+                outputCallBack( new err(pv.errCode.invalid_arguments, 'Wrong verification code', {params: ['verify_code']}).jsonErr());
                 return;
             }
         }
