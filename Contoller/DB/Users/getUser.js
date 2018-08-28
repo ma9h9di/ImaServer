@@ -31,7 +31,13 @@ function getUserByToken(token, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
         logd('getUserByToken token :', token);
-        userCollection.findOne({phone_number: {$eq: token}}, function (err, res) {
+        userCollection.findOne({
+            session: {
+                $elemMatch: {
+                    token: "260",
+                }
+            }
+        }, function (err, res) {
             logd('getUserByToken res :', res);
             logd('getUserByToken err :', err);
             if (err) {
