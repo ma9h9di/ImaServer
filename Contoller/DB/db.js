@@ -6,6 +6,7 @@ var setDevice = require('./Device/setDevice');
 var getDevice = require('./Device/getDevice');
 var saveFile = require('./File/saveFile');
 var getFile = require('./File/getFile');
+var getAllContacts = require('./Contact/getAllContacts');
 
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
     insertDevice: setDevice.insertDevice,
     updateDevice: setDevice.updateDevice,
     saveFile: saveFile.saveFile,
-    getFile: getFile.getFile
-
+    getFile: getFile.getFile,
+    getAllContacts: getAllContacts.getAllContacts
 };
 

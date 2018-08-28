@@ -63,7 +63,8 @@ admin.initializeApp({
 mongoUtil.connectToServer( function( err ) {
     var main = require('./Contoller/main');
     main.listen(io);
-    db.getFile(1);
+    //db.getFile(1);
+    db.getAllContacts()
 });
 
 

@@ -15,7 +15,7 @@ function getFile(file_id) {
 
     console.log("inside");
 
-    var out = bucket.openDownloadStream(ObjectID.createFromHexString(file_id);
+    var out = bucket.openDownloadStream(ObjectID.createFromHexString(file_id));
     out.pipe(process.stdout);
     console.log("hello");
 
