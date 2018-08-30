@@ -1,4 +1,5 @@
 var authenticationPermission = require('./Authentication/AuthenticationMainPermissionCheck');
+var contactPermission = require('./Contact/contactMainPermissionCheck');
 var logd = require('../Other/Funcion').logd;
 var err = require('../Model/error');
 var pv = require('../Other/PublicValue');
@@ -20,15 +21,19 @@ module.exports = {
                 case pv.api.authentication.removeSession:
                     authenticationPermission.check(input, user, client, (authenticationPermissionResult) => {
                         authenticationPermissionResult.type = pv.apiType.authentication;
-                        let date=new Date().getTime();
-                        user.lastActivityTime=date;
-                        user.lastProfileChange=date;
+                        var date = new Date().getTime();
+                        user.lastActivityTime = date;
+                        user.lastProfileChange = date;
                         db.updateUserByPhoneNumber(user, (newUser) => {
                         });
                         outputCallBack(authenticationPermissionResult);
                     });
 
                     return;
+                case pv.api.contacts.getAllContacts:
+
+
+                    break;
                 default:
                     outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                     return;

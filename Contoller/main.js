@@ -49,9 +49,8 @@ module.exports = {
                 }
 
 
-                if (errs != undefined) {
+                if (errs !== undefined) {
                     //todo err handel
-
                 }
             });
         });

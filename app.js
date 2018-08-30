@@ -64,7 +64,6 @@ mongoUtil.connectToServer( function( err ) {
     var main = require('./Contoller/main');
     main.listen(io);
     //db.getFile(1);
-    db.getAllContacts()
 });
 
 

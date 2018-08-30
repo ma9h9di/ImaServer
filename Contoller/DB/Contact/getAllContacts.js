@@ -14,11 +14,7 @@ function getAllContacts(phone_number, callback) {
             if (!res) {
                 callback(false);
             } else {
-                console.log("helllooooo");
-                console.log(res);
-                console.log("byeeeeee");
-                console.log(res.contacts);
-                //callback(res);
+                callback(res.contacts);
             }
         });
     } catch (e) {

@@ -7,9 +7,14 @@ var allApi = {
         signIn: 'singIn',
         logOut: 'logOut',
         removeSession: 'removeSession'
+    },
+    contacts: {
+        getAllContacts: 'getAllContacts',
+        updateContact: 'updateContact',
+        syncContacts: 'syncContacts'
     }
 };
-var suportValue = {
+var supportValue = {
     country: {
         iran: '+98'
     },
@@ -39,20 +44,20 @@ module.exports = {
         ],
         NumberOfAuthenticationReq: 20
     },
-    support: suportValue,
+    support: supportValue,
     defaultValue: {
-        language: suportValue.language.en,
+        language: supportValue.language.en,
         verifyCodeLength: 5,
         ExpireVerifyCodeTime: 5 * 60 * 1000,
-        sendSmsServiceUrl:'http://37.130.202.188/api/select'
+        sendSmsServiceUrl: 'http://37.130.202.188/api/select'
     },
 
     string: {
         en: {
-            singUpFalse:'sorry your phone number can`t sing in Ima',
-            singUpVerifyCodeErr:'your verify code not current try again',
-            singUpTrue:'welcome to Ima',
-            verifySmsMessage:'{{code}} کد فعال سازی شما در ایما می باشد \n خوش آمدید.',
+            singUpFalse: 'sorry your phone number can`t sing in Ima',
+            singUpVerifyCodeErr: 'your verify code not current try again',
+            singUpTrue: 'welcome to Ima',
+            verifySmsMessage: '{{code}} کد فعال سازی شما در ایما می باشد \n خوش آمدید.',
         }
     },
     errCode: {
