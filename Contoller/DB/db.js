@@ -11,6 +11,7 @@ var getAllContacts = require('./Contact/getAllContacts');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
+    getUserByToken: getUser.getUserByToken,
     insertUser: setUser.insertUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
     updateUserByPhoneNumber: setUser.updateUserByPhoneNumber,

@@ -57,6 +57,8 @@ function getUserByToken(token, callback) {
 
 module.exports =
     {
-        getUserByPhoneNumber: getUserByPhoneNumber
+        getUserByPhoneNumber: getUserByPhoneNumber,
+        getUserByToken: getUserByToken
+
     }
 ;
