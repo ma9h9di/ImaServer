@@ -34,7 +34,7 @@ function getUserByToken(token, callback) {
         userCollection.findOne({
             session: {
                 $elemMatch: {
-                    token: "260",
+                    token: token,
                 }
             }
         }, function (err, res) {
