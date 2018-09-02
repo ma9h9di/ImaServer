@@ -4,7 +4,7 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 
-function updateContact(user, contact, callback) {
+function addContacts(user, contact, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
 

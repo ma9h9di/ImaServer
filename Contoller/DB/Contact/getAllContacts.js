@@ -4,10 +4,10 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 
-function getAllContacts(phone_number, callback) {
+function getAllContacts(user, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        userCollection.findOne({phone_number: {$eq: phone_number}}, {_id: 0, contacts: 1}, function (err, res) {
+        userCollection.findOne({phone_number: {$eq: user.phone_number}}, {_id: 0, contacts: 1}, function (err, res) {
             if (err) {
                 throw err;
             }
