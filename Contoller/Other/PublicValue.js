@@ -32,6 +32,7 @@ module.exports = {
         warning: 'Warning',
         all: 'API_All',
         authentication: 'API_Authentication',
+        contact: 'API_Contact',
 
     },
     permission: {
