@@ -10,6 +10,7 @@ module.exports = {
 
     check: function (input, client, outputCallBack) {
         var callBackAfterUser = function (user) {
+            var date = new Date().getTime();
             // logd('enter callBackAfterUser', user);
             switch (input.method) {
                 case pv.api.authentication.checkPhone:
@@ -21,7 +22,6 @@ module.exports = {
                 case pv.api.authentication.removeSession:
                     authenticationPermission.check(input, user, client, (authenticationPermissionResult) => {
                         authenticationPermissionResult.type = pv.apiType.authentication;
-                        var date = new Date().getTime();
                         user.lastActivityTime = date;
                         user.lastProfileChange = date;
                         db.updateUserByPhoneNumber(user, (newUser) => {
@@ -31,9 +31,18 @@ module.exports = {
 
                     return;
                 case pv.api.contacts.getAllContacts:
+                    if (user === false) {
+                        outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return;
+                    }
+                    contactPermission.check(input, user, client, (contactPermissionResult) => {
+                        contactPermissionResult.type = pv.apiType.contact;
+                        user.lastActivityTime = date;
+                        db.updateUserByPhoneNumber(user, (newUser) => {});
+                        outputCallBack(contactPermissionResult);
+                    });
 
-
-                    break;
+                    return;
                 default:
                     outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                     return;
@@ -80,11 +89,9 @@ module.exports = {
                 outputCallBack(new err(pv.errCode.token_field_not_found).jsonErr());
                 return;
             }
+            db.getUserByToken(data.token,callBackAfterUser);
             // user=db.getUserByToken(data.token);
-            if (user === false) {
-                outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
-                return;
-            }
+
         }
 
     }
