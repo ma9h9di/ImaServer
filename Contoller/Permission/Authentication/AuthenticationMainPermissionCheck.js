@@ -32,7 +32,7 @@ module.exports = {
             }
             if (!data.device.hasOwnProperty('platform_version')) {
                 outputCallBack(new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr());
-                 return;
+                return;
             }
             if (!data.device.hasOwnProperty('model')) {
                 outputCallBack(new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr());
@@ -54,22 +54,22 @@ module.exports = {
             device.authentication.totalCount = device.authentication.totalCount + 1;
             if (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
                 var date = new Date();
-                logd('device.authentication.totalCount :',device.authentication.totalCount);
+                logd('device.authentication.totalCount :', device.authentication.totalCount);
                 if (device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq === 0) {
-                    var extraTime = Math.pow(1*60*1000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
+                    var extraTime = Math.pow(1 * 60 * 1000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
                     device.authentication.nextAccessTime = date.getTime() + extraTime;
-                    logd('device.authentication.nextAccessTime :',device.authentication.nextAccessTime);
+                    logd('device.authentication.nextAccessTime :', device.authentication.nextAccessTime);
                 } else if (device.authentication.nextAccessTime > date.getTime()) {
-                    outputCallBack(new err(pv.errCode.authentication.device_spam,undefined,{'next_active_time':device.authentication.nextAccessTime}).jsonErr());
+                    outputCallBack(new err(pv.errCode.authentication.device_spam, undefined, {'next_active_time': device.authentication.nextAccessTime}).jsonErr());
                     return;
                 }
 
             }
-            findMethodPermission((result)=>{
-                if (result.hasOwnProperty(data)&&result.data.hasOwnProperty('deviceAuthenticationRest')){
-                    device.authentication.totalCount-=device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq;
-                    device.authentication.totalCount= Math.max(device.authentication.totalCount-2*pv.permission.NumberOfAuthenticationReq,0);
-                    device.authentication.nextAccessTime=(new Date()).getTime();
+            findMethodPermission((result) => {
+                if (result.hasOwnProperty(data) && result.data.hasOwnProperty('deviceAuthenticationRest')) {
+                    device.authentication.totalCount -= device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq;
+                    device.authentication.totalCount = Math.max(device.authentication.totalCount - 2 * pv.permission.NumberOfAuthenticationReq, 0);
+                    device.authentication.nextAccessTime = (new Date()).getTime();
                     delete result.data.device;
                 }
                 if (!newDevice) {
