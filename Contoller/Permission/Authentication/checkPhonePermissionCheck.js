@@ -12,7 +12,7 @@ module.exports = {
         function callCheckPhone(newUser) {
 
             if (user.spam.length > 0) {
-                let date=new Date().getTime();
+                let date = new Date().getTime();
                 for (let i = 0; i < user.spam.length; i++) {
                     if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
                         outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
@@ -56,7 +56,7 @@ module.exports = {
 
             user = User.CreateNewUser(data);
             db.insertUser(user, callCheckPhone);
-        }else{
+        } else {
             callCheckPhone(user);
         }
 

@@ -10,7 +10,7 @@ module.exports = {
             outputCallBack(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
             return;
         }
-        if (user.status!=='deactivate') {
+        if (user.status !== 'deactivate') {
             outputCallBack(new err(pv.errCode.authentication.user_already_exist));
             return;
         }
@@ -57,7 +57,7 @@ module.exports = {
         if (!data.hasOwnProperty('email')) {
             data.email = '';
         } else {
-            if (data.email!==''&&data.email.indexOf('@') <= 0) {
+            if (data.email !== '' && data.email.indexOf('@') <= 0) {
                 outputCallBack(new err(pv.errCode.invalid_arguments, 'this mail not valid', {params: ['email']}).jsonErr());
                 return;
             }
