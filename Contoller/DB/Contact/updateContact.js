@@ -25,7 +25,9 @@ function updateContact(user, contact, callback) {
                 if (!res) {
                     callback(false);
                 } else {
-                    callback(res.contacts);
+                    var temp = {};
+                    temp.contact = contact;
+                    callback(temp);
                 }
             }
         );

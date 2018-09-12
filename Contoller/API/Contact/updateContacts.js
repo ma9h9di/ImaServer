@@ -1,7 +1,7 @@
 var db = require("../../DB/db")
 
-function updateContact(user, callback) {
-    db.updateContact(user, callback);
+function updateContact(user, contact, callback) {
+    db.updateContact(user, contact, callback);
 }
 
 module.exports = {

@@ -87,9 +87,8 @@ function getUserByToken(token, callback) {
                 }
             }
         }, function (err, res) {
-            logd('getUserByToken res :', res);
-            logd('getUserByToken err :', err);
             if (err) {
+                logd('getUserByToken err :', err);
                 throw err;
             }
             if (!res) {

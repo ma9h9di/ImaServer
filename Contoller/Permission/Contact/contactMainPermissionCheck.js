@@ -1,6 +1,6 @@
 var getAllContacts = require('../../API/Contact/getAllContacts');
-var updateContacs = require('../../API/Contact/');
-var addContactPermission = require('addContactsPermissionCheck')
+var updateContacts = require('../../API/Contact/updateContacts');
+var addContactPermission = require('./addContactsPermissionCheck')
 var err = require('../../Model/error');
 var logd = require('../../Other/Funcion').logd;
 var pv = require('../../Other/PublicValue');
@@ -20,6 +20,7 @@ module.exports = {
     check: function (input, user, client, outputCallBack) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo #DB
+
         var data = input.data;
 
         switch (input.method) {
@@ -43,7 +44,7 @@ module.exports = {
                         return;
                     }
                 }
-
+                updateContacts.updateContact(user, data.contact, outputCallBack);
                 break;
             default:
                 myCallBack(new err(pv.errCode.method_not_found).jsonErr());

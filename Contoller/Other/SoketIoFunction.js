@@ -14,7 +14,7 @@ module.exports = function (io) {
 
         },
         authenticationEmit: function (socketId, sendData) {
-            oneSessionEmit(socketId, sendData)
+            oneSessionEmit(socketId, sendData);
             // io.of('/main').connected[socketId].emit('disconnect');
         },
         ErrorEmit: function (socketId, sendData) {

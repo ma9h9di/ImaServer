@@ -18,7 +18,7 @@ function addContacts(contacts, user, callback) {
         }
         db.addContacts(user, contacts, callback);
     });
-    // push promise to db and return it
+
 }
 
 module.exports = {

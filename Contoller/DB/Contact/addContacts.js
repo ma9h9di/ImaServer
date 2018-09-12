@@ -28,7 +28,9 @@ function addContacts(user, contacts, callback) {
                 if (!res) {
                     callback(false);
                 } else {
-                    callback(contacts);
+                    var temp = {};
+                    temp.contacts = contacts;
+                    callback(temp);
                 }
             }
         );

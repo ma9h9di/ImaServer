@@ -25,23 +25,26 @@ module.exports = {
                 try {
                     // decrypt_msg = JSON.parse(decrypt_msg);
 
+                    var outputCallback = function (output) {
 
-                    mainPermission.check(decrypt_msg, client,
-                        function (output) {
+                        var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
+                        method = method + '_result';
+                        var sendData = {'event': method, 'data': output};
+                        logd('output', sendData);
+                        switch (output.type) {
+                            case pv.apiType.err:
+                                soketFunction.ErrorEmit(client.id, sendData);
+                                break;
+                            case pv.apiType.authentication:
+                                soketFunction.authenticationEmit(client.id, sendData);
+                                break;
+                            case pv.apiType.contact: // TODO fix this to contactEmit
+                                soketFunction.authenticationEmit(client.id, sendData);
+                                break;
+                        }
+                    }
 
-                            var method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
-                            method = method + '_result';
-                            var sendData = {'event': method, 'data': output};
-                            logd('output', sendData);
-                            switch (output.type) {
-                                case pv.apiType.err:
-                                    soketFunction.ErrorEmit(client.id, sendData);
-                                    break;
-                                case pv.apiType.authentication:
-                                    soketFunction.authenticationEmit(client.id, sendData);
-                                    break;
-                            }
-                        });
+                    mainPermission.check(decrypt_msg, client, outputCallback);
                 } catch (e) {
                     console.log(e);
                     var sendData = {'event': 'err_result', 'data': new err(pv.errCode.internal_err).jsonErr()};
