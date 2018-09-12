@@ -4,18 +4,21 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 
-function addContacts(user, contact, callback) {
+function addContacts(user, contacts, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
 
 
-        userCollection.update({
-                phone_number: {$eq: user.phone_number},
-                "contacts.phone_number": contact.phone_number
-            },
+        userCollection.update(
             {
-                $set: {
-                    "contact.$": contact
+                phone_number: {$eq: user.phone_number}
+            },
+
+            {
+                $addToSet: {
+                    contacts: {
+                        $each: contacts
+                    }
                 }
             },
             function (err, res) {
@@ -25,7 +28,7 @@ function addContacts(user, contact, callback) {
                 if (!res) {
                     callback(false);
                 } else {
-                    callback(res.contacts);
+                    callback(contacts);
                 }
             }
         );
@@ -36,6 +39,6 @@ function addContacts(user, contact, callback) {
 
 module.exports =
     {
-        updateContact: updateContact
+        addContacts: addContacts
     }
 ;

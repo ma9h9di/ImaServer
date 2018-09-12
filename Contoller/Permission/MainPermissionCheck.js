@@ -38,7 +38,22 @@ module.exports = {
                     contactPermission.check(input, user, client, (contactPermissionResult) => {
                         contactPermissionResult.type = pv.apiType.contact;
                         user.lastActivityTime = date;
-                        db.updateUserByPhoneNumber(user, (newUser) => {});
+                        db.updateUserByPhoneNumber(user, (newUser) => {
+                        });
+                        outputCallBack(contactPermissionResult);
+                    });
+
+                    return;
+                case pv.api.contacts.addContacts:
+                    if (user === false) {
+                        outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return;
+                    }
+                    contactPermission.check(input, user, client, (contactPermissionResult) => {
+                        contactPermissionResult.type = pv.apiType.contact;
+                        user.lastActivityTime = date;
+                        db.updateUserByPhoneNumber(user, (newUser) => {
+                        });
                         outputCallBack(contactPermissionResult);
                     });
 
@@ -89,7 +104,7 @@ module.exports = {
                 outputCallBack(new err(pv.errCode.token_field_not_found).jsonErr());
                 return;
             }
-            db.getUserByToken(data.token,callBackAfterUser);
+            db.getUserByToken(data.token, callBackAfterUser);
             // user=db.getUserByToken(data.token);
 
         }

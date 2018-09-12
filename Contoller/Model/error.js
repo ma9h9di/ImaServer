@@ -9,7 +9,7 @@ class Error {
         return {
             error: [this.mErr],
             type: pv.apiType.err
-        }
+        };
     }
 
     findThisErr(code) {
@@ -17,13 +17,12 @@ class Error {
         for (let i = 0; i < errors.err.length; i++) {
             if (errors.err[i].code === code)
                 return JSON.parse(JSON.stringify(errors.err[i]));
-
         }
     }
 
     constructor(code, message, error_data) {
         this.mErr = this.findThisErr(code);
-        console.log('message err:',message);
+        console.log('message err:', message);
         if (message !== undefined)
             this.mErr.message = message;
         if (error_data !== undefined)

@@ -7,6 +7,7 @@ var getDevice = require('./Device/getDevice');
 var saveFile = require('./File/saveFile');
 var getFile = require('./File/getFile');
 var getAllContacts = require('./Contact/getAllContacts');
+var addContacts = require('./Contact/addContacts');
 
 
 module.exports = {
@@ -15,11 +16,15 @@ module.exports = {
     insertUser: setUser.insertUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
     updateUserByPhoneNumber: setUser.updateUserByPhoneNumber,
+
     getDevice: getDevice.getDevice,
     insertDevice: setDevice.insertDevice,
     updateDevice: setDevice.updateDevice,
+
     saveFile: saveFile.saveFile,
     getFile: getFile.getFile,
-    getAllContacts: getAllContacts.getAllContacts
+
+    getAllContacts: getAllContacts.getAllContacts,
+    addContacts: addContacts.addContacts
 };
 

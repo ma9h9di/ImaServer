@@ -3,6 +3,28 @@
 var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
+function getUserByPhoneNumber_promise(phone_number) {
+    var promise = new Promise(function (resolve, reject) {
+        try {
+            var userCollection = mongoUtil.getDb().collection("Users");
+            logd('getUserByPhoneNumber phoneNumber :', phone_number);
+            userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
+                // logd('getUserByPhoneNumber res :', res);
+                logd('getUserByPhoneNumber err :', err);
+                if (err) {
+                    reject(err);
+                }
+                if (!res) {
+                    res = false;
+                }
+                resolve(res);
+            });
+        } catch (e) {
+            logd(e);
+        }
+    });
+    return promise;
+}
 
 function getUserByPhoneNumber(phone_number, callback) {
     try {
@@ -11,6 +33,33 @@ function getUserByPhoneNumber(phone_number, callback) {
         userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
             // logd('getUserByPhoneNumber res :', res);
             logd('getUserByPhoneNumber err :', err);
+            if (err) {
+                throw err;
+            }
+            if (!res) {
+                res = false;
+            }
+            callback(res);
+        });
+    } catch (e) {
+        logd(e);
+    }
+}
+
+
+function getUserByToken(token, callback) {
+    try {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        logd('getUserByToken token :', token);
+        userCollection.findOne({
+            session: {
+                $elemMatch: {
+                    token: token,
+                }
+            }
+        }, function (err, res) {
+            logd('getUserByToken res :', res);
+            logd('getUserByToken err :', err);
             if (err) {
                 throw err;
             }
@@ -45,10 +94,9 @@ function getUserByToken(token, callback) {
             }
             if (!res) {
                 res = false;
-                callback(res);
-            } else {
-                callback(res);
             }
+            callback(res);
+            return res;
         });
     } catch (e) {
         logd(e);

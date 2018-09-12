@@ -14,7 +14,7 @@ function getAllContacts(user, callback) {
             if (!res) {
                 callback(false);
             } else {
-                callback(res.contacts);
+                callback(res);
             }
         });
     } catch (e) {

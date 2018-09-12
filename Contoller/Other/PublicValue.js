@@ -11,7 +11,7 @@ var allApi = {
     contacts: {
         getAllContacts: 'getAllContacts',
         updateContact: 'updateContact',
-        syncContacts: 'syncContacts'
+        addContacts: 'addContacts'
     }
 };
 var supportValue = {
@@ -49,8 +49,10 @@ module.exports = {
     defaultValue: {
         language: supportValue.language.en,
         verifyCodeLength: 5,
-        ExpireVerifyCodeTime: 5 * 60 * 1000,
-        sendSmsServiceUrl: 'http://37.130.202.188/api/select'
+        ExpireVerifyCodeTime: 5 * 60 * 1000,    // 5 min
+        sendSmsServiceUrl: 'http://37.130.202.188/api/select',
+        addContactLimitation: 2000,
+        addContactResetPeriod: 3 * 31 * 24 * 60 * 60 * 1000     // 3 month
     },
 
     string: {
@@ -81,6 +83,10 @@ module.exports = {
             notification_model_not_support: 'notification_model_not_support',
             device_spam: 'device_spam',
             device_argument: 'device_argument'
+        },
+        contact: {
+            contact_format_invalid: 'contact_format_invalid',
+            add_contact_limitation_reached: "add_contact_limitation_reached"
         }
     },
 
