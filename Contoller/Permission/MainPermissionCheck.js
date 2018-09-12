@@ -31,20 +31,9 @@ module.exports = {
 
                     return;
                 case pv.api.contacts.getAllContacts:
-                    if (user === false) {
-                        outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
-                        return;
-                    }
-                    contactPermission.check(input, user, client, (contactPermissionResult) => {
-                        contactPermissionResult.type = pv.apiType.contact;
-                        user.lastActivityTime = date;
-                        db.updateUserByPhoneNumber(user, (newUser) => {
-                        });
-                        outputCallBack(contactPermissionResult);
-                    });
-
-                    return;
+                case pv.api.contacts.updateContact:
                 case pv.api.contacts.addContacts:
+
                     if (user === false) {
                         outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
                         return;

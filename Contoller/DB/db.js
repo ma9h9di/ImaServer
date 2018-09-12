@@ -8,7 +8,7 @@ var saveFile = require('./File/saveFile');
 var getFile = require('./File/getFile');
 var getAllContacts = require('./Contact/getAllContacts');
 var addContacts = require('./Contact/addContacts');
-
+var updateContact = require('./Contact/updateContact');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
@@ -25,6 +25,7 @@ module.exports = {
     getFile: getFile.getFile,
 
     getAllContacts: getAllContacts.getAllContacts,
-    addContacts: addContacts.addContacts
+    addContacts: addContacts.addContacts,
+    updateContact: updateContact.updateContact
 };
 
