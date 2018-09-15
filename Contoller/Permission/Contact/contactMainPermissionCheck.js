@@ -1,6 +1,6 @@
 var getAllContacts = require('../../API/Contact/getAllContacts');
-var updateContacts = require('../../API/Contact/updateContacts');
-var addContactPermission = require('./addContactsPermissionCheck')
+var addContactsPermission = require('./addContactsPermissionCheck');
+var updateContact = require('./updateContactPermissionCheck');
 var err = require('../../Model/error');
 var logd = require('../../Other/Funcion').logd;
 var pv = require('../../Other/PublicValue');
@@ -11,6 +11,9 @@ function contactFormatValidation(contact) {
         if (key !== "first_name" && key !== "last_name" && key !== "phone_number") {
             return false;
         }
+    }
+    if (!contact.hasOwnProperty("phone_number") || !contact.hasOwnProperty("first_name") || !contact.hasOwnProperty("last_name")) {
+        return false;
     }
     return true;
 }
@@ -35,16 +38,10 @@ module.exports = {
                         return;
                     }
                 }
-                addContactPermission.check(data.contacts); // todo
+                addContactsPermission.check(data.contacts); // todo
                 break;
             case pv.api.contacts.updateContact:
-                for (var key in data.contact) {
-                    if (key !== "first_name" && key !== "last_name" && key !== "phone_number") {
-                        outputCallBack(new Err(pv.errCode.contact.contact_format_invalid).jsonErr());
-                        return;
-                    }
-                }
-                updateContacts.updateContact(user, data.contact, outputCallBack);
+                updateContact.check(user, data, outputCallBack);
                 break;
             default:
                 myCallBack(new err(pv.errCode.method_not_found).jsonErr());

@@ -38,8 +38,8 @@ module.exports = {
                             case pv.apiType.authentication:
                                 soketFunction.authenticationEmit(client.id, sendData);
                                 break;
-                            case pv.apiType.contact: // TODO fix this to contactEmit
-                                soketFunction.authenticationEmit(client.id, sendData);
+                            case pv.apiType.contact:
+                                soketFunction.contactEmit(client.id, sendData);
                                 break;
                         }
                     }
@@ -57,8 +57,6 @@ module.exports = {
                 }
             });
         });
-
-
     }
 
 }

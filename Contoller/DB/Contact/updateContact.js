@@ -8,17 +8,17 @@ function updateContact(user, contact, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
 
-
-        userCollection.update({
-                phone_number: {$eq: user.phone_number},
+        userCollection.updateOne({
+                "phone_number": user.phone_number,
                 "contacts.phone_number": contact.phone_number
             },
             {
                 $set: {
-                    "contact.$": contact
+                    "contacts.$": contact
                 }
             },
             function (err, res) {
+
                 if (err) {
                     throw err;
                 }

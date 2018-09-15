@@ -93,6 +93,7 @@ function check(input, client, outputCallBack) {
             outputCallBack(new err(pv.errCode.token_field_not_found).jsonErr());
             return;
         }
+
         db.getUserByToken(data.token, callBackAfterUser);
     }
 
