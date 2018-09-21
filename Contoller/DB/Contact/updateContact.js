@@ -7,6 +7,10 @@ var logd = require('../../Other/Funcion').logd;
 function updateContact(user, contact, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
+        logd("starting query :::::::::::::::::::::::::");
+        console.log(user.phone_number);
+        console.log(contact.phone_number);
+        console.log(contact);
 
         userCollection.updateOne({
                 "phone_number": user.phone_number,
@@ -20,11 +24,10 @@ function updateContact(user, contact, callback) {
             function (err, res) {
 
                 if (err) {
+                    console.log("error" + err);
                     throw err;
-                }
-                if (!res) {
-                    callback(false);
                 } else {
+                    console.log("res" + res);
                     var temp = {};
                     temp.contact = contact;
                     callback(temp);
