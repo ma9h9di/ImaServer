@@ -15,11 +15,12 @@ var allApi = {
     }
 };
 var supportValue = {
-    country: {
-        iran: '+98'
-    },
+    country: [
+        'Iran (Islamic Republic of)'
+    ],
     language: {
-        en: 'en'
+        en: 'en',
+        fa: 'فارسی'
     },
     notificationModel: {
         FCM: 'fcm'
