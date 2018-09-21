@@ -37,7 +37,7 @@ module.exports = {
                 return;
             }
             else {
-                if (!pv.support.country.hasOwnProperty(data.country)) {
+                if (pv.support.country.indexOf(data.country)<0) {
                     outputCallBack(new err(pv.errCode.authentication.country_not_support).jsonErr());
                     return;
                 }
@@ -48,7 +48,7 @@ module.exports = {
                 return;
             }
             else {
-                if (!pv.support.language.hasOwnProperty(data.language)) {
+                if (Object.values(pv.support.language).indexOf(data.language) < 0) {
                     extraData = new warn(pv.errCode.authentication.language_not_support).findThisWarning();
                     data.language = pv.defaultValue.language;
                 }
