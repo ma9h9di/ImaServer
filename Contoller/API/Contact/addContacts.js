@@ -1,26 +1,30 @@
 var db = require("../../DB/db")
-
-function addContacts(contacts, user, callback) {
+let logd=require("../../Other/Funcion").logd;
+function call(contacts, user, callback) {
     var promise = [];
     var lookedUpContacts = [];
     // TODO optimise query
+    logd('in addContact Api');
     for (let i = 0; i < contacts.length; i++) {
         promise.push(db.getUserByPhoneNumber_promise(contacts[i].phone_number));
     }
+    logd('in addContact after all promise add',promise.length);
     Promise.all(promise).then(function (values) {
+        logd('in addContact in then promise',values.length);
         for (let i = 0; i < values.length; i++) {
-            if (!values[i]) {
-                lookedUpContacts.push(contacts[i]);
-            } else {
+            if (values[i]) {
                 contacts[i].userID = values[i].userID;
-                lookedUpContacts.push(newContact);
             }
+            lookedUpContacts.push(contacts[i]);
         }
-        db.addContacts(user, contacts, callback);
+        logd('in addContact in then promise',lookedUpContacts.length);
+        db.addContacts(user, lookedUpContacts, (result)=>{
+            callback({data:result})
+        });
     });
 
 }
 
 module.exports = {
-    addContacts: addContacts
+    call: call
 };

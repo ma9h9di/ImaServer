@@ -5,7 +5,7 @@ var _db;
 
 function connectToServer(callback) {
     // TODO Release: change develop user to release user
-    var url = 'mongodb://majeed:majeedbluerian@localhost:27017/ima';
+    var url = 'mongodb://majeed:majeedbluerian@198.143.180.99:27017/ima';
     MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
         if (err)
             console.log(err);

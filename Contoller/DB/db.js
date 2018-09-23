@@ -12,6 +12,7 @@ var updateContact = require('./Contact/updateContact');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
+    getUserByPhoneNumber_promise:getUser.getUserByPhoneNumber_promise,
     getUserByToken: getUser.getUserByToken,
     insertUser: setUser.insertUser,
     updateUserByMongoID: setUser.updateUserByMongoID,

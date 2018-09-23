@@ -34,17 +34,17 @@ module.exports = {
             case pv.api.contacts.addContacts:
                 for (let i = 0; i < data.contacts.length; i++) {
                     if (!contactFormatValidation(data.contacts[i])) {
-                        outputCallBack(new Err(pv.errCode.contact.contact_format_invalid).jsonErr());
+                        outputCallBack(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
                         return;
                     }
                 }
-                addContactsPermission.check(data.contacts); // todo
+                addContactsPermission.check(data.contacts,user,outputCallBack); // todo
                 break;
             case pv.api.contacts.updateContact:
                 updateContact.check(user, data, outputCallBack);
                 break;
             default:
-                myCallBack(new err(pv.errCode.method_not_found).jsonErr());
+                outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                 return;
         }
     }
