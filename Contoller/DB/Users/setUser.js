@@ -25,7 +25,8 @@ function insertUser(user, callback) {
 function updateUserByPhoneNumber(newUser, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        userCollection.update({phone_number: newUser.phone_number}, newUser, function (err, res) {
+        // logd('newUser in update :',newUser);
+        userCollection.updateOne({phone_number: newUser.phone_number}, {$set: newUser}, function (err, res) {
             if (err) {
                 throw err;
             }
@@ -40,7 +41,7 @@ function updateUserByPhoneNumber(newUser, callback) {
 function updateUserByMongoID(newUser, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        userCollection.update({_id: newUser._id}, newUser, function (err, res) {
+        userCollection.updateOne({_id: newUser._id},{$set: newUser}, function (err, res) {
             if (err) {
                 throw err;
             }

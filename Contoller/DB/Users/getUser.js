@@ -4,13 +4,13 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 function getUserByPhoneNumber_promise(phone_number) {
-    var promise = new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         try {
-            var userCollection = mongoUtil.getDb().collection("Users");
-            logd('getUserByPhoneNumber phoneNumber :', phone_number);
+            let userCollection = mongoUtil.getDb().collection("Users");
+            logd('getUserByPhoneNumber_promise phoneNumber :', phone_number);
             userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
                 // logd('getUserByPhoneNumber res :', res);
-                logd('getUserByPhoneNumber err :', err);
+                logd('getUserByPhoneNumber_promise err :', err);
                 if (err) {
                     reject(err);
                 }
@@ -23,7 +23,6 @@ function getUserByPhoneNumber_promise(phone_number) {
             logd(e);
         }
     });
-    return promise;
 }
 
 function getUserByPhoneNumber(phone_number, callback) {
@@ -105,6 +104,7 @@ function getUserByToken(token, callback) {
 module.exports =
     {
         getUserByPhoneNumber: getUserByPhoneNumber,
+        getUserByPhoneNumber_promise:getUserByPhoneNumber_promise,
         getUserByToken: getUserByToken
 
     }

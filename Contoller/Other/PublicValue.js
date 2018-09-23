@@ -57,7 +57,7 @@ module.exports = {
     },
 
     string: {
-        en: {
+        'فارسی': {
             singUpFalse: 'sorry your phone number can`t sing in Ima',
             singUpVerifyCodeErr: 'your verify code not current try again',
             singUpTrue: 'welcome to Ima',

@@ -32,6 +32,7 @@ function check(input, client, outputCallBack) {
             case pv.api.contacts.getAllContacts:
             case pv.api.contacts.updateContact:
             case pv.api.contacts.addContacts:
+
                 if (user === false) {
                     outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
                     return;
