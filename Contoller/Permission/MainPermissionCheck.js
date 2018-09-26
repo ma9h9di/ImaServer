@@ -40,8 +40,7 @@ function check(input, client, outputCallBack) {
                 contactPermission.check(input, user, client, (contactPermissionResult) => {
                     contactPermissionResult.type = pv.apiType.contact;
                     user.lastActivityTime = date;
-                    db.updateUserByPhoneNumber(user, (newUser) => {
-                    });
+                    db.updateUserByMongoID(['lastActivityTime','spam'],user, (newUser) => {});
                     outputCallBack(contactPermissionResult);
                 });
 
