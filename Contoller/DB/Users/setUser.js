@@ -38,10 +38,14 @@ function updateUserByPhoneNumber(newUser, callback) {
     }
 }
 
-function updateUserByMongoID(newUser, callback) {
+function updateUserByMongoID(changedKeysArray,newUser, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        userCollection.updateOne({_id: newUser._id},{$set: newUser}, function (err, res) {
+        let tempUser={};
+        for (let i = 0; i < changedKeysArray.length; i++) {
+            tempUser[changedKeysArray[i]]=newUser[changedKeysArray[i]];
+        }
+        userCollection.updateOne({_id: newUser._id},{$set: tempUser}, function (err, res) {
             if (err) {
                 throw err;
             }
