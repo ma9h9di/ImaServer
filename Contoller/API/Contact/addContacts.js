@@ -1,5 +1,6 @@
 var db = require("../../DB/db")
 let logd=require("../../Other/Funcion").logd;
+
 function call(contacts, user, callback) {
     var promise = [];
     var lookedUpContacts = [];
@@ -19,7 +20,7 @@ function call(contacts, user, callback) {
         }
         logd('in addContact in then promise',lookedUpContacts.length);
         db.addContacts(user, lookedUpContacts, (result)=>{
-            callback({data:result})
+            callback({data:result});
         });
     });
 

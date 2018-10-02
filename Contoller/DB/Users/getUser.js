@@ -45,36 +45,6 @@ function getUserByPhoneNumber(phone_number, callback) {
     }
 }
 
-
-function getUserByToken(token, callback) {
-    try {
-        var userCollection = mongoUtil.getDb().collection("Users");
-        logd('getUserByToken token :', token);
-        userCollection.findOne({
-            session: {
-                $elemMatch: {
-                    token: token,
-                }
-            }
-        }, function (err, res) {
-            logd('getUserByToken res :', res);
-            logd('getUserByToken err :', err);
-            if (err) {
-                throw err;
-            }
-            if (!res) {
-                res = false;
-                callback(res);
-            } else {
-                callback(res);
-            }
-        });
-    } catch (e) {
-        logd(e);
-    }
-}
-
-
 function getUserByToken(token, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
