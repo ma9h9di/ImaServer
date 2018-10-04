@@ -9,7 +9,6 @@ function getUserByPhoneNumber_promise(phone_number) {
             let userCollection = mongoUtil.getDb().collection("Users");
             logd('getUserByPhoneNumber_promise phoneNumber :', phone_number);
             userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
-                // logd('getUserByPhoneNumber res :', res);
                 logd('getUserByPhoneNumber_promise err :', err);
                 if (err) {
                     reject(err);
@@ -21,6 +20,7 @@ function getUserByPhoneNumber_promise(phone_number) {
             });
         } catch (e) {
             logd(e);
+            reject(e);
         }
     });
 }
