@@ -9,6 +9,7 @@ var getFile = require('./File/getFile');
 var getAllContacts = require('./Contact/getAllContacts');
 var addContacts = require('./Contact/addContacts');
 var updateContact = require('./Contact/updateContact');
+var checkChannelUsername = require('./Chat/checkChannelUsername');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
@@ -27,6 +28,8 @@ module.exports = {
 
     getAllContacts: getAllContacts.getAllContacts,
     addContacts: addContacts.addContacts,
-    updateContact: updateContact.updateContact
+    updateContact: updateContact.updateContact,
+
+    checkChannelUsername: checkChannelUsername.checkChannelUsername
 };
 

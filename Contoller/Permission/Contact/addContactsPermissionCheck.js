@@ -16,7 +16,6 @@ module.exports = {
                     if (contacts.length > pv.defaultValue.addContactLimitation) {
                         outputCallBack(new err(pv.errCode.contact.add_contact_limitation_reached).jsonErr());
                     } else {
-
                         addContacts.call(contacts, user, outputCallBack);
                     }
                 }
