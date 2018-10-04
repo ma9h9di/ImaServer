@@ -5,5 +5,5 @@ function updateContact(user, contact, callback) {
 }
 
 module.exports = {
-    updateContact: updateContact
+    call: updateContact
 };

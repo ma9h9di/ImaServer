@@ -1,10 +1,10 @@
-var authenticationPermission = require('./Authentication/AuthenticationMainPermissionCheck');
-var contactPermission = require('./Contact/contactMainPermissionCheck');
-var logd = require('../Other/Funcion').logd;
-var err = require('../Model/error');
-var pv = require('../Other/PublicValue');
-var db = require('../DB/db');
-var TAG = "main";
+const authenticationPermission = require('./Authentication/AuthenticationMainPermissionCheck');
+const contactPermission = require('./Contact/contactMainPermissionCheck');
+const chatPermission = require('./Chat/chatMainPermissionCheck');
+const logd = require('../Other/Funcion').logd;
+const err = require('../Model/error');
+const pv = require('../Other/PublicValue');
+const db = require('../DB/db');
 
 
 function check(input, client, outputCallBack) {
@@ -32,18 +32,41 @@ function check(input, client, outputCallBack) {
             case pv.api.contacts.getAllContacts:
             case pv.api.contacts.updateContact:
             case pv.api.contacts.addContacts:
-
                 if (user === false) {
                     outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
                     return;
                 }
-                contactPermission.check(input, user, client, (contactPermissionResult) => {
+
+                contactPermission.check(input, user, (contactPermissionResult) => {
                     contactPermissionResult.type = pv.apiType.contact;
                     user.lastActivityTime = date;
-                    db.updateUserByMongoID(['lastActivityTime','spam'],user, (newUser) => {});
+                    user.changeAttribute.push('lastActivityTime');
+                    db.updateUserByMongoID(user.changeAttribute,user, (newUser) => {});
                     outputCallBack(contactPermissionResult);
                 });
 
+                return;
+            case pv.api.chat.getFullChat:
+            case pv.api.chat.getChats:
+            case pv.api.chat.checkChannelUsername:
+            case pv.api.chat.updateChannelUsername:
+            case pv.api.chat.setChatInfo:
+            case pv.api.chat.addChatUser:
+            case pv.api.chat.removeUser:
+            case pv.api.chat.deleteChat:
+            case pv.api.chat.createGroup:
+                if (user === false) {
+                    outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
+                    return;
+                }
+                chatPermission.check(input, user, (contactPermissionResult) => {
+                    contactPermissionResult.type = pv.apiType.chat;
+                    user.lastActivityTime = date;
+                    user.changeAttribute.push('lastActivityTime');
+
+                    db.updateUserByMongoID(user.changeAttribute,user, (newUser) => {});
+                    outputCallBack(contactPermissionResult);
+                });
                 return;
             default:
                 outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
@@ -98,7 +121,6 @@ function check(input, client, outputCallBack) {
     }
 
 }
-
 
 module.exports = {
     check: check

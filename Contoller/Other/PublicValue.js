@@ -11,10 +11,21 @@ var allApi = {
     contacts: {
         getAllContacts: 'getAllContacts',
         updateContact: 'updateContact',
-        addContacts: 'addContacts'
+        addContacts: 'addContacts',
+    },
+    chat:{
+        getFullChat:'getFullChat',
+        getChats:'getChats',
+        checkChannelUsername:'checkChannelUsername',
+        updateChannelUsername:'updateChannelUsername',
+        setChatInfo:'setChatInfo',
+        addChatUser:'addChatUser',
+        removeUser:'removeUser',
+        deleteChat:'deleteChat',
+        createGroup:'createGroup',
     }
 };
-var supportValue = {
+let supportValue = {
     country: [
         'Iran (Islamic Republic of)'
     ],
@@ -34,6 +45,7 @@ module.exports = {
         all: 'API_All',
         authentication: 'API_Authentication',
         contact: 'API_Contact',
+        chat:'chat'
 
     },
     permission: {
@@ -88,6 +100,10 @@ module.exports = {
         contact: {
             contact_format_invalid: 'contact_format_invalid',
             add_contact_limitation_reached: "add_contact_limitation_reached"
+        },
+        chat:{
+            chat_not_found:'chat_not_found',
+            access_denied_chat:'access_denied_chat'
         }
     },
 

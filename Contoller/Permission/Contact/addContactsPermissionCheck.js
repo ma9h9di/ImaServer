@@ -1,7 +1,6 @@
-var err = require('../../Model/error');
-var User = require('../../Model/user');
-var addContacts = require('../../API/Contact/addContacts')
-var pv = require('../../Other/PublicValue');
+const err = require('../../Model/error');
+const addContacts = require('../../API/Contact/addContacts')
+const pv = require('../../Other/PublicValue');
 
 module.exports = {
     check: function (contacts, user, outputCallBack) {
@@ -12,9 +11,10 @@ module.exports = {
                 if (user.spam[i].type === 'addContact_limitation') {
                     if (pv.defaultValue.addContactResetPeriod + user.spam[i].lastResetTime > date) {
                         user.spam[i].lastResetTime = date;
+                        user.changeAttribute.push('spam');
                     }
                     if (contacts.length > pv.defaultValue.addContactLimitation) {
-                        outputCallBack(new err(pv.errCode.contact.add_contact_limitation_reached));
+                        outputCallBack(new err(pv.errCode.contact.add_contact_limitation_reached).jsonErr());
                     } else {
 
                         addContacts.call(contacts, user, outputCallBack);

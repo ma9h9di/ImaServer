@@ -141,7 +141,24 @@ var Errors = [ //if error occure data is nothing
         'message': 'Contact limitation reached. Try again later',
         'type': pv.apiType.contact,
         'error_data': {}
-    }
+    },
+
+    //chat
+
+    {
+        'title': 'This chat not found',
+        'code': pv.errCode.chat.chat_not_found,
+        'message': 'The chat id is wrong',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'This chat is private',
+        'code': pv.errCode.chat.access_denied_chat,
+        'message': 'Sorry, you do not have access to this chat because it is private',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

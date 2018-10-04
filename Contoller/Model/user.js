@@ -13,6 +13,13 @@ module.exports = {
                 useDataInMonth: 0,
                 useDataInTotal: 0
             },
+            chats:[
+                // {
+                //     "chatID":65556456,
+                //     "lastMassageIdSeenUser":653,
+                //     "firstMassageIdCanSeenUser":0
+                // }
+            ],
             accountDates: [],
             blockedUsers: [],
             contacts: [],
