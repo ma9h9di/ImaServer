@@ -55,10 +55,17 @@ function check(input, client, outputCallBack) {
             case pv.api.chat.removeUser:
             case pv.api.chat.deleteChat:
             case pv.api.chat.createGroup:
+            case pv.api.chat.createChannel:
+            case pv.api.chat.createShop:
+            case pv.api.chat.createLink:
+            case pv.api.chat.getLink:
+            case pv.api.chat.setPin:
+            case pv.api.chat.getPin:
                 if (user === false) {
                     outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
                     return;
                 }
+
                 chatPermission.check(input, user, (contactPermissionResult) => {
                     contactPermissionResult.type = pv.apiType.chat;
                     user.lastActivityTime = date;

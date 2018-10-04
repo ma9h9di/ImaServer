@@ -23,8 +23,20 @@ var allApi = {
         removeUser:'removeUser',
         deleteChat:'deleteChat',
         createGroup:'createGroup',
+        createChannel: 'createChannel',
+        createShop: 'createShop',
+        createLink: 'createLink',
+        getLink: 'getLink',
+        getPin: 'getPin',
+        setPin: 'setPin',
     }
 };
+let accessLevek = {
+    superAdmin: 'superAdmin',
+    admin: 'admin',
+    member: 'member',
+};
+
 let supportValue = {
     country: [
         'Iran (Islamic Republic of)'
@@ -35,7 +47,18 @@ let supportValue = {
     },
     notificationModel: {
         FCM: 'fcm'
-    }
+    },
+    access: {
+        superAdmin: accessLevek.superAdmin,
+        admin: accessLevek.admin,
+        member: accessLevek.member,
+        accessLevel : [
+            accessLevek.member,
+            accessLevek.admin,
+            accessLevek.superAdmin,
+        ]
+    },
+    minLinkSize: 10,
 };
 module.exports = {
     api: allApi,
@@ -65,7 +88,8 @@ module.exports = {
         ExpireVerifyCodeTime: 5 * 60 * 1000,    // 5 min
         sendSmsServiceUrl: 'http://37.130.202.188/api/select',
         addContactLimitation: 2000,
-        addContactResetPeriod: 3 * 31 * 24 * 60 * 60 * 1000     // 3 month
+        addContactResetPeriod: 3 * 31 * 24 * 60 * 60 * 1000,     // 3 month
+        descriptionLength: 300,
     },
 
     string: {
@@ -103,7 +127,9 @@ module.exports = {
         },
         chat:{
             chat_not_found:'chat_not_found',
-            access_denied_chat:'access_denied_chat'
+            access_denied_chat: 'access_denied_chat',
+            link_size_problem: 'link_size_problem',
+            access_level_denied: 'access_level_denied',
         }
     },
 

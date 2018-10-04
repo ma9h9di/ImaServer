@@ -28,7 +28,7 @@ var log = function (name, str) {
         console.log(str);
 
 };
-var logd = function (name, str) {
+const logd = function (name, str) {
 
     var a = (new Error()).stack.match(/[a-zA-Z\.]+\:[0-9]+\:/g);
     a = a[1];
@@ -38,5 +38,12 @@ var logd = function (name, str) {
 
     log("--> " + file + ":" + line + "\t" + name, str);
 };
+
+function randomString(length) {
+    const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+    let result = '';
+    for (let i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
 logd("create Function", " hello");
 exports.logd = logd;

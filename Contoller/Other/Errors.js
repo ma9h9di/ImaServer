@@ -159,6 +159,20 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.chat,
         'error_data': {}
     },
+    {
+        'title': 'Access level denied',
+        'code': pv.errCode.chat.access_level_denied,
+        'message': 'Sorry, your access level is low',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'link size problem',
+        'code': pv.errCode.chat.link_size_problem,
+        'message': 'Link size is not appropriate',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

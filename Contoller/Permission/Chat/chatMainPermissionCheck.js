@@ -7,6 +7,12 @@ const addChatUserPermission = require('./addChatUserPermission');
 const removeUserPermission = require('./removeUserPermission');
 const deleteChatPermission = require('./deleteChatPermission');
 const createGroupPermission = require('./createGroupPermission');
+const createChannelPermission = require('./createChannelPermission');
+const createShopPermission = require('./createShopPermission');
+const createLinkPermission = require('./createLinkPermission');
+const getLinkPermission = require('./getLinkPermission');
+const getPinPermission = require('./getPinPermission');
+const setPinPermission = require('./setPinPermission');
 
 const err = require('../../Model/error');
 const logd = require('../../Other/Funcion').logd;
@@ -42,6 +48,25 @@ function findMethodPermission(input, user, myCallBack) {
         case pv.api.chat.createGroup:
             createGroupPermission.check(data, user, myCallBack);
             break;
+        case pv.api.chat.createChannel:
+            createChannelPermission.check(data, user, myCallBack);
+            break;
+        case pv.api.chat.createShop:
+            createShopPermission.check(data, user, myCallBack);
+            break;
+        case pv.api.chat.createLink:
+            createLinkPermission.check(data, user, myCallBack);
+            break;
+        case pv.api.chat.getLink:
+            getLinkPermission.check(data, user, myCallBack);
+            break;
+         case pv.api.chat.getPin:
+             getPinPermission.check(data, user, myCallBack);
+            break;
+         case pv.api.chat.setPin:
+            setPinPermission.check(data, user, myCallBack);
+            break;
+
         default:
             myCallBack(new err(pv.errCode.method_not_found).jsonErr());
             return;

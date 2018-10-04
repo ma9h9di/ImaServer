@@ -12,7 +12,12 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
         }
-        if (!userHasThisChat(data.chatID, user.chats)) {
+        let userHaveChat = userHasThisChat(data.chatID, user.chats);
+        if (!userHaveChat) {
+            outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+            return;
+        }
+        if (pv.support.access.level.indexOf(userHaveChat.post) < pv.support.access.level.indexOf(pv.support.access.admin)) {
             outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
             return;
         }
