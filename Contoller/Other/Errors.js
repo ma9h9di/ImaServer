@@ -173,6 +173,13 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.chat,
         'error_data': {}
     },
+    {
+        'title': 'Title size problem',
+        'code': pv.errCode.chat.title_size_problem,
+        'message': 'Title size is not appropriate',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

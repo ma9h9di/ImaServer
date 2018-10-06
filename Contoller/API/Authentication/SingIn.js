@@ -1,11 +1,9 @@
-var crypto = require('crypto');
-var biguint = require('biguint-format');
-var pv = require('../../Other/PublicValue');
-var logd = require('../../Other/Funcion').logd;
+const  pv = require('../../Other/PublicValue');
+const  logd = require('../../Other/Funcion').logd;
 
 
 module.exports = function (user) {
-    var result = {};
+    let result = {};
 
     function addSession(device, app) {
         return require('../../Model/session').CreateNewSession(device, app, '', user.session.length + 1);
@@ -29,7 +27,7 @@ module.exports = function (user) {
                     //age taraf ghablan be in marhale reside on ghabliash gheyre faal mishan
                     if (user.status === 'deactivate')
                         user.session = [];
-                    var session = addSession(data.device, data.app);
+                    const  session = addSession(data.device, data.app);
                     user.session.push(session);
                     result.message = pv.string[user.language].singUpTrue;
                     result.successful = true;

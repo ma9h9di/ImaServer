@@ -61,6 +61,6 @@ module.exports =
     {
         insertUser: insertUser,
         updateUserByMongoID: updateUserByMongoID,
-        updateUserByPhoneNumber: updateUserByPhoneNumber
+        updateUserByPhoneNumber: updateUserByPhoneNumber,
     }
 ;

@@ -1,6 +1,6 @@
 const deleteChatUserApi = require('../../API/Chat/deleteChatUserApi');
 
-const userHasThisChat = require('./getFullChatPermission').userHasThisChat;
+const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
@@ -12,18 +12,14 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
         }
-        let userHaveChat = userHasThisChat(data.chatID, user.chats);
-        if (!userHaveChat) {
-            outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-            return;
-        }
-        if (pv.support.access.level.indexOf(userHaveChat.post) < pv.support.access.level.indexOf(pv.support.access.admin)) {
-            outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-            return;
-        }
 
-        
-        deleteChatUserApi.call(data,user, outputCallBack);
+        let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
+        promiseUserHaveChat.then(userHaveChat => {
+            deleteChatUserApi.call(data, user, outputCallBack);
+        }).catch(error => {
+            outputCallBack(error)
+        });
+
 
 
     }

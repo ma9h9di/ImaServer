@@ -1,9 +1,10 @@
-const checkChannelUsernameApi = require('../../API/Chat/checkChannelUsername');
-const userHasThisChat = require('./getFullChatPermission').userHasThisChat;
+const checkChannelUsernameApi = require('../../API/Chat/checkChannelUsernameApi');
+const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
-function checkPermissionCanBeUpdateUserName(data,ErrOutputCallBack,successfulOutputCallBack){
+
+function checkPermissionCanBeUpdateUserName(data, user, ErrOutputCallBack, successfulOutputCallBack) {
     if (!data.hasOwnProperty('chatID')) {
         ErrOutputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
         return;
@@ -13,22 +14,18 @@ function checkPermissionCanBeUpdateUserName(data,ErrOutputCallBack,successfulOut
         return;
     }
 
-    let userHaveChat = userHasThisChat(data.chatID, user.chats);
-    if (!userHaveChat) {
-        ErrOutputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-        return;
-    }
-    if (pv.support.access.level.indexOf(userHaveChat.post) < pv.support.access.level.indexOf(pv.support.access.superAdmin)) {
-        ErrOutputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-        return;
-    }
-    successfulOutputCallBack();
+    let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
+    promiseUserHaveChat.then(userHaveChat => {
+        successfulOutputCallBack(userHaveChat);
+    }).catch(error => {
+        ErrOutputCallBack(error)
+    });
 }
 module.exports = {
-    check: function (data, outputCallBack) {
+    check: function (data, user, outputCallBack) {
 
-        checkPermissionCanBeUpdateUserName(data,outputCallBack,()=>{
-            checkChannelUsernameApi.call(value, data.newUsername, outputCallBack);
+        checkPermissionCanBeUpdateUserName(data, user, outputCallBack, (userChatInfo) => {
+            checkChannelUsernameApi.call(data.newUsername, outputCallBack);
         })
 
 

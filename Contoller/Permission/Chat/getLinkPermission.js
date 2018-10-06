@@ -1,6 +1,6 @@
-const createLinkApi = require('../../API/Chat/createLinkApi');
+const getLinkApi = require('../../API/Chat/getLinkApi');
 
-const userHasThisChat = require('./getFullChatPermission').userHasThisChat;
+const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 
 const err = require('../../Model/error');
@@ -12,15 +12,6 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
         }
-        let userHaveChat=userHasThisChat(data.chatID, user.chats);
-        if (!userHaveChat) {
-            outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-            return;
-        }
-        if (pv.support.access.level.indexOf(userHaveChat.post)<pv.support.access.level.indexOf(pv.support.access.superAdmin)) {
-            outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-            return;
-        }
         if (!data.hasOwnProperty('link')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['link']}).jsonErr());
             return;
@@ -30,7 +21,14 @@ module.exports = {
             return;
         }
 
-        createLinkApi.call(data,user, outputCallBack);
+        let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats,pv.support.access.superAdmin);
+        promiseUserHaveChat.then(value => {
+            getLinkApi.call(data,user, outputCallBack);
+        }).catch(error => {
+            outputCallBack(error)
+        });
+
+
 
 
     }

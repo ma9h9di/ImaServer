@@ -1,13 +1,13 @@
 "use strict";
 
-var mongoUtil = require('../mongoUtil');
-var logd = require('../../Other/Funcion').logd;
+const mongoUtil = require('../mongoUtil');
+const logd = require('../../Other/Funcion').logd;
 
 // TODO exists query in mongo
 function addMemberToChat(userID, chatID) {
     return new Promise((resolve, reject) => {
         try {
-            var userCollection = mongoUtil.getDb().collection("Chats");
+            const userCollection = mongoUtil.getDb().collection("Chats");
             userCollection.updateOne(
                 {
                     _id: {$eq: chatID}
