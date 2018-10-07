@@ -66,10 +66,11 @@ const supportValue = {
         'title',
         'type',
         'membersCount',
+        'membersID',
         'photoURL',
         'username',
         'link',
-        'bio',
+        'description',
 
     ],
     limitedChatKey:{

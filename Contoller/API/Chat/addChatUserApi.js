@@ -11,7 +11,7 @@ function call(userAdded, data, outputCallBack) {
     const promiseChatNeed=db.getChats([data.chatID],['messageCount','_id']);
     promiseChatNeed.then(value => {
         //todo inja hatamn bayad value[0] bashe ya nemidonm chie
-        const chatInsert=getChatUser(value,data.limitShowMessageCount);
+        const chatInsert=getChatUser(value,pv.support.access.member,data.limitShowMessageCount);
         const promiseAddChat=db.joinChat(userAdded._id,chatInsert);
         const promiseAddUse=db.addMemberToChat(data.userID, value._id);
         Promise.all([promiseAddChat, promiseAddUse]).then(function(values) {

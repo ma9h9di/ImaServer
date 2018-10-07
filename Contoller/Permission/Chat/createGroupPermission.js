@@ -2,6 +2,7 @@ const createGroupApi = require('../../API/Chat/createGroupApi');
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
+const logd = require('../../Other/Funcion').logd;
 
 module.exports = {
     check: function (data, user, outputCallBack) {
@@ -11,6 +12,7 @@ module.exports = {
             return;
         }
         if ((data.title+'').length<pv.support.minTitleSize) {
+
             outputCallBack(new err(pv.errCode.chat.title_size_problem).jsonErr());
             return;
         }

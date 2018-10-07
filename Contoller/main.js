@@ -41,6 +41,9 @@ module.exports = {
                             case pv.apiType.contact:
                                 soketFunction.contactEmit(client.id, sendData);
                                 break;
+                            case pv.apiType.chat:
+                                soketFunction.chatEmit(client.id, sendData);
+                                break;
                         }
                     };
 

@@ -17,16 +17,16 @@ const setPinPermission = require('./setPinPremission');
 const err = require('../../Model/error');
 const logd = require('../../Other/Funcion').logd;
 const pv = require('../../Other/PublicValue');
+const ObjectID = require('mongodb').ObjectID;
 
 
 function userHasThisChat(chatID, chats, accessLevel) {
     accessLevel = accessLevel ? accessLevel : pv.support.access.member;
     return new Promise((resolve, reject) => {
         for (let i = 0; i < chats.length; i++) {
-            if (chats[i].chatID === chatID) {
-                if (pv.support.access.level.indexOf(chats[i].post) < pv.support.access.level.indexOf(accessLevel)) {
+            if (chats[i].chatID.equals(chatID)) {
+                if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
                     reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-
                 } else {
                     resolve(chats[i]);
                 }
@@ -42,7 +42,7 @@ function findMethodPermission(input, user, myCallBack) {
     let data = input.data;
     switch (input.method) {
         case pv.api.chat.getFullChat:
-            getFullChatPermission.check(data, user, myCallBack);
+            getFullChatPermission.check(data, user, myCallBack,userHasThisChat);
             break;
         case pv.api.chat.getChats:
             getChatsPermission.check(data, myCallBack);
@@ -66,13 +66,13 @@ function findMethodPermission(input, user, myCallBack) {
             //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
             deleteChatPermission.check(data, user, myCallBack);
             break;
-        case pv.api.chat.createGroup:
+        case pv.api.chat.createGroup://tested
             createGroupPermission.check(data, user, myCallBack);
             break;
-        case pv.api.chat.createChannel:
+        case pv.api.chat.createChannel://tested
             createChannelPermission.check(data, user, myCallBack);
             break;
-        case pv.api.chat.createShop:
+        case pv.api.chat.createShop://tested
             createShopPermission.check(data, user, myCallBack);
             break;
         case pv.api.chat.setLink:

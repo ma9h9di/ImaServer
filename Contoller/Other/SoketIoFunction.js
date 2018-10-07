@@ -1,7 +1,7 @@
-
+const logd=require('./Funcion').logd;
 module.exports = function (io) {
     function oneSessionEmit(socketId, sendData) {
-        var date = new Date();
+        const date = new Date();
         sendData.data.time = date.getTime();
         io.of('/main').connected[socketId].emit(sendData.event, sendData.data);
     }
@@ -18,6 +18,11 @@ module.exports = function (io) {
         },
         contactEmit: function (socketId, sendData) {
             oneSessionEmit(socketId, sendData);
+            // io.of('/main').connected[socketId].emit('disconnect');
+        },
+        chatEmit: function (socketId, sendData) {
+            oneSessionEmit(socketId, sendData);
+            logd('send in '+sendData.event,sendData.data);
             // io.of('/main').connected[socketId].emit('disconnect');
         },
         ErrorEmit: function (socketId, sendData) {

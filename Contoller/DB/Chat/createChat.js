@@ -15,7 +15,7 @@ function createChat(chat) {
                 if (!res) {
                     res = false;
                 }
-                resolve(res);
+                resolve(res.ops[0]);
             });
         } catch (e) {
             reject(e);

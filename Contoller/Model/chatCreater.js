@@ -16,15 +16,17 @@ function getDefaultsChat(user) {
         }
     }
 }
-function getChatUser(chat,limitShowMessageCount){
+
+function getChatUser(chat,post,limitShowMessageCount){
     limitShowMessageCount=limitShowMessageCount?limitShowMessageCount:0;
+    post=post?post:pv.support.access.superAdmin;
     return {
-        post:pv.support.access.member,
+        post:post,
         chatType:chat.type,
         accessModifier:chat.accessModifier,
         lastAvalebalMessage:chat.messageCount-limitShowMessageCount,
         lastSeenMessage:chat.messageCount-limitShowMessageCount,
-        chatID:value._id,
+        chatID:chat._id,
         joinTime:new Date().getTime(),
     };
 }
