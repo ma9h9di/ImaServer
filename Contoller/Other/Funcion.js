@@ -47,3 +47,4 @@ function randomString(length) {
 }
 logd("create Function", " hello");
 exports.logd = logd;
+exports.randomString = randomString;

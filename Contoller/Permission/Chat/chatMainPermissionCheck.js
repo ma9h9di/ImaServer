@@ -9,10 +9,10 @@ const deleteChatPermission = require('./deleteChatPermission');
 const createGroupPermission = require('./createGroupPermission');
 const createChannelPermission = require('./createChannelPermission');
 const createShopPermission = require('./createShopPermission');
-const createLinkPermission = require('./createLinkPermission');
+const setLinkPermission = require('./setLinkPermission');
 const getLinkPermission = require('./getLinkPermission');
 const getPinPermission = require('./getPinPermission');
-const setPinPermission = require('./setPinPermission');
+const setPinPermission = require('./setPinPremission');
 
 const err = require('../../Model/error');
 const logd = require('../../Other/Funcion').logd;
@@ -75,14 +75,14 @@ function findMethodPermission(input, user, myCallBack) {
         case pv.api.chat.createShop:
             createShopPermission.check(data, user, myCallBack);
             break;
-        case pv.api.chat.createLink:
-            createLinkPermission.check(data, user, myCallBack);
+        case pv.api.chat.setLink:
+            setLinkPermission.check(data, user, myCallBack);
             break;
         case pv.api.chat.getLink:
             getLinkPermission.check(data, user, myCallBack);
             break;
          case pv.api.chat.getPin:
-             getPinPermission.check(data, user, myCallBack);
+             getPinPermission.check(user, myCallBack);
             break;
          case pv.api.chat.setPin:
             setPinPermission.check(data, user, myCallBack);

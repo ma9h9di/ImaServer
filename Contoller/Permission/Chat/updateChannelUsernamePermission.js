@@ -1,5 +1,5 @@
 const updateChannelUsernameApi = require('../../API/Chat/updateChannelUsernameApi');
-const checkChannelUsernamePermission = require('./checkChannelUsernamePermission').checkPermissionCanBeUpdateUserName();
+const checkChannelUsernamePermission = require('./checkChannelUsernamePermission').checkPermissionCanBeUpdateUserName;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');

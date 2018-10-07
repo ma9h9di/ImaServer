@@ -1,4 +1,4 @@
-const createLinkApi = require('../../API/Chat/createLinkApi');
+const setLinkApi = require('../../API/Chat/setLinkApi');
 
 const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
@@ -22,8 +22,8 @@ module.exports = {
         }
 
         let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats,pv.support.access.superAdmin);
-        promiseUserHaveChat.then(value => {
-            createLinkApi.call(data,user, outputCallBack);
+        promiseUserHaveChat.then(userChat => {
+            setLinkApi.call(userChat,data.link, outputCallBack);
         }).catch(error => {
             outputCallBack(error)
         });

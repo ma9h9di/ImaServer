@@ -17,7 +17,7 @@ module.exports = {
         }
         let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats);
         promiseUserHaveChat.then(value => {
-            setPinApi.call(data, user, outputCallBack);
+            setPinApi.call(value, user, outputCallBack);
         }).catch(error => {
             outputCallBack(error)
         });

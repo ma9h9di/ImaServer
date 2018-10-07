@@ -20,6 +20,7 @@ module.exports = {
                 //     "firstMassageIdCanSeenUser":0
                 // }
             ],
+            nextPinNumber:0,
             accountDates: [],
             blockedUsers: [],
             contacts: [],

@@ -8,7 +8,6 @@ const USER_JOINED_CHAT=5698;
 
 
 module.exports = {
-    userHasThisChat:userHasThisChat,
     check: function ( data, user,outputCallBack) {
 
         if (!data.hasOwnProperty('chatID')) {

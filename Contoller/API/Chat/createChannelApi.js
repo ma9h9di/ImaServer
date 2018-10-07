@@ -1,11 +1,11 @@
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
-const groupCrater = require("../../Model/chatCreater").Group;
+const Channel = require("../../Model/chatCreater").Channel;
 
 
 function call(data,user, outputCallBack) {
-    let newGroup=new groupCrater(data.title,data.description,user).getInit();
+    let newGroup=new Channel(data.title,data.description,user).getInit();
     const promiseAddChat = db.createChat(newGroup);
     promiseAddChat.then(chat => {
         const promiseAddUse = db.joinChat(data.userID, require("../../Model/chatCreater").getChatUser(chat));

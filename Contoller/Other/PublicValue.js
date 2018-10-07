@@ -25,7 +25,7 @@ const allApi = {
         createGroup:'createGroup',
         createChannel: 'createChannel',
         createShop: 'createShop',
-        createLink: 'createLink',
+        setLink: 'setLink',
         getLink: 'getLink',
         getPin: 'getPin',
         setPin: 'setPin',
@@ -85,7 +85,20 @@ const supportValue = {
         'link',
         'bio',
 
-    ]
+    ],
+    accessModifier:{
+        private:'private',
+        public:'public'
+    },
+    chatType:{
+        group:'group',
+        channel:'channel',
+        shop:'shop'
+    },
+    groupType:{
+        normal:'normal',
+        super:'super'
+    }
 };
 
 const apiType = {

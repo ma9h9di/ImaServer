@@ -57,7 +57,7 @@ function check(input, client, outputCallBack) {
             case pv.api.chat.createGroup:
             case pv.api.chat.createChannel:
             case pv.api.chat.createShop:
-            case pv.api.chat.createLink:
+            case pv.api.chat.setLink:
             case pv.api.chat.getLink:
             case pv.api.chat.setPin:
             case pv.api.chat.getPin:

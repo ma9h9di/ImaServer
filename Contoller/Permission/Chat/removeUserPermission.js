@@ -4,7 +4,7 @@ const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
-const db = require('../../DB/mongoUtil');
+const db = require('../../DB/db');
 
 module.exports = {
     check: function (data, user, outputCallBack) {
@@ -18,11 +18,12 @@ module.exports = {
         }
         const promiseUser = db.getUserByID(data.userID);
         promiseUser.then(userRemoveded => {
-            let promiseUserWorkerHaveChat = userHasThisChat(data.chatID, user.chats);
-            let promiseUserRemovededHaveChat = userHasThisChat(data.chatID, userRemoveded.chats);
+            const promiseUserWorkerHaveChat = userHasThisChat(data.chatID, user.chats);
+            const promiseUserRemovededHaveChat = userHasThisChat(data.chatID, userRemoveded.chats);
             //2 ta user ozve bashan
             Promise.all([promiseUserWorkerHaveChat, promiseUserRemovededHaveChat]).then(values => {
-                if (pv.support.access.level.indexOf(values[0].post) >= pv.support.access.level.indexOf(values[1].post)) {
+                if (pv.support.access.level.indexOf(values[0].post) >= pv.support.access.level.indexOf(pv.support.access.admin)
+                    && pv.support.access.level.indexOf(values[0].post) >= pv.support.access.level.indexOf(values[1].post)) {
                     removeChatUserApi.call(data, outputCallBack)
                 }else{
                     outputCallBack(new err(pv.errCode.chat.access_level_denied).jsonErr());
