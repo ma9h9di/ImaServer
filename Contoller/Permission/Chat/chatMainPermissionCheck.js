@@ -63,6 +63,7 @@ function findMethodPermission(input, user, myCallBack) {
             removeUserPermission.check(data, user, myCallBack);
             break;
         case pv.api.chat.deleteChat:
+            //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
             deleteChatPermission.check(data, user, myCallBack);
             break;
         case pv.api.chat.createGroup:

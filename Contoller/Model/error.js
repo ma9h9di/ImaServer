@@ -1,7 +1,7 @@
-var errors = require('../Other/Errors');
-var logd = require('../Other/Funcion').logd;
+const errors = require('../Other/Errors');
+const logd = require('../Other/Funcion').logd;
 
-var pv = require('../Other/PublicValue');
+const pv = require('../Other/PublicValue');
 
 class Error {
 

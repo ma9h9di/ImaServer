@@ -42,7 +42,7 @@ module.exports = {
                                 soketFunction.contactEmit(client.id, sendData);
                                 break;
                         }
-                    }
+                    };
 
                     mainPermission.check(decrypt_msg, client, outputCallback);
                 } catch (e) {

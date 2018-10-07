@@ -20,6 +20,7 @@ const checkChannelUsername = require('./Chat/checkChannelUsername');
 const updateChannelUsername=require('./Chat/updateChannelUsername');
 const updateChatByMongoID=require('./Chat/updateChatByMongoID');
 const addOrRemoveMember=require('./Chat/addOrRemoveMember');
+const createChat=require('./Chat/createChat');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
@@ -49,5 +50,6 @@ module.exports = {
     updateChatByMongoID: updateChatByMongoID.updateChatByMongoID,
     addMemberToChat: addOrRemoveMember.addMemberToChat,
     removeMemberFromChat: addOrRemoveMember.removeMemberFromChat,
+    createChat: createChat.createChat,
 };
 

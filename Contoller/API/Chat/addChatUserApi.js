@@ -4,7 +4,7 @@ const pv = require("../../Other/PublicValue");
 
 
 function call(userAdded, data, outputCallBack) {
-    data._id=data.chatID;
+    // data._id=data.chatID;
     const promiseChatNeed=db.getChats([data.chatID],['numberOfLastMessages']);
     promiseChatNeed.then(value => {
         //todo inja hatamn bayad value[0] bashe ya nemidonm chie
