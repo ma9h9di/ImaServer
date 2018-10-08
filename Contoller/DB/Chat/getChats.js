@@ -3,21 +3,25 @@
 const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
 
+const ObjectID = require('mongodb').ObjectID;
 
 function getChats(chatIDs,selectedField) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
-            userCollection.find({_id: {$in: chatIDs}}, function (err, res) {
+            userCollection.find({_id: {$in:chatIDs}},selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;
                 }
-                if (!res) {
-                    res = false;
-                }else{
-                    // res=res.ops[0];
+                if (!result) {
+                    result = [];
                 }
-                resolve(res);
+                let propArray=[];
+                for (let i = 0; i < result.length; i++) {
+                    propArray.push(result[i]);
+                }
+                // db.close();
+                resolve(propArray);
             });
         } catch (e) {
             reject(e);
