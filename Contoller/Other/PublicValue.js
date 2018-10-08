@@ -71,7 +71,7 @@ const supportValue = {
         'username',
         'link',
         'description',
-
+        'accessModifier'
     ],
     limitedChatKey:{
         // '_id':1,
@@ -82,9 +82,8 @@ const supportValue = {
     chatUpdate:[
         'title',
         'photoURL',
-        'username',
-        'link',
-        'bio',
+        'description',
+        'accessModifier'
 
     ],
     accessModifier:{
@@ -178,6 +177,7 @@ const errCode = {
         title_size_problem: 'title_size_problem',
         access_level_denied: 'access_level_denied',
         username_pattern_denied: 'username_pattern_denied',
+        user_exist: 'user_exist',
     },
 };
 

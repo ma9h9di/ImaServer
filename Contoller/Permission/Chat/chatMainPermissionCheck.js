@@ -53,11 +53,11 @@ function findMethodPermission(input, user, myCallBack) {
         case pv.api.chat.updateChannelUsername://test
             updateChannelUsernamePermission.check(data, user, myCallBack,userHasThisChat);
             break;
-        case pv.api.chat.setChatInfo:
-            setChatInfoPermission.check(data, user, myCallBack);
+        case pv.api.chat.setChatInfo://test
+            setChatInfoPermission.check(data, user, myCallBack,userHasThisChat);
             break;
         case pv.api.chat.addChatUser:
-            addChatUserPermission.check(data, user, myCallBack);
+            addChatUserPermission.check(data, user, myCallBack,userHasThisChat);
             break;
         case pv.api.chat.removeUser:
             removeUserPermission.check(data, user, myCallBack);

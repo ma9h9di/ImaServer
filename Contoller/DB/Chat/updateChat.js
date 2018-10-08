@@ -17,7 +17,7 @@ function updateChatByMongoID(changedKeysArray, newChat) {
                     throw err;
                 }
                 // console.log("new updated document is: ", res.ops[0]);
-                resolve({});
+                resolve(res);
             });
         } catch (e) {
             reject(e);

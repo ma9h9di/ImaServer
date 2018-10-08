@@ -187,6 +187,13 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.chat,
         'error_data': {}
     },
+    {
+        'title': 'user exist',
+        'code': pv.errCode.chat.user_exist,
+        'message': 'Sorry, this user member chat!!!',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

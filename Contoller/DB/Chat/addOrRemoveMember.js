@@ -13,7 +13,7 @@ function addMemberToChat(userID, chatID) {
                     _id: {$eq: chatID}
                 },
                 {
-                    $addToSet: {members: {_id: userID}}
+                    $addToSet: {membersID: {_id: userID}}
                 },
                 function (err, res) {
                     if (err) {
@@ -31,14 +31,14 @@ function addMemberToChat(userID, chatID) {
 function removeMemberFromChat(userID, chatID) {
     return new Promise((resolve, reject) => {
         try {
-            var userCollection = mongoUtil.getDb().collection("Chats");
+            const userCollection = mongoUtil.getDb().collection("Chats");
             userCollection.updateOne(
                 {
                     _id: {$eq: chatID}
                 },
                 {
                     $pull: {
-                        members: {
+                        membersID: {
                             _id: userID
                         }
                     }
