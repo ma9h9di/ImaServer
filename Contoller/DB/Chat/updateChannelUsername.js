@@ -4,21 +4,23 @@ const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
 
 
-function updateChannelUsername(username,key) {
+function updateChannelUsername(chatID,username,key) {
     key=key?key:'username';
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
-            let where={};
-            where[key]={$eq: username};
-            userCollection.updateOne(where, {$set: {username: username}}, function (err, res) {
+            let q={};
+            q[key]=username;
+            userCollection.updateOne({_id:{$eq: chatID}}, {$set: q}, function (err, res) {
                 if (err) {
                     throw err;
                 }
                 if (!res) {
                     resolve(false);
                 }
-                resolve(username);
+                if (res.matchedCount>0)
+                    resolve(username);
+                resolve(false);
             });
         } catch (e) {
             reject(e);

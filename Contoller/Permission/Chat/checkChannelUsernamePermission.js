@@ -1,10 +1,9 @@
 const checkChannelUsernameApi = require('../../API/Chat/checkChannelUsernameApi');
-const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
-function checkPermissionCanBeUpdateUserName(data, user, ErrOutputCallBack, successfulOutputCallBack) {
+function checkPermissionCanBeUpdateUserName(userHasThisChat,data, user, ErrOutputCallBack, successfulOutputCallBack) {
     if (!data.hasOwnProperty('chatID')) {
         ErrOutputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
         return;
@@ -16,15 +15,21 @@ function checkPermissionCanBeUpdateUserName(data, user, ErrOutputCallBack, succe
 
     let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
     promiseUserHaveChat.then(userHaveChat => {
-        successfulOutputCallBack(userHaveChat);
+        if ((userHaveChat.chatType===pv.support.chatType.channel&&pv.support.usernamePattern.channel.test(data.newUsername))||
+            ((userHaveChat.chatType===pv.support.chatType.shop&&pv.support.usernamePattern.shop.test(data.newUsername)))){
+            successfulOutputCallBack(userHaveChat);
+        }else{
+            ErrOutputCallBack(new err(pv.errCode.chat.username_pattern_denied).jsonErr())
+
+        }
     }).catch(error => {
         ErrOutputCallBack(error)
     });
 }
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user, outputCallBack,userHasThisChat) {
 
-        checkPermissionCanBeUpdateUserName(data, user, outputCallBack, (userChatInfo) => {
+        checkPermissionCanBeUpdateUserName(userHasThisChat,data, user, outputCallBack, (userChatInfo) => {
             checkChannelUsernameApi.call(data.newUsername, outputCallBack);
         })
 

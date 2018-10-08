@@ -9,7 +9,7 @@ function getChats(chatIDs,selectedField) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
-            userCollection.find({_id: {$in:chatIDs}},selectedField).toArray(function (err, result) {
+            userCollection.find({_id: {$in:chatIDs}}).project(selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;
                 }

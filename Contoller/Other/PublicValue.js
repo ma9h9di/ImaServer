@@ -74,7 +74,7 @@ const supportValue = {
 
     ],
     limitedChatKey:{
-        '_id':1,
+        // '_id':1,
         'title':1,
         'type':1,
         'photoURL':1,
@@ -99,6 +99,10 @@ const supportValue = {
     groupType:{
         normal:'normal',
         super:'super'
+    },
+    usernamePattern:{
+        channel:new RegExp("([A-Za-z0-9])+_channel"),
+        shop:new RegExp("([A-Za-z0-9])+_shop"),
     }
 };
 
@@ -173,6 +177,7 @@ const errCode = {
         link_size_problem: 'link_size_problem',
         title_size_problem: 'title_size_problem',
         access_level_denied: 'access_level_denied',
+        username_pattern_denied: 'username_pattern_denied',
     },
 };
 

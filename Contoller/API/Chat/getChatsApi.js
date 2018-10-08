@@ -12,6 +12,7 @@ function call(chatIDs, callback) {
     promise.then(value => {
         //Todo:inja bayad run konm test konm bbinm chi mishe
         logd('in the getChats', value);
+        callback({data:{chatInfos:value}})
     }).catch(error => {
 
     })

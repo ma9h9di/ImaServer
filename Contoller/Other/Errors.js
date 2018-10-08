@@ -180,6 +180,13 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.chat,
         'error_data': {}
     },
+    {
+        'title': 'username pattern denied',
+        'code': pv.errCode.chat.username_pattern_denied,
+        'message': 'Sorry, you can`t use this username',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

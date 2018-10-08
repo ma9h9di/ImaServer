@@ -41,17 +41,17 @@ function userHasThisChat(chatID, chats, accessLevel) {
 function findMethodPermission(input, user, myCallBack) {
     let data = input.data;
     switch (input.method) {
-        case pv.api.chat.getFullChat:
+        case pv.api.chat.getFullChat://test
             getFullChatPermission.check(data, user, myCallBack,userHasThisChat);
             break;
-        case pv.api.chat.getChats:
+        case pv.api.chat.getChats://test
             getChatsPermission.check(data, myCallBack);
             break;
-        case pv.api.chat.checkChannelUsername:
-            checkChannelUsernamePermission.check(data, user, myCallBack);
+        case pv.api.chat.checkChannelUsername://test
+            checkChannelUsernamePermission.check(data, user, myCallBack,userHasThisChat);
             break;
-        case pv.api.chat.updateChannelUsername:
-            updateChannelUsernamePermission.check(data, user, myCallBack);
+        case pv.api.chat.updateChannelUsername://test
+            updateChannelUsernamePermission.check(data, user, myCallBack,userHasThisChat);
             break;
         case pv.api.chat.setChatInfo:
             setChatInfoPermission.check(data, user, myCallBack);
