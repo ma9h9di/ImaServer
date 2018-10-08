@@ -20,8 +20,9 @@ function call(data, outputCallBack) {
     Promise.all([promiseAddChat, promiseAddUse]).then(function (values) {
         //todo khoroji injast dg harchi mikhay bego bedam
 
+        outputCallBack({data:{successful:true}})
     }).catch(reason => {
-
+        outputCallBack({data:{successful:false}})
     });
     // }).catch(error => {
     //

@@ -1,21 +1,22 @@
 const removeChatUserApi = require('../../API/Chat/removeChatUserApi');
 
-const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
-
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
+const ObjectID=require('mongodb').ObjectID;
+
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user, outputCallBack,userHasThisChat) {
         if (!data.hasOwnProperty('chatID')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
         }
-        if (!data.hasOwnProperty('userId')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userId']}).jsonErr());
+        if (!data.hasOwnProperty('userID')) {
+            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
             return;
         }
+        data.userID=new ObjectID(data.userID);
         const promiseUser = db.getUserByID(data.userID);
         promiseUser.then(userRemoveded => {
             const promiseUserWorkerHaveChat = userHasThisChat(data.chatID, user.chats);

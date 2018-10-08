@@ -23,7 +23,7 @@ function getChatUser(chat,post,limitShowMessageCount){
     return {
         post:post,
         chatType:chat.type,
-        accessModifier:chat.accessModifier,
+        // accessModifier:chat.accessModifier,
         lastAvalebalMessage:chat.messageCount-limitShowMessageCount,
         lastSeenMessage:chat.messageCount-limitShowMessageCount,
         chatID:chat._id,
