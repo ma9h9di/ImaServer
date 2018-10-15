@@ -9,7 +9,7 @@ function addContacts(user, contacts, callback) {
         var userCollection = mongoUtil.getDb().collection("Users");
 
 
-        userCollection.update(
+        userCollection.updateOne(
             {
                 phone_number: {$eq: user.phone_number}
             },

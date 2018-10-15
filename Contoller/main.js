@@ -41,8 +41,11 @@ module.exports = {
                             case pv.apiType.contact:
                                 soketFunction.contactEmit(client.id, sendData);
                                 break;
+                            case pv.apiType.chat:
+                                soketFunction.chatEmit(client.id, sendData);
+                                break;
                         }
-                    }
+                    };
 
                     mainPermission.check(decrypt_msg, client, outputCallback);
                 } catch (e) {

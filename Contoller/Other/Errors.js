@@ -141,7 +141,59 @@ var Errors = [ //if error occure data is nothing
         'message': 'Contact limitation reached. Try again later',
         'type': pv.apiType.contact,
         'error_data': {}
-    }
+    },
+
+    //chat
+
+    {
+        'title': 'This chat not found',
+        'code': pv.errCode.chat.chat_not_found,
+        'message': 'The chat id is wrong',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'This chat is private',
+        'code': pv.errCode.chat.access_denied_chat,
+        'message': 'Sorry, you do not have access to this chat because it is private',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'Access level denied',
+        'code': pv.errCode.chat.access_level_denied,
+        'message': 'Sorry, your access level is low',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'link size problem',
+        'code': pv.errCode.chat.link_size_problem,
+        'message': 'Link size is not appropriate',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'Title size problem',
+        'code': pv.errCode.chat.title_size_problem,
+        'message': 'Title size is not appropriate',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'username pattern denied',
+        'code': pv.errCode.chat.username_pattern_denied,
+        'message': 'Sorry, you can`t use this username',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'user exist',
+        'code': pv.errCode.chat.user_exist,
+        'message': 'Sorry, this user member chat!!!',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
 ];
 
 

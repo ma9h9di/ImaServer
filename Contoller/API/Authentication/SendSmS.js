@@ -1,13 +1,13 @@
-var crypto = require('crypto');
-var format = require('biguint-format');
-var pv = require('../../Other/PublicValue');
-var logd = require('../../Other/Funcion').logd;
+const crypto = require('crypto');
+const format = require('biguint-format');
+const pv = require('../../Other/PublicValue');
+const logd = require('../../Other/Funcion').logd;
 
 
 
 
 module.exports = function (user) {
-    var date=new Date().getTime();
+    const date=new Date().getTime();
     function randomVerifyNumber(qty) {
         return (format(crypto.randomBytes(qty), 'dec')+"").substr(0,pv.defaultValue.verifyCodeLength);
         // return '11111';
@@ -28,7 +28,7 @@ module.exports = function (user) {
     }
 
     function gnreateNewVerifyCode() {
-        var verifyCode = randomVerifyNumber(pv.defaultValue.verifyCodeLength);
+        const verifyCode = randomVerifyNumber(pv.defaultValue.verifyCodeLength);
         user.authentication.validationCode=verifyCode;
         user.authentication.validationCodeExpire=date+pv.defaultValue.ExpireVerifyCodeTime;
         //db.updateUser(user)
@@ -52,8 +52,8 @@ module.exports = function (user) {
         call: function (outputCallBack) {
             checkNeedNewVerifyCode();
             //sendSms
-            var request = require('request');
-            var option={
+            const request = require('request');
+            const option={
                 headers: {'content-type' : 'application/json'},
                 url:     pv.defaultValue.sendSmsServiceUrl,
                 body:    JSON.stringify(getSmsBody())

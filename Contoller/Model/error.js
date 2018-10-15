@@ -1,7 +1,7 @@
-var errors = require('../Other/Errors');
-var logd = require('../Other/Funcion').logd;
+const errors = require('../Other/Errors');
+const logd = require('../Other/Funcion').logd;
 
-var pv = require('../Other/PublicValue');
+const pv = require('../Other/PublicValue');
 
 class Error {
 
@@ -22,7 +22,6 @@ class Error {
 
     constructor(code, message, error_data) {
         this.mErr = this.findThisErr(code);
-        console.log('message err:', message);
         if (message !== undefined)
             this.mErr.message = message;
         if (error_data !== undefined)

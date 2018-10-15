@@ -25,6 +25,28 @@ function getUserByPhoneNumber_promise(phone_number) {
     });
 }
 
+function getUserByID(id) {
+    return new Promise(function (resolve, reject) {
+        try {
+            let userCollection = mongoUtil.getDb().collection("Users");
+            logd('getUserByID phoneNumber :', id);
+            userCollection.findOne({_id: {$eq: id}}, function (err, res) {
+                logd('getUserByID err :', err);
+                if (err) {
+                    reject(err);
+                }
+                if (!res) {
+                    res = false;
+                }
+                resolve(res);
+            });
+        } catch (e) {
+            logd(e);
+            reject(e);
+        }
+    });
+}
+
 function getUserByPhoneNumber(phone_number, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
@@ -75,7 +97,8 @@ module.exports =
     {
         getUserByPhoneNumber: getUserByPhoneNumber,
         getUserByPhoneNumber_promise:getUserByPhoneNumber_promise,
-        getUserByToken: getUserByToken
+        getUserByToken: getUserByToken,
+        getUserByID:getUserByID
 
     }
 ;

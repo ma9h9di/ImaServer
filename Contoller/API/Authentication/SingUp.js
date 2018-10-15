@@ -1,7 +1,4 @@
-var crypto = require('crypto');
-var biguint = require('biguint-format');
-var pv = require('../../Other/PublicValue');
-var logd = require('../../Other/Funcion').logd;
+const  logd = require('../../Other/Funcion').logd;
 
 
 module.exports = function (user) {

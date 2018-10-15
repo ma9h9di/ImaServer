@@ -1,24 +1,29 @@
 "use strict";
 
-var mongoUtil = require('../mongoUtil');
-var logd = require('../../Other/Funcion').logd;
+const mongoUtil = require('../mongoUtil');
+const logd = require('../../Other/Funcion').logd;
 
 // TODO exists query in mongo
-function checkChannelUsername(username, callback) {
-    try {
-        var userCollection = mongoUtil.getDb().collection("Chats");
-        userCollection.findOne({username: {$eq: username}}, function (err, res) {
-            if (err) {
-                throw err;
-            }
-            if (!res) {
-                callback(false);
-            }
-            callback(username);
-        });
-    } catch (e) {
-        logd(e);
-    }
+function checkChannelUsername(username,key) {
+    key=key?key:'username';
+    return new Promise((resolve, reject) => {
+        try {
+            const userCollection = mongoUtil.getDb().collection("Chats");
+            let where={};
+            where[key]={$eq: username};
+            userCollection.findOne(where, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                if (!res) {
+                    resolve(username);
+                }
+                resolve(false);
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 

@@ -1,31 +1,26 @@
-var getAllContacts = require('../../API/Contact/getAllContacts');
-var addContactsPermission = require('./addContactsPermissionCheck');
-var updateContact = require('./updateContactPermissionCheck');
-var err = require('../../Model/error');
-var logd = require('../../Other/Funcion').logd;
-var pv = require('../../Other/PublicValue');
-var db = require('../../DB/db');
-
+const getAllContacts = require('../../API/Contact/getAllContacts');
+const addContactsPermission = require('./addContactsPermissionCheck');
+const updateContact = require('./updateContactPermissionCheck');
+const err = require('../../Model/error');
+const pv = require('../../Other/PublicValue');
 function contactFormatValidation(contact) {
-    for (var key in contact) {
+    for (let key in contact) {
         if (key !== "first_name" && key !== "last_name" && key !== "phone_number") {
             return false;
         }
     }
-    if (!contact.hasOwnProperty("phone_number") || !contact.hasOwnProperty("first_name") || !contact.hasOwnProperty("last_name")) {
-        return false;
-    }
-    return true;
+    return !(!contact.hasOwnProperty("phone_number") || !contact.hasOwnProperty("first_name") || !contact.hasOwnProperty("last_name"));
+
 }
 
 module.exports = {
 
-    check: function (input, user, client, outputCallBack) {
+    check: function (input, user, outputCallBack) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo #DB
 
-        var data = input.data;
-
+        let data = input.data;
+        user.changeAttribute=[];
         switch (input.method) {
             case pv.api.contacts.getAllContacts:
                 getAllContacts.getAllContacts(user, outputCallBack);

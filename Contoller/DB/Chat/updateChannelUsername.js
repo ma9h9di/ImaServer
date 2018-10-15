@@ -1,24 +1,31 @@
 "use strict";
 
-var mongoUtil = require('../mongoUtil');
-var logd = require('../../Other/Funcion').logd;
+const mongoUtil = require('../mongoUtil');
+const logd = require('../../Other/Funcion').logd;
 
 
-function updateChannelUsername(username, callback) {
-    try {
-        var userCollection = mongoUtil.getDb().collection("Chats");
-        userCollection.updateOne({username: {$eq: username}}, {$set:{username: username}}, function (err, res) {
-            if (err) {
-                throw err;
-            }
-            if (!res) {
-                callback(false);
-            }
-            callback(username);
-        });
-    } catch (e) {
-        logd(e);
-    }
+function updateChannelUsername(chatID,username,key) {
+    key=key?key:'username';
+    return new Promise((resolve, reject) => {
+        try {
+            const userCollection = mongoUtil.getDb().collection("Chats");
+            let q={};
+            q[key]=username;
+            userCollection.updateOne({_id:{$eq: chatID}}, {$set: q}, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                if (!res) {
+                    resolve(false);
+                }
+                if (res.matchedCount>0)
+                    resolve(username);
+                resolve(false);
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 

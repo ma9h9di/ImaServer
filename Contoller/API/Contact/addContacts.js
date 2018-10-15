@@ -1,9 +1,9 @@
-var db = require("../../DB/db")
-let logd=require("../../Other/Funcion").logd;
+const db = require("../../DB/db");
+const logd = require("../../Other/Funcion").logd;
 
 function call(contacts, user, callback) {
-    var promise = [];
-    var lookedUpContacts = [];
+    let promise = [];
+    let lookedUpContacts = [];
     // TODO optimise query
     logd('in addContact Api');
     for (let i = 0; i < contacts.length; i++) {

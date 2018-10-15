@@ -1,21 +1,27 @@
 "use strict";
 
-var mongoUtil = require('../mongoUtil');
-var logd = require('../../Other/Funcion').logd;
+const mongoUtil = require('../mongoUtil');
+const logd = require('../../Other/Funcion').logd;
 
+const ObjectID = require('mongodb').ObjectID;
 
-function getChats(chatIDs) {
+function getChats(chatIDs,selectedField) {
     return new Promise((resolve, reject) => {
         try {
-            var userCollection = mongoUtil.getDb().collection("Chats");
-            userCollection.find({_id: {$in: chatIDs}}, function (err, res) {
+            const userCollection = mongoUtil.getDb().collection("Chats");
+            userCollection.find({_id: {$in:chatIDs}}).project(selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;
                 }
-                if (!res) {
-                    res = false;
+                if (!result) {
+                    result = [];
                 }
-                resolve(res);
+                let propArray=[];
+                for (let i = 0; i < result.length; i++) {
+                    propArray.push(result[i]);
+                }
+                // db.close();
+                resolve(propArray);
             });
         } catch (e) {
             reject(e);
