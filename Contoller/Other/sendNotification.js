@@ -1,11 +1,11 @@
 var admin = require("firebase-admin");
 var logd=require('./Funcion').logd;
 module.exports = {
-    sendNotification:function(token,message,title,callback){
-        var message = {
+    sendNotification:function(token,body,title,callback){
+        const message = {
             notification: {
                 title: title,
-                body: message
+                body: body
             },
             token:token
         };

@@ -1,5 +1,6 @@
 const getFullChatPermission = require('./getFullChatPermission');
 const getChatsPermission = require('./getChatsPermission');
+const getSortedUpdatedChatListPermission = require('./getSortedUpdatedChatListPermission');
 const checkChannelUsernamePermission = require('./checkChannelUsernamePermission');
 const updateChannelUsernamePermission = require('./updateChannelUsernamePermission');
 const setChatInfoPermission = require('./setChatInfoPermission');
@@ -42,25 +43,28 @@ function findMethodPermission(input, user, myCallBack) {
     let data = input.data;
     switch (input.method) {
         case pv.api.chat.getFullChat://test
-            getFullChatPermission.check(data, user, myCallBack,userHasThisChat);
+            getFullChatPermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.getChats://test
             getChatsPermission.check(data, myCallBack);
             break;
+        case pv.api.chat.getSortedUpdatedChatList:
+            getSortedUpdatedChatListPermission.check(data,user, myCallBack);
+            break;
         case pv.api.chat.checkChannelUsername://test
-            checkChannelUsernamePermission.check(data, user, myCallBack,userHasThisChat);
+            checkChannelUsernamePermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.updateChannelUsername://test
-            updateChannelUsernamePermission.check(data, user, myCallBack,userHasThisChat);
+            updateChannelUsernamePermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.setChatInfo://test
-            setChatInfoPermission.check(data, user, myCallBack,userHasThisChat);
+            setChatInfoPermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.addChatUser://test
-            addChatUserPermission.check(data, user, myCallBack,userHasThisChat);
+            addChatUserPermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.removeUser://test
-            removeUserPermission.check(data, user, myCallBack,userHasThisChat);
+            removeUserPermission.check(data, user, myCallBack, userHasThisChat);
             break;
         case pv.api.chat.deleteChat:
             //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
@@ -81,10 +85,10 @@ function findMethodPermission(input, user, myCallBack) {
         case pv.api.chat.getLink:
             getLinkPermission.check(data, user, myCallBack);
             break;
-         case pv.api.chat.getPin:
-             getPinPermission.check(user, myCallBack);
+        case pv.api.chat.getPin:
+            getPinPermission.check(user, myCallBack);
             break;
-         case pv.api.chat.setPin:
+        case pv.api.chat.setPin:
             setPinPermission.check(data, user, myCallBack);
             break;
 
@@ -94,6 +98,7 @@ function findMethodPermission(input, user, myCallBack) {
 
     }
 }
+
 module.exports = {
 
     check: function (input, user, outputCallBack) {
@@ -106,6 +111,6 @@ module.exports = {
 
 
     },
-    userHasThisChat:userHasThisChat
+    userHasThisChat: userHasThisChat
 };
 

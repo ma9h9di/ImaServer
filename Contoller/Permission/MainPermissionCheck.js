@@ -11,6 +11,7 @@ function check(input, client, outputCallBack) {
 
     var callBackAfterUser = function (user) {
         var date = new Date().getTime();
+        logd("method is :=====> ",input.method);
         switch (input.method) {
             case pv.api.authentication.checkPhone:
             case pv.api.authentication.sendCode:
@@ -21,10 +22,12 @@ function check(input, client, outputCallBack) {
             case pv.api.authentication.removeSession:
                 authenticationPermission.check(input, user, client, (authenticationPermissionResult) => {
                     authenticationPermissionResult.type = pv.apiType.authentication;
-                    user.lastActivityTime = date;
-                    user.lastProfileChange = date;
-                    db.updateUserByPhoneNumber(user, (newUser) => {
-                    });
+                    if (user) {
+                        user.lastActivityTime = date;
+                        user.lastProfileChange = date;
+                        db.updateUserByPhoneNumber(user, (newUser) => {
+                        });
+                    }
                     outputCallBack(authenticationPermissionResult);
                 });
 
@@ -41,13 +44,15 @@ function check(input, client, outputCallBack) {
                     contactPermissionResult.type = pv.apiType.contact;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
-                    db.updateUserByMongoID(user.changeAttribute,user, (newUser) => {});
+                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
+                    });
                     outputCallBack(contactPermissionResult);
                 });
 
                 return;
             case pv.api.chat.getFullChat:
             case pv.api.chat.getChats:
+            case pv.api.chat.getSortedUpdatedChatList:
             case pv.api.chat.checkChannelUsername:
             case pv.api.chat.updateChannelUsername:
             case pv.api.chat.setChatInfo:
@@ -71,7 +76,8 @@ function check(input, client, outputCallBack) {
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
 
-                    db.updateUserByMongoID(user.changeAttribute,user, (newUser) => {});
+                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
+                    });
                     outputCallBack(contactPermissionResult);
                 });
                 return;

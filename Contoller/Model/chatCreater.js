@@ -28,6 +28,8 @@ function getChatUser(chat,post,limitShowMessageCount){
         lastSeenMessage:chat.messageCount-limitShowMessageCount,
         chatID:chat._id,
         joinTime:new Date().getTime(),
+        changeChatTime:new Date().getTime(),//when name or title change when dont use
+        UpdateChatTime:new Date().getTime(),//when new message ke chat bekhad biad bala
     };
 }
 
