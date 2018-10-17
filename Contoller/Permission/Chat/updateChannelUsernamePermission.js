@@ -5,11 +5,11 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data, user, outputCallBack,userHasThisChat) {
-        checkChannelUsernamePermission(userHasThisChat,data,user,outputCallBack, (userChatInfo) => {
-            updateChannelUsernameApi.call(userChatInfo,data.newUsername, outputCallBack);
+    check: function (data, user, outputCallBack, userHasThisChat) {
+        checkChannelUsernamePermission(userHasThisChat, data, user, outputCallBack, (userChatInfo) => {
+            updateChannelUsernameApi.call(userChatInfo, data.newUsername, outputCallBack);
 
         });
-        
+
     }
 };

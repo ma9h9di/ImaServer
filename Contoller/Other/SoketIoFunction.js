@@ -1,4 +1,4 @@
-const logd=require('./Funcion').logd;
+const logd = require('./Funcion').logd;
 module.exports = function (io) {
     function oneSessionEmit(socketId, sendData) {
         const date = new Date();
@@ -22,7 +22,7 @@ module.exports = function (io) {
         },
         chatEmit: function (socketId, sendData) {
             oneSessionEmit(socketId, sendData);
-            logd('send in '+sendData.event,sendData.data);
+            logd('send in ' + sendData.event, sendData.data);
             // io.of('/main').connected[socketId].emit('disconnect');
         },
         ErrorEmit: function (socketId, sendData) {

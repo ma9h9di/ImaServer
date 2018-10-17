@@ -3,13 +3,13 @@ const getChatsApi = require("./getChatsApi");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 
-function call(lastUpdateTime,user, outputCallBack) {
-    let chatIDs=[];
+function call(lastUpdateTime, user, outputCallBack) {
+    let chatIDs = [];
     user.chats.forEach(value => {
-        if (value.UpdateChatTime>lastUpdateTime)
+        if (value.UpdateChatTime > lastUpdateTime)
             chatIDs.push(value);
     });
-    getChatsApi.call(chatIDs,outputCallBack);
+    getChatsApi.call(chatIDs, outputCallBack);
 
 }
 

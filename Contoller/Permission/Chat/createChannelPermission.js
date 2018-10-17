@@ -10,7 +10,7 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
             return;
         }
-        if ((data.title+'').length<pv.support.minTitleSize) {
+        if ((data.title + '').length < pv.support.minTitleSize) {
             outputCallBack(new err(pv.errCode.chat.title_size_problem).jsonErr());
             return;
         }
@@ -18,11 +18,11 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
             return;
         }
-        data.description=data.description.substring(0, pv.defaultValue.descriptionLength);
+        data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
 
         //TODO: age gharar shod tedad groh sakhtano check konim injast
 
-        createChannelApi.call(data,user, outputCallBack);
+        createChannelApi.call(data, user, outputCallBack);
 
 
     }

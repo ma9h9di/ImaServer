@@ -49,7 +49,7 @@ function findMethodPermission(input, user, myCallBack) {
             getChatsPermission.check(data, myCallBack);
             break;
         case pv.api.chat.getSortedUpdatedChatList:
-            getSortedUpdatedChatListPermission.check(data,user, myCallBack);
+            getSortedUpdatedChatListPermission.check(data, user, myCallBack);
             break;
         case pv.api.chat.checkChannelUsername://test
             checkChannelUsernamePermission.check(data, user, myCallBack, userHasThisChat);

@@ -13,17 +13,17 @@ const allApi = {
         updateContact: 'updateContact',
         addContacts: 'addContacts',
     },
-    chat:{
-        getFullChat:'getFullChat',
-        getChats:'getChats',
-        getSortedUpdatedChatList:'getSortedUpdatedChatList',
-        checkChannelUsername:'checkChannelUsername',
-        updateChannelUsername:'updateChannelUsername',
-        setChatInfo:'setChatInfo',
-        addChatUser:'addChatUser',
-        removeUser:'removeUser',
-        deleteChat:'deleteChat',
-        createGroup:'createGroup',
+    chat: {
+        getFullChat: 'getFullChat',
+        getChats: 'getChats',
+        getSortedUpdatedChatList: 'getSortedUpdatedChatList',
+        checkChannelUsername: 'checkChannelUsername',
+        updateChannelUsername: 'updateChannelUsername',
+        setChatInfo: 'setChatInfo',
+        addChatUser: 'addChatUser',
+        removeUser: 'removeUser',
+        deleteChat: 'deleteChat',
+        createGroup: 'createGroup',
         createChannel: 'createChannel',
         createShop: 'createShop',
         setLink: 'setLink',
@@ -54,15 +54,15 @@ const supportValue = {
         superAdmin: accessLevel.superAdmin,
         admin: accessLevel.admin,
         member: accessLevel.member,
-        accessLevel : [
+        accessLevel: [
             accessLevel.member,
             accessLevel.admin,
             accessLevel.superAdmin,
         ]
     },
     minLinkSize: 10,
-    minTitleSize:1,
-    fullChatKey:[
+    minTitleSize: 1,
+    fullChatKey: [
         '_id',
         'title',
         'type',
@@ -74,35 +74,35 @@ const supportValue = {
         'description',
         'accessModifier'
     ],
-    limitedChatKey:{
+    limitedChatKey: {
         // '_id':1,
-        'title':1,
-        'type':1,
-        'photoURL':1,
+        'title': 1,
+        'type': 1,
+        'photoURL': 1,
     },
-    chatUpdate:[
+    chatUpdate: [
         'title',
         'photoURL',
         'description',
         'accessModifier'
 
     ],
-    accessModifier:{
-        private:'private',
-        public:'public'
+    accessModifier: {
+        private: 'private',
+        public: 'public'
     },
-    chatType:{
-        group:'group',
-        channel:'channel',
-        shop:'shop'
+    chatType: {
+        group: 'group',
+        channel: 'channel',
+        shop: 'shop'
     },
-    groupType:{
-        normal:'normal',
-        super:'super'
+    groupType: {
+        normal: 'normal',
+        super: 'super'
     },
-    usernamePattern:{
-        channel:new RegExp("([A-Za-z0-9])+_channel"),
-        shop:new RegExp("([A-Za-z0-9])+_shop"),
+    usernamePattern: {
+        channel: new RegExp("([A-Za-z0-9])+_channel"),
+        shop: new RegExp("([A-Za-z0-9])+_shop"),
     }
 };
 

@@ -8,11 +8,11 @@ function call(chatIDs, callback) {
     for (let i = 0; i < chatIDs.length; i++) {
         chatIDs[i] = new ObjectID(chatIDs[i]);
     }
-    const promise=db.getChats(chatIDs,pv.support.limitedChatKey);
+    const promise = db.getChats(chatIDs, pv.support.limitedChatKey);
     promise.then(value => {
         //Todo:inja bayad run konm test konm bbinm chi mishe
         logd('in the getChats', value);
-        callback({data:{chatInfos:value}})
+        callback({data: {chatInfos: value}})
     }).catch(error => {
 
     })

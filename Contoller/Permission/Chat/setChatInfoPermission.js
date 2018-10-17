@@ -5,7 +5,7 @@ const pv = require('../../Other/PublicValue');
 const db = require('../../DB/mongoUtil');
 
 module.exports = {
-    check: function (data, user, outputCallBack,userHasThisChat) {
+    check: function (data, user, outputCallBack, userHasThisChat) {
         if (!data.hasOwnProperty('chatID')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
@@ -14,7 +14,7 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
             return;
         }
-        if ((data.title+'').length<pv.support.minTitleSize) {
+        if ((data.title + '').length < pv.support.minTitleSize) {
 
             outputCallBack(new err(pv.errCode.chat.title_size_problem).jsonErr());
             return;
@@ -24,13 +24,13 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
             return;
         }
-        data.description=data.description.substring(0, pv.defaultValue.descriptionLength);
+        data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
 
         if (!data.hasOwnProperty('accessModifier')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['accessModifier']}).jsonErr());
             return;
         }
-        data.accessModifier=data.accessModifier===pv.support.accessModifier.public?data.accessModifier:pv.support.accessModifier.private;
+        data.accessModifier = data.accessModifier === pv.support.accessModifier.public ? data.accessModifier : pv.support.accessModifier.private;
         let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
         promiseUserHaveChat.then(userHaveChat => {
             setChatInfoApi.call(data, outputCallBack);

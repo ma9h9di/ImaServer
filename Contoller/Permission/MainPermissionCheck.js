@@ -11,7 +11,7 @@ function check(input, client, outputCallBack) {
 
     var callBackAfterUser = function (user) {
         var date = new Date().getTime();
-        logd("method is :=====> ",input.method);
+        logd("method is :=====> ", input.method);
         switch (input.method) {
             case pv.api.authentication.checkPhone:
             case pv.api.authentication.sendCode:

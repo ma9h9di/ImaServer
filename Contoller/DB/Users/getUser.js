@@ -96,9 +96,9 @@ function getUserByToken(token, callback) {
 module.exports =
     {
         getUserByPhoneNumber: getUserByPhoneNumber,
-        getUserByPhoneNumber_promise:getUserByPhoneNumber_promise,
+        getUserByPhoneNumber_promise: getUserByPhoneNumber_promise,
         getUserByToken: getUserByToken,
-        getUserByID:getUserByID
+        getUserByID: getUserByID
 
     }
 ;

@@ -1,21 +1,21 @@
 var warning = require('../Other/Warning');
-var logd=require('../Other/Funcion').logd;
+var logd = require('../Other/Funcion').logd;
 
 var pv = require('../Other/PublicValue');
 
 class Warning {
 
-    jsonWarning(){
+    jsonWarning() {
         return {
-            warning:[this.mWarn],
-            type:pv.apiType.warning
+            warning: [this.mWarn],
+            type: pv.apiType.warning
         }
     }
 
     findThisWarning(code) {
         logd(code);
         for (let i = 0; i < warning.warn.length; i++) {
-            if (warning.warn[i].code===code)
+            if (warning.warn[i].code === code)
                 return warning.warn[i];
         }
     }
@@ -31,4 +31,5 @@ class Warning {
 
 
 }
+
 module.exports = Warning;

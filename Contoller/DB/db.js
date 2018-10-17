@@ -14,17 +14,17 @@ const getAllContacts = require('./Contact/getAllContacts');
 const addContacts = require('./Contact/addContacts');
 const updateContact = require('./Contact/updateContact');
 
-const getChat=require('./Chat/getChat');
-const getChats=require('./Chat/getChats');
+const getChat = require('./Chat/getChat');
+const getChats = require('./Chat/getChats');
 const checkChannelUsername = require('./Chat/checkChannelUsername');
-const updateChannelUsername=require('./Chat/updateChannelUsername');
-const updateChatByMongoID=require('./Chat/updateChat');
-const addOrRemoveMember=require('./Chat/addOrRemoveMember');
-const createChat=require('./Chat/createChat');
+const updateChannelUsername = require('./Chat/updateChannelUsername');
+const updateChatByMongoID = require('./Chat/updateChat');
+const addOrRemoveMember = require('./Chat/addOrRemoveMember');
+const createChat = require('./Chat/createChat');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
-    getUserByPhoneNumber_promise:getUser.getUserByPhoneNumber_promise,
+    getUserByPhoneNumber_promise: getUser.getUserByPhoneNumber_promise,
     getUserByToken: getUser.getUserByToken,
     getUserByID: getUser.getUserByID,
     insertUser: setUser.insertUser,
@@ -44,8 +44,8 @@ module.exports = {
     addContacts: addContacts.addContacts,
     updateContact: updateContact.updateContact,
 
-    getChatByChatId:getChat.getChatByChatId,
-    getChats:getChats.getChats,
+    getChatByChatId: getChat.getChatByChatId,
+    getChats: getChats.getChats,
     checkChannelUsername: checkChannelUsername.checkChannelUsername,
     updateChannelUsername: updateChannelUsername.updateChannelUsername,
     updateChatByMongoID: updateChatByMongoID.updateChatByMongoID,
