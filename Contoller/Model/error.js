@@ -5,6 +5,14 @@ const pv = require('../Other/PublicValue');
 
 class Error {
 
+    constructor(code, message, error_data) {
+        this.mErr = this.findThisErr(code);
+        if (message !== undefined)
+            this.mErr.message = message;
+        if (error_data !== undefined)
+            this.mErr.error_data = error_data;
+    }
+
     jsonErr() {
         return {
             error: [this.mErr],
@@ -18,14 +26,6 @@ class Error {
             if (errors.err[i].code === code)
                 return JSON.parse(JSON.stringify(errors.err[i]));
         }
-    }
-
-    constructor(code, message, error_data) {
-        this.mErr = this.findThisErr(code);
-        if (message !== undefined)
-            this.mErr.message = message;
-        if (error_data !== undefined)
-            this.mErr.error_data = error_data;
     }
 
 

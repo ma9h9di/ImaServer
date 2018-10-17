@@ -34,15 +34,15 @@ function getChatUser(chat, post, limitShowMessageCount) {
 }
 
 class Chat {
-    getInit() {
-        return this.chatJson
-    }
-
     constructor(title, description, userCreator) {
         this.chatJson = getDefaultsChat(userCreator);
         this.chatJson.title = title;
         this.chatJson.description = description;
 
+    }
+
+    getInit() {
+        return this.chatJson
     }
 
 

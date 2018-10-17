@@ -5,6 +5,15 @@ var pv = require('../Other/PublicValue');
 
 class Warning {
 
+    constructor(code, message, error_data) {
+        this.mWarn = this.findThisWarning(code);
+        // console.log('find %j',this.mWarn);
+        if (message !== undefined)
+            this.mWarn.message = message;
+        if (error_data !== undefined)
+            this.mWarn.error_data = error_data;
+    }
+
     jsonWarning() {
         return {
             warning: [this.mWarn],
@@ -18,15 +27,6 @@ class Warning {
             if (warning.warn[i].code === code)
                 return warning.warn[i];
         }
-    }
-
-    constructor(code, message, error_data) {
-        this.mWarn = this.findThisWarning(code);
-        // console.log('find %j',this.mWarn);
-        if (message !== undefined)
-            this.mWarn.message = message;
-        if (error_data !== undefined)
-            this.mWarn.error_data = error_data;
     }
 
 
