@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var _db;
 
 function connectToServer(callback) {
-    // TODO Release: change develop user to release user
+    // TODO Release: change develop user to release user, change url to localhost
     console.log("before DB");
     var url = 'mongodb://mahdi:bfnvlndlfnlkd@198.143.180.99:27017/ima';
     MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
