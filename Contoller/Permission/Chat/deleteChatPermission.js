@@ -4,7 +4,7 @@ const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
-const db = require('../../DB/mongoUtil');
+const db = require('../../DB/db');
 
 module.exports = {
     check: function (data, user, outputCallBack) {
