@@ -1,12 +1,12 @@
 "use strict";
-
+const stream = require('stream');
 var mongoUtil = require('../mongoUtil');
 var mongodb = require('mongodb');
 var assert = require('assert');
 var fs = require('fs');
 var logd = require('../../Other/Funcion').logd;
 
-function saveFile(stream1) {
+function saveFile(image) {
     return new Promise((resolve, reject) => {
 
 
@@ -19,21 +19,21 @@ function saveFile(stream1) {
         //     console.log('done!');
         //     process.exit(0);
         // });
-        var stream = require('stream');
+        // var stream = require('stream');
 
 // Initiate the source
         var bufferStream = new stream.PassThrough();
 
 // Write your buffer
-        bufferStream.end(stream1);
-        bufferStream.pipe(bucket.openUploadStream('uploadeeeed.file')).on('error', function (error) {
+        bufferStream.end(image.buffer);
+        bufferStream.pipe(bucket.openUploadStream(image.originalname)).on('error', function (error) {
             reject(error);
             assert.ifError(error);
 
-        }).on('finish', function () {
-            resolve('done');
+        }).on('finish', function (result) {
+            const dataRe={id:result._id};
+            resolve(dataRe);
             console.log('done!');
-            process.exit(0);
         });
     })
 }
