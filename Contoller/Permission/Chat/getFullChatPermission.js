@@ -2,9 +2,8 @@ const getFullChatApi = require('../../API/Chat/getFullChatApi');
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
-const db =require('../../DB/db');
-const USER_JOINED_CHAT=5698;
-
+const db = require('../../DB/db');
+const USER_JOINED_CHAT = 5698;
 
 
 module.exports = {

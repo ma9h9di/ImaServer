@@ -4,6 +4,7 @@ const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
 
 // TODO exists query in mongo
+// TODO increment member count
 function addMemberToChat(userID, chatID) {
     return new Promise((resolve, reject) => {
         try {

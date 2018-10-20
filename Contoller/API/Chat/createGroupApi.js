@@ -7,8 +7,8 @@ const err = require('../../Model/error');
 const getFullChat = require('./getFullChatApi');
 
 
-function call(data,user, outputCallBack) {
-    let newGroup=new groupCrater(data.title,data.description,user).getInit();
+function call(data, user, outputCallBack) {
+    let newGroup = new groupCrater(data.title, data.description, user).getInit();
     const promiseAddChat = db.createChat(newGroup);
     promiseAddChat.then(chat => {
         const promiseAddUse = db.joinChat(user._id, require("../../Model/chatCreater").getChatUser(chat));
@@ -21,9 +21,6 @@ function call(data,user, outputCallBack) {
     }).catch(error => {
         outputCallBack(new err(pv.errCode.internal_err).jsonErr());
     });
-
-
-
 
 
 }

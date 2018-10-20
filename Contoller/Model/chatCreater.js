@@ -17,27 +17,23 @@ function getDefaultsChat(user) {
     }
 }
 
-function getChatUser(chat,post,limitShowMessageCount){
-    limitShowMessageCount=limitShowMessageCount?limitShowMessageCount:0;
-    post=post?post:pv.support.access.superAdmin;
+function getChatUser(chat, post, limitShowMessageCount) {
+    limitShowMessageCount = limitShowMessageCount ? limitShowMessageCount : 0;
+    post = post ? post : pv.support.access.superAdmin;
     return {
-        post:post,
-        chatType:chat.type,
+        post: post,
+        chatType: chat.type,
         // accessModifier:chat.accessModifier,
-        lastAvalebalMessage:chat.messageCount-limitShowMessageCount,
-        lastSeenMessage:chat.messageCount-limitShowMessageCount,
-        chatID:chat._id,
-        joinTime:new Date().getTime(),
-        changeChatTime:new Date().getTime(),//when name or title change when dont use
-        UpdateChatTime:new Date().getTime(),//when new message ke chat bekhad biad bala
+        lastAvalebalMessage: chat.messageCount - limitShowMessageCount,
+        lastSeenMessage: chat.messageCount - limitShowMessageCount,
+        chatID: chat._id,
+        joinTime: new Date().getTime(),
+        changeChatTime: new Date().getTime(),//when name or title change when dont use
+        UpdateChatTime: new Date().getTime(),//when new message ke chat bekhad biad bala
     };
 }
 
 class Chat {
-    getInit() {
-        return this.chatJson
-    }
-
     constructor(title, description, userCreator) {
         this.chatJson = getDefaultsChat(userCreator);
         this.chatJson.title = title;
@@ -45,10 +41,14 @@ class Chat {
 
     }
 
+    getInit() {
+        return this.chatJson
+    }
+
 
 }
 
-class Group extends Chat{
+class Group extends Chat {
 
     constructor(title, description, userCreator) {
         super(title, description, userCreator);
@@ -59,7 +59,8 @@ class Group extends Chat{
 
 
 }
-class Channel extends Chat{
+
+class Channel extends Chat {
 
     constructor(title, description, userCreator) {
         super(title, description, userCreator);
@@ -69,7 +70,8 @@ class Channel extends Chat{
 
 
 }
-class Shop extends Channel{
+
+class Shop extends Channel {
 
     constructor(title, description, userCreator) {
         super(title, description, userCreator);
@@ -81,7 +83,8 @@ class Shop extends Channel{
 }
 
 module.exports = {
-    Group:Group,
-    Channel:Channel,
-    Shop:Shop,
-    getChatUser:getChatUser};
+    Group: Group,
+    Channel: Channel,
+    Shop: Shop,
+    getChatUser: getChatUser
+};

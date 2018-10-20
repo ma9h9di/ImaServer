@@ -6,13 +6,13 @@ const db = require('../../DB/db');
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-    check: function (data, user, outputCallBack,userHasThisChat) {
+    check: function (data, user, outputCallBack, userHasThisChat) {
         if (!data.hasOwnProperty('chatID')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             return;
         }
         if (!data.hasOwnProperty('limitShowMessageCount')) {
-            data.limitShowMessageCount=0;
+            data.limitShowMessageCount = 0;
             //TODO inja bayd bayad warning bedim ke begin khodemon defulto 0 kardim
         }
 
@@ -41,8 +41,6 @@ module.exports = {
         }).catch(error => {
             outputCallBack(error)
         })
-
-
 
 
     }

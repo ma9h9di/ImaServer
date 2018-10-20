@@ -10,7 +10,7 @@ module.exports = {
             return;
         }
 
-        let updateContact=data.contact;
+        let updateContact = data.contact;
 
         if (!updateContact.hasOwnProperty('first_name')) {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['first_name']}).jsonErr());

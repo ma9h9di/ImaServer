@@ -37,7 +37,7 @@ module.exports = {
                 return;
             }
             else {
-                if (pv.support.country.indexOf(data.country)<0) {
+                if (pv.support.country.indexOf(data.country) < 0) {
                     outputCallBack(new err(pv.errCode.authentication.country_not_support).jsonErr());
                     return;
                 }

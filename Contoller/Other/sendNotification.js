@@ -1,13 +1,13 @@
 var admin = require("firebase-admin");
-var logd=require('./Funcion').logd;
+var logd = require('./Funcion').logd;
 module.exports = {
-    sendNotification:function(token,body,title,callback){
+    sendNotification: function (token, body, title, callback) {
         const message = {
             notification: {
                 title: title,
                 body: body
             },
-            token:token
+            token: token
         };
 
 // Send a message to devices subscribed to the combination of topics

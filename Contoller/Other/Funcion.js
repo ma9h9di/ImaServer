@@ -40,11 +40,12 @@ const logd = function (name, str) {
 };
 
 function randomString(length) {
-    const chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
     let result = '';
     for (let i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
     return result;
 }
+
 logd("create Function", " hello");
 exports.logd = logd;
 exports.randomString = randomString;

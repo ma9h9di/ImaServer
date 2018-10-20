@@ -3,6 +3,7 @@ const addContactsPermission = require('./addContactsPermissionCheck');
 const updateContact = require('./updateContactPermissionCheck');
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
+
 function contactFormatValidation(contact) {
     for (let key in contact) {
         if (key !== "first_name" && key !== "last_name" && key !== "phone_number") {
@@ -20,7 +21,7 @@ module.exports = {
         //todo #DB
 
         let data = input.data;
-        user.changeAttribute=[];
+        user.changeAttribute = [];
         switch (input.method) {
             case pv.api.contacts.getAllContacts:
                 getAllContacts.getAllContacts(user, outputCallBack);
@@ -33,7 +34,7 @@ module.exports = {
                         return;
                     }
                 }
-                addContactsPermission.check(data.contacts,user,outputCallBack); // todo
+                addContactsPermission.check(data.contacts, user, outputCallBack); // todo
                 break;
             case pv.api.contacts.updateContact:
                 updateContact.check(user, data, outputCallBack);
