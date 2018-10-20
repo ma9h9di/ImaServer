@@ -52,5 +52,6 @@ module.exports = {
     addMemberToChat: addOrRemoveMember.addMemberToChat,
     removeMemberFromChat: addOrRemoveMember.removeMemberFromChat,
     createChat: createChat.createChat,
+
 };
 

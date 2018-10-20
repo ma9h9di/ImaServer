@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoUtil = require('./Contoller/DB/mongoUtil');
 var fileUploaderRouter = require('./routes/fileUploaderRouter');
+var fileDownloaderRouter = require('./routes/fileDownloaderRouter');
 // var usersRouter = require('./routes/users');
 
 var db = require('./Contoller/DB/db');
@@ -31,6 +32,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/fileUploader', fileUploaderRouter);
+app.use('/fileDownloader', fileDownloaderRouter);
 // app.use('/users', usersRouter);
 // app.use('/users', mainRouter);
 

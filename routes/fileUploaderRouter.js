@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const db=require('../Contoller/DB/File/saveFile');
+const db=require('../Contoller/DB/db');
 let multer = require('multer');
 let upload = multer();
 
-/* GET home page. */
+/* POST home page. */
 router.post('/', upload.fields([{ name: 'image', maxCount: 1 }]), (request, response,next) => {
-    console.log('----------------- on post -----------------------------');
+    console.log('----------------- on post upload image -----------------------------');
     let imageData=request.files.image[0];
 
     const promisSaveFile= db.saveFile(imageData);
