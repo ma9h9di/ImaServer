@@ -72,13 +72,15 @@ const supportValue = {
         'username',
         'link',
         'description',
-        'accessModifier'
+        'accessModifier',
+
     ],
     limitedChatKey: {
         // '_id':1,
         'title': 1,
         'type': 1,
         'photoURL': 1,
+
     },
     chatUpdate: [
         'title',

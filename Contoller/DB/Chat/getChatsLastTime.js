@@ -8,7 +8,7 @@ function getChatsLastTime(chats) {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
 
-            userCollection.find({_id: {$in: chats}}, {lastMessageTime: 1}).toArray(function (err, res) {
+            userCollection.find({_id: {$in: chats}}).project({lastMessageTime: 1}).toArray(function (err, res) {
                 if (err) {
                     throw err;
                 }

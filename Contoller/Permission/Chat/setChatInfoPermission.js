@@ -11,26 +11,25 @@ module.exports = {
             return;
         }
         if (!data.hasOwnProperty('title')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
-            return;
-        }
-        if ((data.title + '').length < pv.support.minTitleSize) {
+            // outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
+            // return;
+        } else if ((data.title + '').length < pv.support.minTitleSize) {
 
             outputCallBack(new err(pv.errCode.chat.title_size_problem).jsonErr());
             return;
         }
 
         if (!data.hasOwnProperty('description')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
-            return;
-        }
-        data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
+            // outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
+            // return;
+        } else
+            data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
 
         if (!data.hasOwnProperty('accessModifier')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['accessModifier']}).jsonErr());
-            return;
-        }
-        data.accessModifier = data.accessModifier === pv.support.accessModifier.public ? data.accessModifier : pv.support.accessModifier.private;
+            // outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['accessModifier']}).jsonErr());
+            // return;
+        } else
+            data.accessModifier = data.accessModifier === pv.support.accessModifier.public ? data.accessModifier : pv.support.accessModifier.private;
         let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
         promiseUserHaveChat.then(userHaveChat => {
             setChatInfoApi.call(data, outputCallBack);

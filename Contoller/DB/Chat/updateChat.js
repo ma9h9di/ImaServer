@@ -10,7 +10,8 @@ function updateChatByMongoID(changedKeysArray, newChat) {
             const userCollection = mongoUtil.getDb().collection("Chats");
             let tempUser = {};
             for (let i = 0; i < changedKeysArray.length; i++) {
-                tempUser[changedKeysArray[i]] = newChat[changedKeysArray[i]];
+                if (newChat.hasOwnProperty(changedKeysArray[i]))
+                    tempUser[changedKeysArray[i]] = newChat[changedKeysArray[i]];
             }
             userCollection.updateOne({_id: newChat._id}, {$set: tempUser}, function (err, res) {
                 if (err) {
