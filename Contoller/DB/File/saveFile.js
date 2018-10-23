@@ -26,7 +26,8 @@ function saveFile(image) {
 
 // Write your buffer
         bufferStream.end(image.buffer);
-        bufferStream.pipe(bucket.openUploadStream(image.originalname)).on('error', function (error) {
+        bufferStream.metadata=image.metadata;
+        bufferStream.pipe(bucket.openUploadStream(image.originalname,image)).on('error', function (error) {
             reject(error);
             assert.ifError(error);
 

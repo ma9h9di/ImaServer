@@ -1,8 +1,0 @@
-
-
-DB.getUser(userID, needed fields)
-
-json haye lazem
-sikh mizanim rosh
-
-return esh mikonim.

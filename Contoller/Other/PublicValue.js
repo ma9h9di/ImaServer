@@ -30,6 +30,19 @@ const allApi = {
         getLink: 'getLink',
         getPin: 'getPin',
         setPin: 'setPin',
+    },
+    user:{
+        getUsersInfo:'getUsersInfo',
+        getFullUserInfo:'getFullUserInfo',
+    },
+    uploadApi:{
+        profileUpload:{
+            user:'userUploadProfile',
+            chat:'chatUploadProfile',
+        }
+    },
+    downloadApi:{
+        profileImage:'profileImage'
     }
 };
 
@@ -73,6 +86,7 @@ const supportValue = {
         'link',
         'description',
         'accessModifier',
+        'changeChatTime'
 
     ],
     limitedChatKey: {
@@ -80,14 +94,37 @@ const supportValue = {
         'title': 1,
         'type': 1,
         'photoURL': 1,
+        'changeChatTime':1
+
+    },
+    userInfoKey: {
+        // '_id':1,
+        'profileImage':1,
+        'lastActivityTime': 1,
+        'lastProfileChange': 1,
+        'firstName': 1,
+        'lastName': 1,
+        'bio': 1,
+        'userID': 1,
+        'email': 1,
+
+    },
+    limitedUserKey: {
+        // '_id':1,
+        'lastActivityTime': 1,
+        'firstName': 1,
+        'lastName': 1,
+        'profileImage':1,
+        'userID': 1,
+        'lastProfileChange': 1
 
     },
     chatUpdate: [
         'title',
         'photoURL',
         'description',
-        'accessModifier'
-
+        'accessModifier',
+        'changeChatTime'
     ],
     accessModifier: {
         private: 'private',
@@ -189,6 +226,14 @@ const errCode = {
         user_exist: 'user_exist',
     },
 };
+const fileType={
+    UserProfileImage:'UserProfileImage',
+    ChatProfileImage:'ChatProfileImage',
+};
+
+const fileCategory={
+    profile:'profile'
+};
 
 module.exports = {
     api: allApi,
@@ -205,4 +250,8 @@ module.exports = {
 
     errCode: errCode,
 
-}
+    fileType:fileType,
+
+    fileCategory:fileCategory
+
+};

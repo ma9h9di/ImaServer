@@ -2,18 +2,21 @@
 
 const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
-
+const setChatsLastTime=require('./setChatsLastTime').setChatsLastTime;
 
 function updateChatByMongoID(changedKeysArray, newChat) {
+    newChat.changeChatTime=new Date().getTime();
+    changedKeysArray.push('changeChatTime');
+    setChatsLastTime(newChat);
     return new Promise((resolve, reject) => {
         try {
-            const userCollection = mongoUtil.getDb().collection("Chats");
+            const chatCollection = mongoUtil.getDb().collection("Chats");
             let tempUser = {};
             for (let i = 0; i < changedKeysArray.length; i++) {
                 if (newChat.hasOwnProperty(changedKeysArray[i]))
                     tempUser[changedKeysArray[i]] = newChat[changedKeysArray[i]];
             }
-            userCollection.updateOne({_id: newChat._id}, {$set: tempUser}, function (err, res) {
+            chatCollection.updateOne({_id: newChat._id}, {$set: tempUser}, function (err, res) {
                 if (err) {
                     throw err;
                 }

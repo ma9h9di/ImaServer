@@ -2,6 +2,8 @@ const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 
 function call(contacts, user, callback) {
+    //todo if contact change bayad baghie session ha ham befann
+
     let promise = [];
     let lookedUpContacts = [];
     // TODO optimise query
@@ -14,7 +16,7 @@ function call(contacts, user, callback) {
         logd('in addContact in then promise', values.length);
         for (let i = 0; i < values.length; i++) {
             if (values[i]) {
-                contacts[i].userID = values[i].userID;
+                contacts[i].userID = values[i]._id;
             }
             lookedUpContacts.push(contacts[i]);
         }

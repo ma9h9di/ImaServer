@@ -22,12 +22,15 @@ const updateChatByMongoID = require('./Chat/updateChat');
 const addOrRemoveMember = require('./Chat/addOrRemoveMember');
 const createChat = require('./Chat/createChat');
 const getChatsLastTime = require('./Chat/getChatsLastTime');
+const setChatsLastTime = require('./Chat/setChatsLastTime');
+const addChatImageByMongoID = require('./Chat/addChatImageByMongoID');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
     getUserByPhoneNumber_promise: getUser.getUserByPhoneNumber_promise,
     getUserByToken: getUser.getUserByToken,
     getUserByID: getUser.getUserByID,
+    getUsersInfo:getUser.getUsersInfo,
     insertUser: setUser.insertUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
     updateUserByPhoneNumber: setUser.updateUserByPhoneNumber,
@@ -44,6 +47,7 @@ module.exports = {
     getAllContacts: getAllContacts.getAllContacts,
     addContacts: addContacts.addContacts,
     updateContact: updateContact.updateContact,
+    deleteContact: updateContact.deleteContact,
 
     getChatByChatId: getChat.getChatByChatId,
     getChats: getChats.getChats,
@@ -54,6 +58,8 @@ module.exports = {
     addMemberToChat: addOrRemoveMember.addMemberToChat,
     removeMemberFromChat: addOrRemoveMember.removeMemberFromChat,
     createChat: createChat.createChat,
+    setChatsLastTime:setChatsLastTime.setChatsLastTime,
+    addChatImageByMongoID:addChatImageByMongoID.addChatImageByMongoID
 
 };
 

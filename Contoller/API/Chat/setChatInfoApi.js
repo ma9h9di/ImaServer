@@ -8,6 +8,7 @@ const fullChatInfoApi = require('./getFullChatApi').callByInfoChat;
 
 function call(data, callback) {
     data._id = new ObjectID(data.chatID);
+
     const promise = db.updateChatByMongoID(pv.support.chatUpdate, data);
     promise.then(value => {
         //Todo:inja bayad run konm test konm bbinm chi mishe

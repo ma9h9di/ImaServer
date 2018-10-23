@@ -1,6 +1,7 @@
 const authenticationPermission = require('./Authentication/AuthenticationMainPermissionCheck');
 const contactPermission = require('./Contact/contactMainPermissionCheck');
 const chatPermission = require('./Chat/chatMainPermissionCheck');
+const userPermission = require('./user/userMainPermissionCheck');
 const logd = require('../Other/Funcion').logd;
 const err = require('../Model/error');
 const pv = require('../Other/PublicValue');
@@ -81,6 +82,24 @@ function check(input, client, outputCallBack) {
                     outputCallBack(contactPermissionResult);
                 });
                 return;
+            case pv.api.user.getUsersInfo:
+            case pv.api.user.getFullUserInfo:
+                if (user === false) {
+                    outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
+                    return;
+                }
+
+                userPermission.check(input, user, (contactPermissionResult) => {
+                    contactPermissionResult.type = pv.apiType.chat;
+                    user.lastActivityTime = date;
+                    user.changeAttribute.push('lastActivityTime');
+
+                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
+                    });
+                    outputCallBack(contactPermissionResult);
+                });
+                return;
+
             default:
                 outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
                 return;

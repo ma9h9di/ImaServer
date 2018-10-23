@@ -21,7 +21,7 @@ function insertDevice(device, callback) {
 function updateDevice(device, callback) {
     try {
         var deviceCollection = mongoUtil.getDb().collection("Devices");
-        deviceCollection.update({unique_device_key: device.unique_device_key}, device, function (err, res) {
+        deviceCollection.updateMany({unique_device_key: device.unique_device_key}, device, function (err, res) {
             if (err) {
                 throw err;
             }

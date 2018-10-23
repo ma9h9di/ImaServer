@@ -9,7 +9,10 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['contact']}).jsonErr());
             return;
         }
-
+        if (!data.hasOwnProperty('operation')) {
+            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['operation']}).jsonErr());
+            return;
+        }
         let updateContact = data.contact;
 
         if (!updateContact.hasOwnProperty('first_name')) {
@@ -40,6 +43,6 @@ module.exports = {
         //     return;
         // }
 
-        updateContactApi.call(user, updateContact, outputCallBack);
+        updateContactApi.call(user, updateContact,data.operation, outputCallBack);
     }
 };

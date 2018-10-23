@@ -9,7 +9,9 @@ const ObjectID = require("mongodb").ObjectID;
 function call(userAdded, data, outputCallBack) {
     // data._id=data.chatID;
     data.chatID = new ObjectID(data.chatID);
-    const promiseChatNeed = db.getChats([data.chatID], {'accessModifier': 1, 'type': 1, 'messageCount': 1, '_id': 1});
+    const promiseChatNeed = db.getChats([data.chatID], {
+        'changeChatTime':1,'accessModifier': 1, 'type': 1, 'messageCount': 1, '_id': 1
+    });
     promiseChatNeed.then(value => {
         //todo inja hatamn bayad value[0] bashe ya nemidonm chie
         value = value[0];

@@ -25,12 +25,37 @@ function getUserByPhoneNumber_promise(phone_number) {
     });
 }
 
-function getUserByID(id) {
+function getUsersInfo(usersID,selectedField){
+    return new Promise((resolve, reject) => {
+        try {
+            const userCollection = mongoUtil.getDb().collection("Users");
+            userCollection.find({_id: {$in: usersID}}).project(selectedField).toArray(function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                if (!result) {
+                    result = [];
+                }
+                let propArray = [];
+                for (let i = 0; i < result.length; i++) {
+                    result[i].userID=result[i].userID!==null?result[i].userID:result[i]._id;
+                    propArray.push(result[i]);
+                }
+                resolve(propArray);
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+function getUserByID(id,selectedField) {
+    selectedField=selectedField?selectedField:{};
     return new Promise(function (resolve, reject) {
         try {
             let userCollection = mongoUtil.getDb().collection("Users");
             logd('getUserByID phoneNumber :', id);
-            userCollection.findOne({_id: {$eq: id}}, function (err, res) {
+            userCollection.findOne({_id: {$eq: id}}, {fields:selectedField}, function (err, res) {
                 logd('getUserByID err :', err);
                 if (err) {
                     reject(err);
@@ -38,6 +63,8 @@ function getUserByID(id) {
                 if (!res) {
                     res = false;
                 }
+                res.userID=res.userID!==null?res.userID:res._id;
+
                 resolve(res);
             });
         } catch (e) {
@@ -98,7 +125,8 @@ module.exports =
         getUserByPhoneNumber: getUserByPhoneNumber,
         getUserByPhoneNumber_promise: getUserByPhoneNumber_promise,
         getUserByToken: getUserByToken,
-        getUserByID: getUserByID
+        getUserByID: getUserByID,
+        getUsersInfo:getUsersInfo
 
     }
 ;

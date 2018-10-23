@@ -21,6 +21,7 @@ module.exports = {
                 // }
             ],
             nextPinNumber: 0,
+            bio: '',
             accountDates: [],
             blockedUsers: [],
             contacts: [],

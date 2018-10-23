@@ -10,10 +10,10 @@ module.exports = {
             outputCallBack(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
             return;
         }
-        if (user.status !== 'deactivate') {
-            outputCallBack(new err(pv.errCode.authentication.user_already_exist));
-            return;
-        }
+        // if (user.status !== 'deactivate') {
+        //     outputCallBack(new err(pv.errCode.authentication.user_already_exist).jsonErr());
+        //     return;
+        // }
 
         if (user.spam.length > 0) {
             let date = new Date().getTime();
