@@ -90,7 +90,7 @@ function check(input, client, outputCallBack) {
                 }
 
                 userPermission.check(input, user, (contactPermissionResult) => {
-                    contactPermissionResult.type = pv.apiType.chat;
+                    contactPermissionResult.type = pv.apiType.user;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
 

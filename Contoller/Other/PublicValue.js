@@ -151,7 +151,8 @@ const apiType = {
     all: 'API_All',
     authentication: 'API_Authentication',
     contact: 'API_Contact',
-    chat: 'chat'
+    chat: 'chat',
+    user: 'user',
 
 };
 

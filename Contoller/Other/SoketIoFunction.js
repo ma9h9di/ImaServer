@@ -25,6 +25,11 @@ module.exports = function (io) {
             logd('send in ' + sendData.event, sendData.data);
             // io.of('/main').connected[socketId].emit('disconnect');
         },
+        userEmit: function (socketId, sendData) {
+            oneSessionEmit(socketId, sendData);
+            logd('send in ' + sendData.event, sendData.data);
+            // io.of('/main').connected[socketId].emit('disconnect');
+        },
         ErrorEmit: function (socketId, sendData) {
             oneSessionEmit(socketId, sendData);
             console.log("%j", sendData)

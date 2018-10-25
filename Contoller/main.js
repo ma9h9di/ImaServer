@@ -44,6 +44,9 @@ module.exports = {
                             case pv.apiType.chat:
                                 soketFunction.chatEmit(client.id, sendData);
                                 break;
+                            case pv.apiType.user:
+                                soketFunction.userEmit(client.id, sendData);
+                                break;
                         }
                     };
 
