@@ -1,4 +1,4 @@
-const getFullUserInfoApi = require('../../API/User/getFullUserInfoApi');
+const getUsersInfoApi = require('../../API/User/getUsersInfoApi');
 
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
@@ -13,7 +13,7 @@ module.exports = {
         }
 
         let userIDs = data.userIDs;
-        getFullUserInfoApi.call(userIDs,outputCallBack);
+        getUsersInfoApi.call(userIDs,outputCallBack);
 
     }
 };

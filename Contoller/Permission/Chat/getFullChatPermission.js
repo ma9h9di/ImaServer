@@ -32,6 +32,7 @@ module.exports = {
                     outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                     return;
                 }
+                value.accessLevel= pv.support.access.member;
                 getFullChatApi.callByFullChat(value, outputCallBack);
             });
         });

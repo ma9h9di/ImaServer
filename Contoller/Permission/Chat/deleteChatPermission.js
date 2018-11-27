@@ -15,7 +15,7 @@ module.exports = {
 
         let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
         promiseUserHaveChat.then(userHaveChat => {
-            deleteChatUserApi.call(data, user, outputCallBack);
+            deleteChatUserApi.call(userHaveChat, user, outputCallBack);
         }).catch(error => {
             outputCallBack(error)
         });

@@ -56,11 +56,27 @@ function updateUserByMongoID(changedKeysArray, newUser, callback) {
         logd(e);
     }
 }
+function deleteDataChatUser(userChat, userID, callback) {
+    try {
+        var userCollection = mongoUtil.getDb().collection("Users");
+        userCollection.updateOne({_id: userID,'chats.chatID':userChat.chatID},
+            {$set: userChat}, function (err, res) {
+            if (err) {
+                throw err;
+            }
+            // console.log("new updated document is: ", res.ops[0]);
+            callback({});
+        });
+    } catch (e) {
+        logd(e);
+    }
+}
 
 module.exports =
     {
         insertUser: insertUser,
         updateUserByMongoID: updateUserByMongoID,
         updateUserByPhoneNumber: updateUserByPhoneNumber,
+        deleteDataChatUser: deleteDataChatUser,
     }
 ;

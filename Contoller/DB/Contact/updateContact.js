@@ -18,7 +18,8 @@ function updateContact(user, contact, callback) {
             },
             {
                 $set: {
-                    "contacts.$": contact
+                    "contacts.$.first_name": contact.first_name,
+                    "contacts.$.last_name": contact.last_name,
                 }
             },
             function (err, res) {

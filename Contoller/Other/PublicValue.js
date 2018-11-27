@@ -81,12 +81,15 @@ const supportValue = {
         'type',
         'membersCount',
         'membersID',
+        'admin',
+        'superAdmin',
         'photoURL',
         'username',
         'link',
         'description',
         'accessModifier',
-        'changeChatTime'
+        'changeChatTime',
+        'accessLevel'
 
     ],
     limitedChatKey: {
@@ -106,6 +109,7 @@ const supportValue = {
         'lastName': 1,
         'bio': 1,
         'userID': 1,
+        'username': 1,
         'email': 1,
 
     },
@@ -201,6 +205,7 @@ const errCode = {
     arguments_not_found: 'arguments_not_found',
     method_not_found: 'method_not_found',
     data_not_found: 'data_not_found',
+    empty_argumnet: 'empty_argumnet',
     authentication: {
         user_delete_spam: 'user_delete_spam',
         phone_number_not_found: 'phone_number_not_found',

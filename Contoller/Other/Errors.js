@@ -64,6 +64,13 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.all,
         'error_data': {}
     },
+    {
+        'title': 'empty arguments',
+        'code': pv.errCode.empty_argumnet,
+        'message': 'you can`t use empty this arguments',
+        'type': pv.apiType.all,
+        'error_data': {}
+    },
 
 
     //authentication error

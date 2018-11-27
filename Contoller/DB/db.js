@@ -32,6 +32,7 @@ module.exports = {
     getUserByID: getUser.getUserByID,
     getUsersInfo:getUser.getUsersInfo,
     insertUser: setUser.insertUser,
+    deleteDataChatUser: setUser.deleteDataChatUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
     updateUserByPhoneNumber: setUser.updateUserByPhoneNumber,
     joinChat: joinOrLeave.joinChat,

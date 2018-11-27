@@ -5,10 +5,10 @@ function getDefaultsChat(user) {
     return {
         superAdmin: user._id,
         membersCount: 1,
-        membersID: [user._id],
+        membersID: [{_id:user._id}],
         changeChatTime: new Date().getTime(),//when name or title change when dont use
         lastMessageTime: new Date().getTime(),//when new message ke chat bekhad biad bala
-        admin: [user._id],
+        admin: [{_id:user._id}],
         accessModifier: pv.support.accessModifier.private,
         photoURL:[],
         messageCount: 0,

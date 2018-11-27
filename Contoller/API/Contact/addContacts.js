@@ -22,6 +22,7 @@ function call(contacts, user, callback) {
         }
         logd('in addContact in then promise', lookedUpContacts.length);
         db.addContacts(user, lookedUpContacts, (result) => {
+
             callback({data: result});
         });
     });

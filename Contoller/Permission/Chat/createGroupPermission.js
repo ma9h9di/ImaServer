@@ -20,6 +20,15 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
             return;
         }
+        if (!data.hasOwnProperty('userIDs')) {
+            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
+            return;
+        }
+        if(data.userIDs.length<=0){
+            outputCallBack(new err(pv.errCode.empty_argumnet, undefined, {params: ['userIDs']}).jsonErr());
+            return;
+        }
+
         data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
         //TODO: age gharar shod tedad groh sakhtano check konim injast
 

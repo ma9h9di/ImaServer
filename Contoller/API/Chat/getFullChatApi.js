@@ -4,6 +4,7 @@ const pv = require("../../Other/PublicValue");
 
 function callByFullChat(value, callback) {
     const fullChatKey = pv.support.fullChatKey;
+    value.accessLevel=value.accessLevel?value.accessLevel:pv.support.access.member;
     let chatInfo = {};
     for (let i = 0; i < fullChatKey.length; i++) {
         let key = fullChatKey[i];
@@ -18,6 +19,7 @@ function callByFullChat(value, callback) {
 function callByInfoChat(value, callback) {
     const promise = db.getChatByChatId(value.chatID);
     promise.then(allChatData => {
+        allChatData.accessLevel=value.post;
         callByFullChat(allChatData, callback);
     })
 }
