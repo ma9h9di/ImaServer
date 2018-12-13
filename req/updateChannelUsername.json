@@ -1,0 +1,17 @@
+{
+    "input": {
+        "method": "updateChannelUsername",
+        "data": {
+            "chatID": "5bba503f04b9d10f1c8048c6",
+            "newUsername": "userName_channel",
+            "token": "f892b4de8d883c6dd6f237d07205436d19b3d64219f7c53d7bddc01f531f3a1a6b6909f99053b5ef9f92bf44ef816c777b4f244e18d6e34d293c7f014b2a78d181365977"
+        }
+    },
+    "output": {
+        "data": {
+            "username": "userName_channel"
+        },
+        "type": "chat",
+        "time": 1539026376892
+    }
+}

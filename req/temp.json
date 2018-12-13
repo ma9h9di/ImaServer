@@ -1,0 +1,26 @@
+{
+  "input": {
+    "method": "setChatInfo",
+    "data": {
+      "userID": "5bc31a3b00c57d7ab748b4b4",
+      "token": ""
+    }
+  },
+  "output": {
+    "data": {
+      "_id": "5bba503f04b9d10f1c8048c6",
+      "title": "title update",
+      "type": "channel",
+      "membersCount": 1,
+      "membersID": [
+        "5ba72769b71d8d19710ce5e8"
+      ],
+      "photoURL": null,
+      "username": "userName_channel",
+      "description": "description update",
+      "accessModifier": "public"
+    },
+    "type": "chat",
+    "time": 1539032160839
+  }
+}

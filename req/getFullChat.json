@@ -1,0 +1,25 @@
+{
+    "input": {
+        "method": "getFullChat",
+        "data": {
+            "chatID": "5bba503f04b9d10f1c8048c6",
+            "token": "f892b4de8d883c6dd6f237d07205436d19b3d64219f7c53d7bddc01f531f3a1a6b6909f99053b5ef9f92bf44ef816c777b4f244e18d6e34d293c7f014b2a78d181365977"
+        }
+    },
+    "output": {
+        "data": {
+            "_id": "5bba503f04b9d10f1c8048c6",
+            "title": "Channel1",
+            "type": "channel",
+            "membersCount": 1,
+            "membersID": [
+                "5ba72769b71d8d19710ce5e8"
+            ],
+            "username": "userName_channel",
+            "description": "Channelone hast ke dosesh nadaram",
+            "accessModifier": "private"
+        },
+        "type": "chat",
+        "time": 1539031273142
+    }
+}
