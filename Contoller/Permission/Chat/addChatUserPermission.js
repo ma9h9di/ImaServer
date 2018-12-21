@@ -7,41 +7,41 @@ const ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     check: function (data, user, outputCallBack, userHasThisChat) {
-        if (!data.hasOwnProperty('chatID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-            return;
-        }
-        if (!data.hasOwnProperty('limitShowMessageCount')) {
-            data.limitShowMessageCount = 0;
-            //TODO inja bayd bayad warning bedim ke begin khodemon defulto 0 kardim
-        }
+        return new Promise(async (resolve, reject) => {
+            if (!data.hasOwnProperty('chatID')) {
+                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+            }
+            if (!data.hasOwnProperty('limitShowMessageCount')) {
+                data.limitShowMessageCount = 0;
+                //TODO inja bayd bayad warning bedim ke begin khodemon defulto 0 kardim
+            }
+            if (!data.hasOwnProperty('userID')) {
+                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+            }
+            try {
+                const userAdded = await db.getUserByID(new ObjectID(data.userID));
+                //age gharar bashe hame ejaze nade addesh konn harja erroresho inja bayad bezarim
 
-        if (!data.hasOwnProperty('userID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
-            return;
-        }
-        const promiseUser = db.getUserByID(new ObjectID(data.userID));
-        promiseUser.then(userAdded => {
-            //age gharar bashe hame ejaze nade addesh konn harja erroresho inja bayad bezarim
+                //age on yaro ke mikhad hzf beshe admin bod in bayad super admin bashe
 
-            //age on yaro ke mikhad hzf beshe admin bod in bayad super admin bashe
-            let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
-            let promiseUserWordHaveChat = userHasThisChat(data.chatID, userAdded.chats, pv.support.access.admin);
-            promiseUserWordHaveChat.then(value => {
-                //user exist
-                outputCallBack(new err(pv.errCode.chat.user_exist).jsonErr());
-            }).catch(error => {
-                promiseUserHaveChat.then(userHaveChat => {
-                    addChatUserApi.call(userAdded, data, outputCallBack);
-                }).catch(error => {
-                    outputCallBack(error)
-                });
-            });
+                try {
+                    let value = await userHasThisChat(data.chatID, userAdded.chats, pv.support.access.admin);
+                    //user exist
+                    reject(new err(pv.errCode.chat.user_exist).jsonErr());
+                } catch (e) {
+                    try {
+                        const userHaveChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
+                        const addChatUse = await addChatUserApi.call(userAdded, data);
+                        resolve(addChatUse);
+                    } catch (e) {
+                        reject(e);
 
-        }).catch(error => {
-            outputCallBack(error)
-        })
+                    }
+                }
+            } catch (e) {
+                reject(e);
 
-
+            }
+        });
     }
 };

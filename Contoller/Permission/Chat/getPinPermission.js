@@ -5,6 +5,13 @@ const pv = require('../../Other/PublicValue');
 
 module.exports = {
     check: function (data, user, outputCallBack) {
-        getPinApi.call(data, user, outputCallBack);
+        return new Promise(async (resolve,reject) => {
+            try {
+                const getPin=await getPinApi.call(data, user);
+                resolve(getPin);
+            } catch (e){
+                reject(e);
+            }
+        });
     }
 };

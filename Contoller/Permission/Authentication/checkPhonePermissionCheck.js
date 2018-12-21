@@ -10,55 +10,62 @@ module.exports = {
         var extraData;
 
         function callCheckPhone(newUser) {
-
-            if (user.spam.length > 0) {
-                let date = new Date().getTime();
-                for (let i = 0; i < user.spam.length; i++) {
-                    if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
-                        outputCallBack(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
-                        return;
+            return new Promise(async (resolve, reject) => {
+                if (user.spam.length > 0) {
+                    let date = new Date().getTime();
+                    for (let i = 0; i < user.spam.length; i++) {
+                        if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
+                            reject(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
+                            return;
+                        }
                     }
+
                 }
 
-            }
-
-            CheckPhone.call(newUser, (result) => {
+                const result = await CheckPhone.call(newUser);
                 if (extraData !== undefined)
                     result.warning = extraData;
-                outputCallBack(result);
+                resolve(result);
+
             });
 
         }
 
-        if (!user) {
+        return new Promise(async (resolve, reject) => {
+            if (!user) {
 
-            if (!data.hasOwnProperty('country')) {
-                outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr());
-                return;
-            }
-            else {
-                if (pv.support.country.indexOf(data.country) < 0) {
-                    outputCallBack(new err(pv.errCode.authentication.country_not_support).jsonErr());
-                    return;
+                if (!data.hasOwnProperty('country')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr());
                 }
-            }
-            // db.createUser(data.phone_number);
-            if (!data.hasOwnProperty('language')) {
-                outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr());
-                return;
-            }
-            else {
-                if (Object.values(pv.support.language).indexOf(data.language) < 0) {
-                    extraData = new warn(pv.errCode.authentication.language_not_support).findThisWarning();
-                    data.language = pv.defaultValue.language;
+                else {
+                    if (pv.support.country.indexOf(data.country) < 0) {
+                        reject(new err(pv.errCode.authentication.country_not_support).jsonErr());
+                    }
                 }
+                // db.createUser(data.phone_number);
+                if (!data.hasOwnProperty('language')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr());
+                }
+                else {
+                    if (Object.values(pv.support.language).indexOf(data.language) < 0) {
+                        extraData = new warn(pv.errCode.authentication.language_not_support).findThisWarning();
+                        data.language = pv.defaultValue.language;
+                    }
+                }
+
+                user = User.CreateNewUser(data);
+                user = await db.insertUser(user);
+            }
+            try {
+                const phone=await callCheckPhone(user);
+                resolve(phone);
+            } catch (e) {
+                reject(e);
+
             }
 
-            user = User.CreateNewUser(data);
-            db.insertUser(user, callCheckPhone);
-        } else {
-            callCheckPhone(user);
-        }
+        });
+
 
     }
 };

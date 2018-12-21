@@ -7,17 +7,18 @@ const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
 module.exports = {
-    check: function (data, user, outputCallBack) {
-        if (!data.hasOwnProperty('chatID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-            return;
-        }
-
-        let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
-        promiseUserHaveChat.then(userHaveChat => {
-            deleteChatUserApi.call(userHaveChat, user, outputCallBack);
-        }).catch(error => {
-            outputCallBack(error)
+    check: function (data, user) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!data.hasOwnProperty('chatID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                }
+                let userHaveChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
+                const deleteChatUser = await deleteChatUserApi.call(userHaveChat, user);
+                resolve(deleteChatUser)
+            } catch (e) {
+                reject(e);
+            }
         });
 
 

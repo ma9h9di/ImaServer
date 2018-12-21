@@ -6,20 +6,21 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data, user, outputCallBack) {
-        if (!data.hasOwnProperty('chatID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-            return;
-        }
-        if (!data.hasOwnProperty('pinState')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['pinState']}).jsonErr());
-            return;
-        }
-        let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats);
-        promiseUserHaveChat.then(value => {
-            setPinApi.call(value, user, outputCallBack);
-        }).catch(error => {
-            outputCallBack(error)
+    check: function (data, user) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!data.hasOwnProperty('chatID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                }
+                if (!data.hasOwnProperty('pinState')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['pinState']}).jsonErr());
+                }
+                let value = await userHasThisChat(data.chatID, user.chats);
+                const setPin = await setPinApi.call(value, user);
+                resolve(setPin);
+            } catch (e) {
+                reject(e);
+            }
         });
 
 

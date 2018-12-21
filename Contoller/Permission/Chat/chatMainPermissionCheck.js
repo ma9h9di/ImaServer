@@ -31,7 +31,6 @@ function userHasThisChat(chatID, chats, accessLevel) {
                 } else {
                     resolve(chats[i]);
                 }
-                return;
             }
         }
         reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
@@ -39,75 +38,91 @@ function userHasThisChat(chatID, chats, accessLevel) {
 
 }
 
-function findMethodPermission(input, user, myCallBack) {
-    let data = input.data;
-    switch (input.method) {
-        case pv.api.chat.getFullChat://test
-            getFullChatPermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.getChats://test
-            getChatsPermission.check(data, myCallBack);
-            break;
-        case pv.api.chat.getSortedUpdatedChatList:
-            getSortedUpdatedChatListPermission.check(user, myCallBack);
-            break;
-        case pv.api.chat.checkChannelUsername://test
-            checkChannelUsernamePermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.updateChannelUsername://test
-            updateChannelUsernamePermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.setChatInfo://test
-            setChatInfoPermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.addChatUser://test
-            addChatUserPermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.removeUser://test
-            removeUserPermission.check(data, user, myCallBack, userHasThisChat);
-            break;
-        case pv.api.chat.deleteChat:
-            //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
-            deleteChatPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.createGroup://tested
-            createGroupPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.createChannel://tested
-            createChannelPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.createShop://tested
-            createShopPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.setLink:
-            setLinkPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.getLink:
-            getLinkPermission.check(data, user, myCallBack);
-            break;
-        case pv.api.chat.getPin:
-            getPinPermission.check(user, myCallBack);
-            break;
-        case pv.api.chat.setPin:
-            setPinPermission.check(data, user, myCallBack);
-            break;
+function findMethodPermission(input, user) {
+    return new Promise(async (resolve, reject) => {
+        let checkPerAnswer;
+        let data = input.data;
+        try {
+            switch (input.method) {
+                case pv.api.chat.getFullChat://test
+                    checkPerAnswer = await getFullChatPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.getChats://test
+                    checkPerAnswer = await getChatsPermission.check(data);
+                    break;
+                case pv.api.chat.getSortedUpdatedChatList:
+                    checkPerAnswer = await getSortedUpdatedChatListPermission.check(user);
+                    break;
+                case pv.api.chat.checkChannelUsername://test
+                    checkPerAnswer = await checkChannelUsernamePermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.updateChannelUsername://test
+                    checkPerAnswer = await updateChannelUsernamePermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.setChatInfo://test
+                    checkPerAnswer = await setChatInfoPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.addChatUser://test
+                    checkPerAnswer = await addChatUserPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.removeUser://test
+                    checkPerAnswer = await removeUserPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.deleteChat:
+                    //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
+                    checkPerAnswer = await deleteChatPermission.check(data, user);
+                    break;
+                case pv.api.chat.createGroup://tested
+                    checkPerAnswer = await createGroupPermission.check(data, user);
+                    break;
+                case pv.api.chat.createChannel://tested
+                    checkPerAnswer = await createChannelPermission.check(data, user);
+                    break;
+                case pv.api.chat.createShop://tested
+                    checkPerAnswer = await createShopPermission.check(data, user);
+                    break;
+                case pv.api.chat.setLink:
+                    checkPerAnswer = await setLinkPermission.check(data, user);
+                    break;
+                case pv.api.chat.getLink:
+                    checkPerAnswer = await getLinkPermission.check(data, user);
+                    break;
+                case pv.api.chat.getPin:
+                    checkPerAnswer = await getPinPermission.check(user);
+                    break;
+                case pv.api.chat.setPin:
+                    checkPerAnswer = await setPinPermission.check(data, user);
+                    break;
 
-        default:
-            myCallBack(new err(pv.errCode.method_not_found).jsonErr());
-            return;
+                default:
+                    reject(new err(pv.errCode.method_not_found).jsonErr());
+                    return;
 
-    }
+            }
+        } catch (e) {
+            reject(e);
+        }
+
+    });
+
 }
 
 module.exports = {
 
-    check: function (input, user, outputCallBack) {
+    check: function (input, user) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
+        return new Promise(async (resolve, reject) => {
+            try {
+                user.changeAttribute = [];
+                const findMethod = await findMethodPermission(input, user);
+                resolve(findMethod);
+            } catch (e) {
+                reject(e);
 
-        user.changeAttribute = [];
-        findMethodPermission(input, user, outputCallBack);
+            }
+        });
 
 
     },

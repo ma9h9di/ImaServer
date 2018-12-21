@@ -12,38 +12,33 @@ var db = require('../../DB/db');
 
 module.exports = {
 
-    check: function (input, user, client, outputCallBack) {
+    check: function (input, user, client) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
-        var data = input.data;
-        var address = client.request.connection.remoteAddress.split(".").join("-");
-        if (!data.hasOwnProperty('device')) {
-            outputCallBack(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
-            return;
-        } else {
-            if (!data.device.hasOwnProperty('platform')) {
-                outputCallBack(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
-                return;
-            }
-            if (!data.device.hasOwnProperty('unique_device_key')) {
-                outputCallBack(new err(pv.errCode.authentication.device_argument, 'unique_device_key in device argument not found', {'params': ['unique_device_key']}).jsonErr());
-                return;
-            }
-            if (!data.device.hasOwnProperty('platform_version')) {
-                outputCallBack(new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr());
-                return;
-            }
-            if (!data.device.hasOwnProperty('model')) {
-                outputCallBack(new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr());
-                return;
-            }
+        return new Promise(async (resolve, reject) => {
+            var data = input.data;
+            var address = client.request.connection.remoteAddress.split(".").join("-");
+            if (!data.hasOwnProperty('device')) {
+                reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
+            } else {
+                if (!data.device.hasOwnProperty('platform')) {
+                    reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
+                }
+                if (!data.device.hasOwnProperty('unique_device_key')) {
+                    reject(new err(pv.errCode.authentication.device_argument, 'unique_device_key in device argument not found', {'params': ['unique_device_key']}).jsonErr());
+                }
+                if (!data.device.hasOwnProperty('platform_version')) {
+                    reject(new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr());
+                }
+                if (!data.device.hasOwnProperty('model')) {
+                    reject(new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr());
+                }
 
-        }
-        // device=db.getDevice(data.device);
-        db.getDevice(data.device.unique_device_key, (newDevice) => {
-
-            var device = !newDevice ? Device.CreateNewDevice(data.device) : newDevice;
+            }
+            // device=db.getDevice(data.device);
+            const newDevice = await db.getDevice(data.device.unique_device_key);
+            let device = !newDevice ? Device.CreateNewDevice(data.device) : newDevice;
 
             if (device.IP.hasOwnProperty(address)) {
                 device.IP[address]++;
@@ -60,61 +55,70 @@ module.exports = {
                     device.authentication.nextAccessTime = date.getTime() + extraTime;
                     logd('device.authentication.nextAccessTime :', device.authentication.nextAccessTime);
                 } else if (device.authentication.nextAccessTime > date.getTime()) {
-                    outputCallBack(new err(pv.errCode.authentication.device_spam, undefined, {'next_active_time': device.authentication.nextAccessTime}).jsonErr());
-                    return;
+                    reject(new err(pv.errCode.authentication.device_spam, undefined, {'next_active_time': device.authentication.nextAccessTime}).jsonErr());
                 }
 
             }
-            findMethodPermission((result) => {
-                if (result.hasOwnProperty(data) && result.data.hasOwnProperty('deviceAuthenticationRest')) {
-                    device.authentication.totalCount -= device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq;
-                    device.authentication.totalCount = Math.max(device.authentication.totalCount - 2 * pv.permission.NumberOfAuthenticationReq, 0);
-                    device.authentication.nextAccessTime = (new Date()).getTime();
-                    delete result.data.device;
-                }
-                if (!newDevice) {
-                    logd('insertDevice ', device);
-                    db.insertDevice(device, (e) => {
-                    });
-                }
-                else {
-                    db.updateDevice(device, (e) => {
-                    });
-                }
-                outputCallBack(result);
-            });
+            const result = await findMethodPermission();
+
+            if (result.hasOwnProperty(data) && result.data.hasOwnProperty('deviceAuthenticationRest')) {
+                device.authentication.totalCount -= device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq;
+                device.authentication.totalCount = Math.max(device.authentication.totalCount - 2 * pv.permission.NumberOfAuthenticationReq, 0);
+                device.authentication.nextAccessTime = (new Date()).getTime();
+                delete result.data.device;
+            }
+            if (!newDevice) {
+                logd('insertDevice ', device);
+                db.insertDevice(device);
+            }
+            else {
+                db.updateDevice(device);
+            }
+            resolve(result);
+
+
             // data.device.IP = address;
 
-        });
 
-        function findMethodPermission(myCallBack) {
-            data.device.IP = address;
-            switch (input.method) {
-                case pv.api.authentication.checkPhone:
-                    checkPhonePermission.check(data, user, myCallBack);
-                    break;
-                case pv.api.authentication.sendCode:
-                    sendCodePermissionCheck.check(data, user, myCallBack);
-                    break;
-                case pv.api.authentication.sendSms:
-                    sendSmsPermission.check(data, user, myCallBack);
-                    break;
-                case pv.api.authentication.signIn:
-                    singInPermissionCheck.check(data, user, myCallBack);
-                    break;
-                case pv.api.authentication.signUp:
-                    singUpPermissionCheck.check(data, user, myCallBack);
-                    break;
-                case pv.api.authentication.logOut:
-                    break;
-                case pv.api.authentication.removeSession:
-                    break;
-                default:
-                    myCallBack(new err(pv.errCode.method_not_found).jsonErr());
-                    return;
+            function findMethodPermission() {
+                return new Promise(async (resolve, reject) => {
+                    data.device.IP = address;
+                    try {
+                        let resultCheckPer;
+                        switch (input.method) {
+                            case pv.api.authentication.checkPhone:
+                                resultCheckPer=await checkPhonePermission.check(data, user);
+                                break;
+                            case pv.api.authentication.sendCode:
+                                resultCheckPer=await sendCodePermissionCheck.check(data, user);
+                                break;
+                            case pv.api.authentication.sendSms:
+                                resultCheckPer=await sendSmsPermission.check(data, user);
+                                break;
+                            case pv.api.authentication.signIn:
+                                resultCheckPer=await singInPermissionCheck.check(data, user);
+                                break;
+                            case pv.api.authentication.signUp:
+                                resultCheckPer=await singUpPermissionCheck.check(data, user);
+                                break;
+                            case pv.api.authentication.logOut:
+                                break;
+                            case pv.api.authentication.removeSession:
+                                break;
+                            default:
+                                reject(new err(pv.errCode.method_not_found).jsonErr());
+                        }
+                        resolve(resultCheckPer);
+                    } catch (e) {
+                        reject(e);
+
+                    }
+
+                });
 
             }
-        }
+
+        });
 
 
     }

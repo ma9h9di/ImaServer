@@ -7,36 +7,41 @@ const USER_JOINED_CHAT = 5698;
 
 
 module.exports = {
-    check: function (data, user, outputCallBack, userHasThisChat) {
-
-        if (!data.hasOwnProperty('chatID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-            return;
-        }
-
-        let chatID = data.chatID;
-
-        const userHasThisChatPromise = userHasThisChat(chatID, user.chats);
-        userHasThisChatPromise.then(chatInUserChat => {
-            getFullChatApi.callByInfoChat(chatInUserChat, outputCallBack);
-        }).catch(error => {
-            const promise = db.getChatByChatId(chatID);
-            promise.then((value) => {
-
-                if (!value) {
-                    //do error chat_not_found ezafe nashode
-                    outputCallBack(new err(pv.errCode.chat.chat_not_found).jsonErr());
-                    return;
+    check: function (data, user, userHasThisChat) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!data.hasOwnProperty('chatID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
-                if (!value.public) {
-                    outputCallBack(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-                    return;
+
+                let chatID = data.chatID;
+
+                const chatInUserChat = await userHasThisChat(chatID, user.chats);
+
+                const getFullChat = await getFullChatApi.callByInfoChat(chatInUserChat);
+                resolve(getFullChat);
+
+
+            } catch (e) {
+                try {
+                    const value = await db.getChatByChatId(chatID);
+                    if (!value) {
+                        //do error chat_not_found ezafe nashode
+                        reject(new err(pv.errCode.chat.chat_not_found).jsonErr());
+                    }
+                    if (!value.public) {
+                        reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+                    }
+                    value.accessLevel = pv.support.access.member;
+                    const getFullCha = await getFullChatApi.callByFullChat(value);
+                    resolve(getFullCha);
+                } catch (e) {
+                    reject(e);
                 }
-                value.accessLevel= pv.support.access.member;
-                getFullChatApi.callByFullChat(value, outputCallBack);
-            });
+
+
+            }
         });
-
 
     }
 };

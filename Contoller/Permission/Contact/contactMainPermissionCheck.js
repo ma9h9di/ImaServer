@@ -19,30 +19,39 @@ module.exports = {
     check: function (input, user, outputCallBack) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo #DB
+        return new Promise(async (resolve, reject) => {
+            try {
 
-        let data = input.data;
-        user.changeAttribute = [];
-        switch (input.method) {
-            case pv.api.contacts.getAllContacts:
-                getAllContacts.getAllContacts(user, outputCallBack);
-                break;
+                let data = input.data;
+                user.changeAttribute = [];
+                let checkAnswer;
+                switch (input.method) {
+                    case pv.api.contacts.getAllContacts:
+                        checkAnswer = await getAllContacts.getAllContacts(user);
+                        break;
 
-            case pv.api.contacts.addContacts:
-                for (let i = 0; i < data.contacts.length; i++) {
-                    if (!contactFormatValidation(data.contacts[i])) {
-                        outputCallBack(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
-                        return;
-                    }
+                    case pv.api.contacts.addContacts:
+                        for (let i = 0; i < data.contacts.length; i++) {
+                            if (!contactFormatValidation(data.contacts[i])) {
+                                reject(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
+                                return;
+                            }
+                        }
+                        checkAnswer = await addContactsPermission.check(data.contacts, user); // todo
+                        break;
+                    case pv.api.contacts.updateContact:
+                        checkAnswer = await updateContact.check(user, data);
+                        break;
+                    default:
+                        reject(new err(pv.errCode.method_not_found).jsonErr());
+
                 }
-                addContactsPermission.check(data.contacts, user, outputCallBack); // todo
-                break;
-            case pv.api.contacts.updateContact:
-                updateContact.check(user, data, outputCallBack);
-                break;
-            default:
-                outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
-                return;
-        }
+                resolve(checkAnswer);
+            } catch (e) {
+                reject(e);
+            }
+        });
+
     }
 };
 

@@ -5,15 +5,23 @@ const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
 module.exports = {
-    check: function (data, outputCallBack) {
+    check: function (data) {
+        return new Promise(async (resolve, reject) => {
+            try {
 
-        if (!data.hasOwnProperty('userID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
-            return;
-        }
+                if (!data.hasOwnProperty('userID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+                    return;
+                }
 
-        let userID = data.userID;
-        getFullUserInfoApi.call(userID,outputCallBack);
+                let userID = data.userID;
+                const getFullUserInfo = await getFullUserInfoApi.call(userID);
+                resolve(getFullUserInfo);
+            } catch (e) {
+                reject(e);
+            }
+        });
+
 
     }
 };

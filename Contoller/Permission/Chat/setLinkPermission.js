@@ -7,25 +7,27 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data, user, outputCallBack) {
-        if (!data.hasOwnProperty('chatID')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-            return;
-        }
-        if (!data.hasOwnProperty('link')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['link']}).jsonErr());
-            return;
-        }
-        if ((data.link + '').length < pv.support.minLinkSize) {
-            outputCallBack(new err(pv.errCode.chat.link_size_problem).jsonErr());
-            return;
-        }
+    check: function (data, user) {
+        return new Promise(async (resolve, reject) => {
+            try {
 
-        let promiseUserHaveChat = userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
-        promiseUserHaveChat.then(userChat => {
-            setLinkApi.call(userChat, data.link, outputCallBack);
-        }).catch(error => {
-            outputCallBack(error)
+                if (!data.hasOwnProperty('chatID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                }
+                if (!data.hasOwnProperty('link')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['link']}).jsonErr());
+                }
+                if ((data.link + '').length < pv.support.minLinkSize) {
+                    reject(new err(pv.errCode.chat.link_size_problem).jsonErr());
+                }
+
+                let userChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
+                const setLink = await setLinkApi.call(userChat, data.link);
+                resolve(setLink);
+
+            } catch (e) {
+                reject(e);
+            }
         });
 
 
