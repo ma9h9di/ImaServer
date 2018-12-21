@@ -8,10 +8,9 @@ const pv = require('../Other/PublicValue');
 const db = require('../DB/db');
 
 //TODO *** bayad shecle check kardano avaz konim ye function behesh bedim begim inaro check kon
-function check(input, client, outputCallBack) {
-
-    var callBackAfterUser = function (user) {
-        var date = new Date().getTime();
+function callBackAfterUser(user, input, client) {
+    return new Promise(async (resolve, reject) => {
+        const date = new Date().getTime();
         logd("method is :=====> ", input.method);
         switch (input.method) {
             case pv.api.authentication.checkPhone:
@@ -21,36 +20,37 @@ function check(input, client, outputCallBack) {
             case pv.api.authentication.signUp:
             case pv.api.authentication.logOut:
             case pv.api.authentication.removeSession:
-                authenticationPermission.check(input, user, client, (authenticationPermissionResult) => {
+                try {
+                    const authenticationPermissionResult = await authenticationPermission.check(input, user, client);
                     authenticationPermissionResult.type = pv.apiType.authentication;
                     if (user) {
                         user.lastActivityTime = date;
                         user.lastProfileChange = date;
-                        db.updateUserByPhoneNumber(user, (newUser) => {
-                        });
+                        db.updateUserByPhoneNumber(user);
                     }
-                    outputCallBack(authenticationPermissionResult);
-                });
-
-                return;
+                    resolve(authenticationPermissionResult);
+                } catch (e) {
+                    reject(e);
+                }
+                break;
             case pv.api.contacts.getAllContacts:
             case pv.api.contacts.updateContact:
             case pv.api.contacts.addContacts:
-                if (user === false) {
-                    outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
-                    return;
-                }
-
-                contactPermission.check(input, user, (contactPermissionResult) => {
+                try {
+                    if (user === false) {
+                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        break;
+                    }
+                    const contactPermissionResult = await contactPermission.check(input, user);
                     contactPermissionResult.type = pv.apiType.contact;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
-                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
-                    });
-                    outputCallBack(contactPermissionResult);
-                });
-
-                return;
+                    db.updateUserByMongoID(user.changeAttribute, user);
+                    resolve(contactPermissionResult);
+                } catch (e) {
+                    reject(e);
+                }
+                break;
             case pv.api.chat.getFullChat:
             case pv.api.chat.getChats:
             case pv.api.chat.getSortedUpdatedChatList:
@@ -67,90 +67,101 @@ function check(input, client, outputCallBack) {
             case pv.api.chat.getLink:
             case pv.api.chat.setPin:
             case pv.api.chat.getPin:
-                if (user === false) {
-                    outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
-                    return;
-                }
-
-                chatPermission.check(input, user, (contactPermissionResult) => {
+                try {
+                    if (user === false) {
+                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        break;
+                    }
+                    const contactPermissionResult = await chatPermission.check(input, user);
                     contactPermissionResult.type = pv.apiType.chat;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
-
-                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
-                    });
-                    outputCallBack(contactPermissionResult);
-                });
-                return;
+                    db.updateUserByMongoID(user.changeAttribute, user);
+                    resolve(contactPermissionResult);
+                    break;
+                } catch (e) {
+                    reject(e);
+                }
+                break;
             case pv.api.user.getUsersInfo:
             case pv.api.user.getFullUserInfo:
-                if (user === false) {
-                    outputCallBack(new err(pv.errCode.token_user_not_found).jsonErr());
-                    return;
-                }
-
-                userPermission.check(input, user, (contactPermissionResult) => {
+                try {
+                    if (user === false) {
+                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        break;
+                    }
+                    const contactPermissionResult = await userPermission.check(input, user);
                     contactPermissionResult.type = pv.apiType.user;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
-
-                    db.updateUserByMongoID(user.changeAttribute, user, (newUser) => {
-                    });
-                    outputCallBack(contactPermissionResult);
-                });
-                return;
-
+                    db.updateUserByMongoID(user.changeAttribute, user);
+                    resolve(contactPermissionResult);
+                    break;
+                } catch (e) {
+                    reject(e);
+                }
+                break;
             default:
-                outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
+                reject(new err(pv.errCode.method_not_found).jsonErr());
                 return;
         }
+    });
+}
 
-    };
+function check(input, client) {
     //  TODO check koliat az ghabil in ke in methode vojod dare age nadare
     //  for authentication don`t need
     //  user=DB.getUserByPhoneNumber(data.data.phone_number);//
     //  baraye tamam method ha be joz signup, signin, sendCode va sendSMS status bayad active bashad
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!input.hasOwnProperty('method')) {
+                reject(new err(pv.errCode.method_not_found).jsonErr());
+                return;
+            }
+            if (!input.hasOwnProperty('data')) {
+                reject(new err(pv.errCode.data_not_found).jsonErr());
+                return;
+            }
+            const data = input.data;
+            let user = false;
+            if (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
+                if (!data.hasOwnProperty('phone_number')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['phone_number']}).jsonErr());
+                    return;
+                }
+                if (data.phone_number.length > 14) {
+                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number longer than 14').jsonErr());
+                    return;
+                }
+                if (data.phone_number.length < 6) {
+                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number less than 6').jsonErr());
+                    return;
+                }
+                if (data.phone_number[0] !== '+') {
+                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number format not valid').jsonErr());
+                    return;
+                }
+                logd('after enter db', db);
+                user = await db.getUserByPhoneNumber(data.phone_number);
+                logd('before enter db');
+            } else {
+                if (!data.hasOwnProperty('token')) {
+                    reject(new err(pv.errCode.token_field_not_found).jsonErr());
+                }
+                user = await db.getUserByToken(data.token);
+            }
+            try {
+                const apiAnswer = await callBackAfterUser(user, input, client);
+                resolve(apiAnswer);
+            } catch (e) {
+                reject(e);
+            }
+        } catch (e) {
+            reject(new err(pv.errCode.internal_err).jsonErr());
+        }
+    });
 
-    if (!input.hasOwnProperty('method')) {
-        outputCallBack(new err(pv.errCode.method_not_found).jsonErr());
-        return;
-    }
-    if (!input.hasOwnProperty('data')) {
-        outputCallBack(new err(pv.errCode.data_not_found).jsonErr());
-        return;
-    }
-
-    var data = input.data;
-    var user = false;
-    if (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
-        if (!data.hasOwnProperty('phone_number')) {
-            outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['phone_number']}).jsonErr());
-            return;
-        }
-        if (data.phone_number.length > 14) {
-            outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number longer than 14').jsonErr());
-            return;
-        }
-        if (data.phone_number.length < 6) {
-            outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number less than 6').jsonErr());
-            return;
-        }
-        if (data.phone_number[0] !== '+') {
-            outputCallBack(new err(pv.errCode.authentication.phone_not_valid, 'phone number format not valid').jsonErr());
-            return;
-        }
-        logd('after enter db', db);
-        db.getUserByPhoneNumber(data.phone_number, callBackAfterUser);
-        logd('before enter db');
-        return;
-    } else {
-        if (!data.hasOwnProperty('token')) {
-            outputCallBack(new err(pv.errCode.token_field_not_found).jsonErr());
-            return;
-        }
-
-        db.getUserByToken(data.token, callBackAfterUser);
-    }
 
 }
 

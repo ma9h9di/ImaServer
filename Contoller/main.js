@@ -18,7 +18,7 @@ module.exports = {
                 logd('disconnect socket', client.id);
                 client.disconnect(true);
             });
-            client.on('run', function (msg, errs) {
+            client.on('run', async function (msg, errs) {
                 //todo decrypt msg
 
                 var decrypt_msg = msg;
@@ -49,8 +49,12 @@ module.exports = {
                                 break;
                         }
                     };
-
-                    mainPermission.check(decrypt_msg, client, outputCallback);
+                    try {
+                        const mainCheck = await mainPermission.check(decrypt_msg, client);
+                        outputCallback(mainCheck);
+                    } catch (e) {
+                        outputCallback(e);
+                    }
                 } catch (e) {
                     console.log(e);
                     var sendData = {'event': 'err_result', 'data': new err(pv.errCode.internal_err).jsonErr()};
@@ -65,4 +69,4 @@ module.exports = {
         });
     }
 
-}
+};
