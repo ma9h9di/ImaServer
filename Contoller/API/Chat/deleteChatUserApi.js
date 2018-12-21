@@ -6,7 +6,7 @@ function call(userChat,user, callback) {
 
     //todo nemidonm inja bayad che konm
     userChat.limitShowMessageCount=userChat.lastAvalebalMessage;
-    const promise=db.deleteDataChatUser(userChat,user._id);
+    const promise=db.deleteDataChatUser(userChat,user.userID);
     promise.then(value => {
         callback({data:{successful:true}});
     }).catch(error => {

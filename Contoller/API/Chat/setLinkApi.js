@@ -10,7 +10,7 @@ function call(userChat, link, outputCallBack) {
             //linke vojod dashte bayad err bedim
             outputCallBack({data: {link: false}})
         } else {
-            const updateLinkPromise = db.updateChannelUsername(value, 'link');
+            const updateLinkPromise = db.updateChannelUsername(userChat.chatID,value, 'link');
             updateLinkPromise.then(value1 => {
                 outputCallBack({data: {link: value}})
 

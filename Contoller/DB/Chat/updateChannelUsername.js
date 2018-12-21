@@ -11,7 +11,7 @@ function updateChannelUsername(chatID, username, key) {
             const userCollection = mongoUtil.getDb().collection("Chats");
             let q = {};
             q[key] = username;
-            userCollection.updateOne({_id: {$eq: chatID}}, {$set: q}, function (err, res) {
+            userCollection.updateOne({chatID: {$eq: chatID}}, {$set: q}, function (err, res) {
                 if (err) {
                     throw err;
                 }

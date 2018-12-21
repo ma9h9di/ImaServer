@@ -4,7 +4,7 @@ const pv = require("../../Other/PublicValue");
 const ObjectID=require('mongodb').ObjectID;
 
 function call(userID, callback) {
-    userID = new ObjectID(userID);
+    // userID = new ObjectID(userID);
 
     const promise = db.getUserByID(userID,pv.support.userInfoKey);
     promise.then(value => {

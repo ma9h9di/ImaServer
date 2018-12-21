@@ -5,10 +5,10 @@ var logd = require('../../Other/Funcion').logd;
 
 
 function insertUser(user, callback) {
-    try {
-        var userCollection = mongoUtil.getDb().collection("Users");
-        mongoUtil.getDb().eval('getNewID("chatID")', function (err, res) {
-            user.userID = res;
+    mongoUtil.getNextSequenceValue("userID",(uuid)=>{
+        try {
+            const userCollection = mongoUtil.getDb().collection("Users");
+            user.userID = uuid;
             userCollection.insertOne(user, function (err, res) {
                 if (err) {
                     throw err;
@@ -16,10 +16,11 @@ function insertUser(user, callback) {
                 console.log("response is: ", res.ops[0]);
                 callback(res.ops[0]);
             });
-        });
-    } catch (e) {
-        logd(e);
-    }
+        } catch (e) {
+            logd(e);
+        }
+    });
+
 }
 
 function updateUserByPhoneNumber(newUser, callback) {
@@ -59,7 +60,7 @@ function updateUserByMongoID(changedKeysArray, newUser, callback) {
 function deleteDataChatUser(userChat, userID, callback) {
     try {
         var userCollection = mongoUtil.getDb().collection("Users");
-        userCollection.updateOne({_id: userID,'chats.chatID':userChat.chatID},
+        userCollection.updateOne({userID: userID,'chats.chatID':userChat.chatID},
             {$set: userChat}, function (err, res) {
             if (err) {
                 throw err;

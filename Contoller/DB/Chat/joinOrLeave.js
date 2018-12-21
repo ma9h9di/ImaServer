@@ -10,7 +10,7 @@ function joinChat(userID, chatJson) {
             const userCollection = mongoUtil.getDb().collection("Users");
             userCollection.updateOne(
                 {
-                    _id: {$eq: userID}
+                    userID: {$eq: userID}
                 },
                 {
                     $addToSet: {chats: chatJson}
@@ -34,12 +34,12 @@ function leaveChat(userID, chatID) {
             var userCollection = mongoUtil.getDb().collection("Users");
             userCollection.updateOne(
                 {
-                    _id: {$eq: userID}
+                    userID: {$eq: userID}
                 },
                 {
                     $pull: {
                         chats: {
-                            _id: chatID
+                            chatID: chatID
                         }
                     }
                 },

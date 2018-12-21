@@ -17,7 +17,7 @@ module.exports = {
             outputCallBack(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
             return;
         }
-        data.userID = new ObjectID(data.userID);
+        // data.userID = new ObjectID(data.userID);
         const promiseUser = db.getUserByID(data.userID);
         promiseUser.then(userRemoveded => {
             const promiseUserWorkerHaveChat = userHasThisChat(data.chatID, user.chats);

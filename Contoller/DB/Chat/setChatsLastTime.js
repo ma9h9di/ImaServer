@@ -7,7 +7,7 @@ function setChatsLastTime(chat) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Users");
-            userCollection.updateMany({'chats.chatID': chat._id}, {$set: {'chats.$.changeChatTime':chat.changeChatTime}}, function (err, res) {
+            userCollection.updateMany({'chats.chatID': chat.chatID}, {$set: {'chats.$.changeChatTime':chat.changeChatTime}}, function (err, res) {
                 if (err) {
                     throw err;
                 }

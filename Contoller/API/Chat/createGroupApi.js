@@ -13,7 +13,7 @@ function call(data, user, outputCallBack) {
     let newGroup = new groupCrater(data.title, data.description, user).getInit();
     const promiseAddChat = db.createChat(newGroup);
     promiseAddChat.then(chat => {
-        const promiseAddUse = db.joinChat(user._id, require("../../Model/chatCreater").getChatUser(chat));
+        const promiseAddUse = db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
         promiseAddUse.then(value => {
             //todo in ja baz bayad bbinim khorji chiye dg
             const allPromiseAddUser=[];

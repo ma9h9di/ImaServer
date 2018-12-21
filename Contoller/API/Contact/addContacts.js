@@ -16,7 +16,7 @@ function call(contacts, user, callback) {
         logd('in addContact in then promise', values.length);
         for (let i = 0; i < values.length; i++) {
             if (values[i]) {
-                contacts[i].userID = values[i]._id;
+                contacts[i].userID = values[i].userID;
             }
             lookedUpContacts.push(contacts[i]);
         }
