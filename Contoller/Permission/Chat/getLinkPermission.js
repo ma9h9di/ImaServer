@@ -7,7 +7,7 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {

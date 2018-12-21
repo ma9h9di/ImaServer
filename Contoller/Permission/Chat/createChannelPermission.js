@@ -4,7 +4,7 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user) {
         return new Promise(async (resolve,reject) => {
             try {
                 //todo age ro sakhte tedad gp ina bekhaim kari konim jash injas vali flan ke chizi nadarim vase in ghazie

@@ -5,7 +5,7 @@ var User = require('../../Model/user');
 var pv = require('../../Other/PublicValue');
 var db = require('../../DB/db');
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user) {
         //check all for chackPhone
         var extraData;
 

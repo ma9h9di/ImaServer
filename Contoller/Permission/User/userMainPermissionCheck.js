@@ -7,17 +7,17 @@ const pv = require('../../Other/PublicValue');
 const ObjectID = require('mongodb').ObjectID;
 
 
-function findMethodPermission(input, user, myCallBack) {
+function findMethodPermission(input, user) {
     return new Promise(async (resolve, reject) => {
         try {
             let data = input.data;
             let checkAnswer;
             switch (input.method) {
                 case pv.api.user.getUsersInfo:
-                    checkAnswer = await getChatsInfoPermission.check(data, myCallBack);
+                    checkAnswer = await getChatsInfoPermission.check(data);
                     break;
                 case pv.api.user.getFullUserInfo:
-                    checkAnswer = await getFullUserInfoPermission.check(data, myCallBack);
+                    checkAnswer = await getFullUserInfoPermission.check(data);
                     break;
                 default:
                     reject(new err(pv.errCode.method_not_found).jsonErr());

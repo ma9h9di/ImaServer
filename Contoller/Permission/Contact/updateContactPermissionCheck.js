@@ -3,7 +3,7 @@ const updateContactApi = require('../../API/Contact/updateContact');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (user, data, outputCallBack) {
+    check: function (user, data) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('contact')) {

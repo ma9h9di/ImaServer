@@ -4,7 +4,7 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (user,outputCallBack) {
+    check: function (user) {
         return new Promise(async (resolve,reject) => {
             try {
                 const getSortedUpdatedChatList=await getSortedUpdatedChatListApi.call(user);

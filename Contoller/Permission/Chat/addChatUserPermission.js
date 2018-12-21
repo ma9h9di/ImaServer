@@ -6,7 +6,7 @@ const db = require('../../DB/db');
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-    check: function (data, user, outputCallBack, userHasThisChat) {
+    check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             if (!data.hasOwnProperty('chatID')) {
                 reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());

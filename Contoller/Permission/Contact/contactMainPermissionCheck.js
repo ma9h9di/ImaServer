@@ -16,7 +16,7 @@ function contactFormatValidation(contact) {
 
 module.exports = {
 
-    check: function (input, user, outputCallBack) {
+    check: function (input, user) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo #DB
         return new Promise(async (resolve, reject) => {

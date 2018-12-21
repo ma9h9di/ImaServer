@@ -3,7 +3,7 @@ var warn = require('../../Model/warning');
 var User = require('../../Model/user');
 var pv = require('../../Other/PublicValue');
 module.exports = {
-    check: function (data, user, outputCallBack) {
+    check: function (data, user) {
         return new Promise(async (resolve, reject) => {
             //check all for checkPhone
             var extraData = undefined;
