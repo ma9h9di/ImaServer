@@ -27,10 +27,9 @@ module.exports = function (user) {
     }
 
     function gnreateNewVerifyCode() {
-        const verifyCode = randomVerifyNumber(pv.defaultValue.verifyCodeLength);
-        user.authentication.validationCode = verifyCode;
+        user.authentication.validationCode = randomVerifyNumber(pv.defaultValue.verifyCodeLength);
         user.authentication.validationCodeExpire = date + pv.defaultValue.ExpireVerifyCodeTime;
-        //db.updateUser(user)
+
     }
 
     function checkNeedNewVerifyCode() {
@@ -47,25 +46,28 @@ module.exports = function (user) {
         stringTextVerifyCode: () => {
             return pv.string[user.language].verifySmsMessage.replace('{{code}}', user.authentication.validationCode);
         },
-        call: function (outputCallBack) {
-            checkNeedNewVerifyCode();
-            //sendSms
-            const request = require('request');
-            const option = {
-                headers: {'content-type': 'application/json'},
-                url: pv.defaultValue.sendSmsServiceUrl,
-                body: JSON.stringify(getSmsBody())
-            };
-            console.log(option);
-            request.post(option, function (error, response, body) {
-                // console.log(response);
-                console.log(error);
-                body = JSON.parse(body);
-                console.log(body);
-                //todo in bayad beshe 0
-                outputCallBack({'data': {'successful': (body[0] + '') === (0 + '')}});
-            });
+        call: function () {
+            return new Promise(async resolve => {
 
+
+                checkNeedNewVerifyCode();
+                //sendSms
+                const request = require('request');
+                const option = {
+                    headers: {'content-type': 'application/json'},
+                    url: pv.defaultValue.sendSmsServiceUrl,
+                    body: JSON.stringify(getSmsBody())
+                };
+                console.log(option);
+                request.post(option, function (error, response, body) {
+                    // console.log(response);
+                    console.log(error);
+                    body = JSON.parse(body);
+                    console.log(body);
+                    //todo in bayad beshe 0
+                    resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
+                });
+            });
         },
         checkNeedNewVerifyCode: checkNeedNewVerifyCode
 

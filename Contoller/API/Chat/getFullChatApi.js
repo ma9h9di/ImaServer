@@ -1,27 +1,38 @@
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
+const err = require('../../Model/error');
 
-function callByFullChat(value, callback) {
-    const fullChatKey = pv.support.fullChatKey;
-    value.accessLevel=value.accessLevel?value.accessLevel:pv.support.access.member;
-    let chatInfo = {};
-    for (let i = 0; i < fullChatKey.length; i++) {
-        let key = fullChatKey[i];
-        if (value.hasOwnProperty(key)) {
-            chatInfo[key] = value[key];
+function callByFullChat(value) {
+    return new Promise(async (resolve) => {
+        const fullChatKey = pv.support.fullChatKey;
+        value.accessLevel=value.accessLevel?value.accessLevel:pv.support.access.member;
+        let chatInfo = {};
+        for (let i = 0; i < fullChatKey.length; i++) {
+            let key = fullChatKey[i];
+            if (value.hasOwnProperty(key)) {
+                chatInfo[key] = value[key];
+            }
         }
-    }
-    callback({'data': chatInfo});
+        resolve({'data': chatInfo});
+    });
+
 
 }
 
-function callByInfoChat(value, callback) {
-    const promise = db.getChatByChatId(value.chatID);
-    promise.then(allChatData => {
-        allChatData.accessLevel=value.post;
-        callByFullChat(allChatData, callback);
-    })
+function callByInfoChat(value) {
+    return new Promise(async (resolve) => {
+        try {
+            const allChatData =await db.getChatByChatId(value.chatID);
+            allChatData.accessLevel=value.post;
+            const callByFullChat=await callByFullChat(allChatData);
+            resolve(callByFullChat);
+        } catch (e){
+            resolve(new err(pv.errCode.internal_err).jsonErr());
+
+        }
+    });
+
 }
 
 /*

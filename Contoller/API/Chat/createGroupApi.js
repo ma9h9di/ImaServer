@@ -9,27 +9,37 @@ const objectID=require('mongodb').ObjectID;
 const getFullChat = require('./getFullChatApi');
 
 
-function call(data, user, outputCallBack) {
-    let newGroup = new groupCrater(data.title, data.description, user).getInit();
-    const promiseAddChat = db.createChat(newGroup);
-    promiseAddChat.then(chat => {
-        const promiseAddUse = db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
-        promiseAddUse.then(value => {
-            //todo in ja baz bayad bbinim khorji chiye dg
-            const allPromiseAddUser=[];
-            for (let i = 0; i < data.userIDs.length; i++) {
-                allPromiseAddUser.push(addUser.callApi({userID:new objectID(data.userIDs[i]),chatID:chat._id,limitShowMessageCount:0}));
+function call(data, user) {
+    return new Promise(async (resolve) => {
+        let newGroup = new groupCrater(data.title, data.description, user).getInit();
+        try {
+            const chat =await db.createChat(newGroup);
+            try {
+                const value =await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
+                //todo in ja baz bayad bbinim khorji chiye dg
+                const allPromiseAddUser=[];
+                for (let i = 0; i < data.userIDs.length; i++) {
+                    allPromiseAddUser.push(addUser.callApi({userID:new objectID(data.userIDs[i]),chatID:chat._id,limitShowMessageCount:0}));
+                }
+                try {
+                    const allPromiseAddUserValue=await Promise.all(allPromiseAddUser);
+                    const fullChat=await getFullChat.callByFullChat(chat);
+                    resolve(fullChat);
+
+                } catch (e){
+                    resolve(new err(pv.errCode.internal_err).jsonErr());
+
+                }
+            } catch (e){
+                resolve(new err(pv.errCode.internal_err).jsonErr());
+
             }
-            Promise.all(allPromiseAddUser).then(allPromiseAddUserValue => {
-                getFullChat.callByFullChat(chat, outputCallBack);
-            }).catch(reason => {
-                outputCallBack(new err(pv.errCode.internal_err).jsonErr());
-            });
-        }).catch(error => {
-            outputCallBack(new err(pv.errCode.internal_err).jsonErr());
-        });
-    }).catch(error => {
-        outputCallBack(new err(pv.errCode.internal_err).jsonErr());
+
+        } catch (e){
+            resolve(new err(pv.errCode.internal_err).jsonErr());
+        }
+
+
     });
 
 

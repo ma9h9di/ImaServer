@@ -6,22 +6,24 @@ const err = require('../../Model/error');
 
 const getFullChat = require('./getFullChatApi');
 
-function call(data, user, outputCallBack) {
-    let newShop = new Shop(data.title, data.description, user).getInit();
-    const promiseAddChat = db.createChat(newShop);
-    promiseAddChat.then(chat => {
-        const promiseAddUse = db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
-        promiseAddUse.then(value => {
-            //todo in ja baz bayad bbinim khorji chiye dg
-            getFullChat.callByFullChat(chat, outputCallBack);
-        }).catch(error => {
-            outputCallBack(new err(pv.errCode.internal_err).jsonErr());
-        });
-    }).catch(error => {
-        outputCallBack(new err(pv.errCode.internal_err).jsonErr());
+function call(data, user) {
+    return new Promise(async (resolve) => {
+        let newShop = new Shop(data.title, data.description, user).getInit();
+        try {
+            try {
+                const chat =await db.createChat(newShop);
+                const value =await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
+                const fullChat=await getFullChat.callByFullChat(chat);
+                resolve(fullChat);
+
+            } catch (e) {
+                resolve(new err(pv.errCode.internal_err).jsonErr());
+
+            }
+        } catch (e) {
+            resolve(new err(pv.errCode.internal_err).jsonErr());
+        }
     });
-
-
 }
 
 module.exports = {

@@ -21,31 +21,33 @@ module.exports = function (user) {
 
     return {
 
-        call: function (data, outputCallBack) {
-            if (user.status === 'active' || user.status === 'deactivate') {
-                if (currentVerifyCode(data.verify_code, user.authentication)) {
-                    //age taraf ghablan be in marhale reside on ghabliash gheyre faal mishan
-                    if (user.status === 'deactivate')
-                        user.session = [];
-                    const session = addSession(data.device, data.app);
-                    user.session.push(session);
-                    result.message = pv.string[user.language].singUpTrue;
-                    result.successful = true;
-                    user.authentication.validationCodeExpire = 0;
-                    result.token = session.token;
-                    // result.userID=user._id;
-                    result.deviceAuthenticationRest = true;//for delete kardan on totul attentication
+        call: function (data) {
+            return new Promise(async resolve => {
+                if (user.status === 'active' || user.status === 'deactivate') {
+                    if (currentVerifyCode(data.verify_code, user.authentication)) {
+                        //age taraf ghablan be in marhale reside on ghabliash gheyre faal mishan
+                        if (user.status === 'deactivate')
+                            user.session = [];
+                        const session = addSession(data.device, data.app);
+                        user.session.push(session);
+                        result.message = pv.string[user.language].singUpTrue;
+                        result.successful = true;
+                        user.authentication.validationCodeExpire = 0;
+                        result.token = session.token;
+                        // result.userID=user._id;
+                        result.deviceAuthenticationRest = true;//for delete kardan on totul attentication
+                    } else {
+                        result.message = pv.string[user.language].singUpVerifyCodeErr;
+                        result.successful = false;
+                        result.token = "";
+                    }
                 } else {
-                    result.message = pv.string[user.language].singUpVerifyCodeErr;
+                    result.message = pv.string[user.language].singUpFalse;
                     result.successful = false;
                     result.token = "";
                 }
-            } else {
-                result.message = pv.string[user.language].singUpFalse;
-                result.successful = false;
-                result.token = "";
-            }
-            outputCallBack({'data': result});
+                resolve({'data': result});
+            })
         }
 
     }

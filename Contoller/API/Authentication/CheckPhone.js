@@ -25,7 +25,9 @@ module.exports = {
          }
      }
     * */
-    call: function (user, outputCallBack) {
-        outputCallBack({'data': {'registered': user.status === 'active'}});
+    call: function (user) {
+        return new Promise(resolve => {
+            return {'data': {'registered': user.status === 'active'}};
+        })
     }
 };

@@ -1,9 +1,10 @@
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
+const err = require('../../Model/error');
 
 
-function call(data, outputCallBack) {
+function call(data) {
     // data._id = data.chatID;
     // const promiseChatNeed=db.getChats([data.chatID],['numberOfLastMessages']);
     // promiseChatNeed.then(value => {
@@ -15,15 +16,18 @@ function call(data, outputCallBack) {
     //     chatID: data.chatID,
     //     joinTime: new Date().getTime(),
     // };
-    const promiseAddChat = db.leaveChat(data.userID, data.chatID);
-    const promiseAddUse = db.removeMemberFromChat(data.userID, data.chatID);
-    Promise.all([promiseAddChat, promiseAddUse]).then(function (values) {
-        //todo khoroji injast dg harchi mikhay bego bedam
+    return new Promise(async (resolve) => {
+        try {
+            const promiseAddChat = db.leaveChat(data.userID, data.chatID);
+            const promiseAddUse = db.removeMemberFromChat(data.userID, data.chatID);
+            const values=await Promise.all([promiseAddChat, promiseAddUse]);
+            resolve({data: {successful: true}})
+        } catch (e){
+            resolve({data: {successful: false}});
 
-        outputCallBack({data: {successful: true}})
-    }).catch(reason => {
-        outputCallBack({data: {successful: false}})
+        }
     });
+
     // }).catch(error => {
     //
     // });

@@ -2,16 +2,20 @@ const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 
-function call(userChat,user, callback) {
-
+function call(userChat,user) {
+return new Promise(async (resolve) => {
     //todo nemidonm inja bayad che konm
     userChat.limitShowMessageCount=userChat.lastAvalebalMessage;
-    const promise=db.deleteDataChatUser(userChat,user.userID);
-    promise.then(value => {
-        callback({data:{successful:true}});
-    }).catch(error => {
-        callback({data:{successful:false}});
-    })
+    try {
+        const value=await db.deleteDataChatUser(userChat,user.userID);
+        resolve({data:{successful:true}});
+
+    } catch (e){
+        resolve({data:{successful:false}});
+    }
+
+});
+
 }
 
 module.exports = {

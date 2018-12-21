@@ -6,20 +6,25 @@ const ObjectID = require("mongodb").ObjectID;
 
 const fullChatInfoApi = require('./getFullChatApi').callByInfoChat;
 
-function call(data, callback) {
+function call(data) {
     // data._id = new ObjectID(data.chatID);
+    return new Promise(async (resolve) => {
+        try {
+            const value = await db.updateChatByMongoID(pv.support.chatUpdate, data);
+            //Todo:inja bayad run konm test konm bbinm chi mishe
+            if (value.matchedCount > 0) {
+                const ful = await fullChatInfoApi(data);
+                resolve(ful);
+            }
+            else resolve(new err(pv.errCode.internal_err).jsonErr());
+        } catch (e) {
+            resolve(new err(pv.errCode.internal_err).jsonErr());
 
-    const promise = db.updateChatByMongoID(pv.support.chatUpdate, data);
-    promise.then(value => {
-        //Todo:inja bayad run konm test konm bbinm chi mishe
-        if (value.matchedCount > 0) {
-            // data.chatID = data._id;
-            fullChatInfoApi(data, callback);
         }
-        else callback(new err(pv.errCode.internal_err).jsonErr());
-    }).catch(error => {
 
-    })
+
+    });
+
 
 }
 
