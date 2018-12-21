@@ -12,7 +12,7 @@ function call(contacts, user) {
             promise.push(db.getUserByPhoneNumber_promise(contacts[i].phone_number));
         }
         logd('in addContact after all promise add', promise.length);
-        values = await Promise.all(promise);
+        const values = await Promise.all(promise);
 
         logd('in addContact in then promise', values.length);
         for (let i = 0; i < values.length; i++) {
