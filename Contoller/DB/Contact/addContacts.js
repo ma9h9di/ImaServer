@@ -4,39 +4,43 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 
-function addContacts(user, contacts, callback) {
-    try {
-        var userCollection = mongoUtil.getDb().collection("Users");
+function addContacts(user, contacts) {
+    return new Promise(async (resolve,reject) => {
+        try {
+            var userCollection = mongoUtil.getDb().collection("Users");
 
 
-        userCollection.updateOne(
-            {
-                phone_number: {$eq: user.phone_number}
-            },
+            userCollection.updateOne(
+                {
+                    phone_number: {$eq: user.phone_number}
+                },
 
-            {
-                $addToSet: {
-                    contacts: {
-                        $each: contacts
+                {
+                    $addToSet: {
+                        contacts: {
+                            $each: contacts
+                        }
+                    }
+                },
+                function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    if (!res) {
+                        resolve(false);
+                    } else {
+                        var temp = {};
+                        temp.contacts = contacts;
+                        resolve(temp);
                     }
                 }
-            },
-            function (err, res) {
-                if (err) {
-                    throw err;
-                }
-                if (!res) {
-                    callback(false);
-                } else {
-                    var temp = {};
-                    temp.contacts = contacts;
-                    callback(temp);
-                }
-            }
-        );
-    } catch (e) {
-        logd(e);
-    }
+            );
+        } catch (e) {
+            logd(e);
+            reject(e);
+        }
+    });
+
 }
 
 module.exports =

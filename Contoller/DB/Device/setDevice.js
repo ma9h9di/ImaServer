@@ -4,32 +4,40 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 
-function insertDevice(device, callback) {
-    try {
-        var deviceCollection = mongoUtil.getDb().collection("Devices");
-        deviceCollection.insertOne(device, function (err, res) {
-            if (err) {
-                throw err;
-            }
-            callback(res.ops[0]);
-        });
-    } catch (e) {
-        logd(e);
-    }
+function insertDevice(device) {
+    return new Promise(async (resolve,reject) => {
+        try {
+            var deviceCollection = mongoUtil.getDb().collection("Devices");
+            deviceCollection.insertOne(device, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                resolve(res.ops[0]);
+            });
+        } catch (e) {
+            logd(e);
+            reject(e)
+        }
+    });
+
 }
 
-function updateDevice(device, callback) {
-    try {
-        var deviceCollection = mongoUtil.getDb().collection("Devices");
-        deviceCollection.updateMany({unique_device_key: device.unique_device_key}, {$set: device}, function (err, res) {
-            if (err) {
-                throw err;
-            }
-            callback({});
-        });
-    } catch (e) {
-        logd(e);
-    }
+function updateDevice(device) {
+    return new Promise(async (resolve,reject) => {
+        try {
+            var deviceCollection = mongoUtil.getDb().collection("Devices");
+            deviceCollection.updateMany({unique_device_key: device.unique_device_key}, {$set: device}, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                resolve({});
+            });
+        } catch (e) {
+            logd(e);
+            reject(e)
+        }
+    });
+
 }
 
 

@@ -27,7 +27,6 @@ const addChatImageByMongoID = require('./Chat/addChatImageByMongoID');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
-    getUserByPhoneNumber_promise: getUser.getUserByPhoneNumber_promise,
     getUserByToken: getUser.getUserByToken,
     getUserByID: getUser.getUserByID,
     getUsersInfo:getUser.getUsersInfo,

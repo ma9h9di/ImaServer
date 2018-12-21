@@ -9,7 +9,7 @@ function call(contacts, user) {
         // TODO optimise query
         logd('in addContact Api');
         for (let i = 0; i < contacts.length; i++) {
-            promise.push(db.getUserByPhoneNumber_promise(contacts[i].phone_number));
+            promise.push(db.getUserByPhoneNumber(contacts[i].phone_number));
         }
         logd('in addContact after all promise add', promise.length);
         const values = await Promise.all(promise);

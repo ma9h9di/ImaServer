@@ -5,10 +5,11 @@ const logd = require('../../Other/Funcion').logd;
 const setChatsLastTime = require('./setChatsLastTime').setChatsLastTime;
 
 function addChatImageByMongoID(imageID, newChat) {
-    newChat.changeChatTime = new Date().getTime();
-    setChatsLastTime(newChat);
-    return new Promise((resolve, reject) => {
+
+    return new Promise(async (resolve, reject) => {
         try {
+            newChat.changeChatTime = new Date().getTime();
+            await setChatsLastTime(newChat);
             const chatCollection = mongoUtil.getDb().collection("Chats");
             chatCollection.updateOne({_id: newChat._id}, {
                 $set: {changeChatTime: newChat.changeChatTime},

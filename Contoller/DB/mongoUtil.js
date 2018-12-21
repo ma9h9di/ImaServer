@@ -17,14 +17,17 @@ function connectToServer(callback) {
     });
 }
 
-function getNextSequenceValue(sequenceName,callBack) {
-    const sequenceDocument = _db.collection("Counters").findAndModify(
-        {_id: sequenceName}, [],
-        {$inc: {sequence_value: 1}},
-        {new: true},
-        (err,sequenceDocument) => {
-            callBack(sequenceDocument.value.sequence_value);
-        });
+function getNextSequenceValue(sequenceName) {
+    return new Promise(async (resolve) => {
+        const sequenceDocument = _db.collection("Counters").findAndModify(
+            {_id: sequenceName}, [],
+            {$inc: {sequence_value: 1}},
+            {new: true},
+            (err,sequenceDocument) => {
+                resolve(sequenceDocument.value.sequence_value);
+            });
+    });
+
 
     // return sequenceDocument.sequence_value;
 }
