@@ -31,18 +31,35 @@ const allApi = {
         getPin: 'getPin',
         setPin: 'setPin',
     },
-    user:{
-        getUsersInfo:'getUsersInfo',
-        getFullUserInfo:'getFullUserInfo',
+    user: {
+        getUsersInfo: 'getUsersInfo',
+        getFullUserInfo: 'getFullUserInfo',
     },
-    uploadApi:{
-        profileUpload:{
-            user:'userUploadProfile',
-            chat:'chatUploadProfile',
+    message: {
+        sendMessage: 'sendMessage',
+        forwardMessages: 'forwardMessages',
+        deleteMessage: 'deleteMessage',
+        clearHistory: 'clearHistory',
+        sendEmojiOnMessage: 'sendEmojiOnMessage',
+        setTyping: 'setTyping',
+        seenMessages: 'seenMessages',
+        inChatSearch: 'inChatSearch',
+        globalSearch: 'globalSearch',
+        messageSearch: 'messageSearch',
+        pay: 'pay',
+        sendSupperTicket: 'sendSupperTicket',
+        getMessages: 'getMessages',
+        getFullMessages: 'getFullMessages',
+        getChangableMessage: 'getChangableMessage',
+    },
+    uploadApi: {
+        profileUpload: {
+            user: 'userUploadProfile',
+            chat: 'chatUploadProfile',
         }
     },
-    downloadApi:{
-        profileImage:'profileImage'
+    downloadApi: {
+        profileImage: 'profileImage'
     }
 };
 
@@ -97,12 +114,12 @@ const supportValue = {
         'title': 1,
         'type': 1,
         'photoURL': 1,
-        'changeChatTime':1
+        'changeChatTime': 1
 
     },
     userInfoKey: {
         // '_id':1,
-        'profileImage':1,
+        'profileImage': 1,
         'lastActivityTime': 1,
         'lastProfileChange': 1,
         'firstName': 1,
@@ -118,7 +135,7 @@ const supportValue = {
         'lastActivityTime': 1,
         'firstName': 1,
         'lastName': 1,
-        'profileImage':1,
+        'profileImage': 1,
         'userID': 1,
         'lastProfileChange': 1
 
@@ -157,6 +174,7 @@ const apiType = {
     contact: 'API_Contact',
     chat: 'chat',
     user: 'user',
+    message: 'message'
 
 };
 
@@ -231,14 +249,23 @@ const errCode = {
         username_pattern_denied: 'username_pattern_denied',
         user_exist: 'user_exist',
     },
+    message :{
+        message_not_found :'message_not_found',
+        access_denied_message: 'access_denied_message',
+        message_type_not_denied: 'message_type_not_denied',
+        access_denied_send: 'access_denied_send',
+    }
 };
-const fileType={
-    UserProfileImage:'UserProfileImage',
-    ChatProfileImage:'ChatProfileImage',
+const fileType = {
+    UserProfileImage: 'UserProfileImage',
+    ChatProfileImage: 'ChatProfileImage',
 };
 
-const fileCategory={
-    profile:'profile'
+const fileCategory = {
+    profile: 'profile'
+};
+const messageType={
+  text: 'text'
 };
 
 module.exports = {
@@ -256,8 +283,10 @@ module.exports = {
 
     errCode: errCode,
 
-    fileType:fileType,
+    fileType: fileType,
 
-    fileCategory:fileCategory
+    fileCategory: fileCategory,
+
+    messageType:messageType
 
 };

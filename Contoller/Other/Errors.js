@@ -201,6 +201,37 @@ var Errors = [ //if error occure data is nothing
         'type': pv.apiType.chat,
         'error_data': {}
     },
+
+    //message
+    {
+        'title': 'message not exist',
+        'code': pv.errCode.message.message_not_found,
+        'message': 'Sorry, this message not exist in this chat',
+        'type': pv.apiType.message,
+        'error_data': {}
+    },
+    {
+        'title': 'access denied message',
+        'code': pv.errCode.message.access_denied_message,
+        'message': 'Sorry, you can`t change this message',
+        'type': pv.apiType.message,
+        'error_data': {}
+    },
+    {
+        'title': 'message type not denied',
+        'code': pv.errCode.message.message_type_not_denied,
+        'message': 'Sorry, this type not support',
+        'type': pv.apiType.message,
+        'error_data': {}
+    },
+    {
+        'title': 'access denied send',
+        'code': pv.errCode.message.access_denied_send,
+        'message': 'Sorry, you can`t send message this chat',
+        'type': pv.apiType.message,
+        'error_data': {}
+    }
+
 ];
 
 

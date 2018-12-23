@@ -6,7 +6,7 @@ const pv = require('../Other/PublicValue');
 class Error {
 
     constructor(code, message, error_data) {
-        this.mErr = this.findThisErr(code);
+        this.mErr = Error.findThisErr(code);
         if (message !== undefined)
             this.mErr.message = message;
         if (error_data !== undefined)
@@ -20,7 +20,7 @@ class Error {
         };
     }
 
-    findThisErr(code) {
+    static findThisErr(code) {
         logd(code);
         for (let i = 0; i < errors.err.length; i++) {
             if (errors.err[i].code === code)

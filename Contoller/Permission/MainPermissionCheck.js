@@ -2,9 +2,12 @@ const authenticationPermission = require('./Authentication/AuthenticationMainPer
 const contactPermission = require('./Contact/contactMainPermissionCheck');
 const chatPermission = require('./Chat/chatMainPermissionCheck');
 const userPermission = require('./User/userMainPermissionCheck');
+const messagePermission = require('./Message/messageMainPermissionCheck');
 const logd = require('../Other/Funcion').logd;
 const err = require('../Model/error');
 const pv = require('../Other/PublicValue');
+import {} from "../Permission/User/getChatsInfoPermission";
+
 const db = require('../DB/db');
 
 //TODO *** bayad shecle check kardano avaz konim ye function behesh bedim begim inaro check kon
@@ -65,8 +68,8 @@ function callBackAfterUser(user, input, client) {
             case pv.api.chat.createShop:
             case pv.api.chat.setLink:
             case pv.api.chat.getLink:
-            case pv.api.chat.setPin:
-            case pv.api.chat.getPin:
+            case pv.api.chat.setPin://todo
+            case pv.api.chat.getPin://todo
                 try {
                     if (user === false) {
                         reject(new err(pv.errCode.token_user_not_found).jsonErr());
@@ -100,6 +103,38 @@ function callBackAfterUser(user, input, client) {
                 } catch (e) {
                     reject(e);
                 }
+                break;
+
+            case pv.api.message.sendMessage:
+            case pv.api.message.forwardMessages:
+            case pv.api.message.deleteMessage:
+            case pv.api.message.clearHistory:
+            case pv.api.message.sendEmojiOnMessage:
+            case pv.api.message.setTyping:
+            case pv.api.message.seenMessages:
+            case pv.api.message.inChatSearch:
+            case pv.api.message.globalSearch:
+            case pv.api.message.messageSearch:
+            case pv.api.message.pay:
+            case pv.api.message.sendSupperTicket:
+            case pv.api.message.getMessages:
+            case pv.api.message.getFullMessages:
+            case pv.api.message.getChangableMessage:
+                try {
+                if (user === false) {
+                    reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                    break;
+                }
+                const contactPermissionResult = await messagePermission.check(input, user);
+                contactPermissionResult.type = pv.apiType.message;
+                user.lastActivityTime = date;
+                user.changeAttribute.push('lastActivityTime');
+                db.updateUserByMongoID(user.changeAttribute, user);
+                resolve(contactPermissionResult);
+                break;
+            } catch (e) {
+                reject(e);
+            }
                 break;
             default:
                 reject(new err(pv.errCode.method_not_found).jsonErr());
