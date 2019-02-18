@@ -1,4 +1,4 @@
-//create by Mahdi Khazayi Nezhad at 12/28/2018 9:06 PM
+//create by Mahdi Khazayi Nezhad at 18/02/2019 10:34 PM
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
@@ -10,7 +10,7 @@ function call(data) {
         try {
             let answer;
             //write your code Mahdi Khazayi Nezhad
-            
+            answer = new err(pv.errCode.not_implemented).jsonErr();
             resolve({data: answer})
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
