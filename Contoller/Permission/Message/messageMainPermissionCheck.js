@@ -12,7 +12,7 @@ const payPermission =require('./payPermission');
 const sendSupperTicketPermission =require('./sendSupperTicketPermission');
 const getMessagesPermission =require('./getMessagesPermission');
 const getFullMessagesPermission =require('./getFullMessagesPermission');
-const getChangableMessagePermission =require('./getChangableMessagePermission');
+const getChangeableMessagePermission =require('./getChangeableMessagePermission');
 
 
 const err = require('../../Model/error');
@@ -90,7 +90,7 @@ function findMethodPermission(input, user,userHasThisChat) {
                     checkAnswer = await getFullMessagesPermission.check();
                     break;
                 case pv.api.message.getChangableMessage:
-                    checkAnswer = await getChangableMessagePermission.check();
+                    checkAnswer = await getChangeableMessagePermission.check();
                     break;
                 default:
                     reject(new err(pv.errCode.method_not_found).jsonErr());
