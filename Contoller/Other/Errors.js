@@ -9,6 +9,13 @@ var Errors = [ //if error occure data is nothing
         'error_data': {}
     },
     {
+        'title': 'not implemented',
+        'code': pv.errCode.not_implemented,
+        'message': 'Sorry, this api is no longer available',
+        'type': pv.apiType.all,
+        'error_data': {}
+    },
+    {
         'title': 'error code not found',
         'code': pv.errCode.error_code_not_found,
         'message': 'can`t found error code',

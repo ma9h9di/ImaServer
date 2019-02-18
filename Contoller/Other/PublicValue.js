@@ -216,6 +216,7 @@ const string = {
 
 const errCode = {
     internal_err: 'internal_err',
+    not_implemented:'not_implemented',
     error_code_not_found: 'error_code_not_found',
     token_field_not_found: 'token_field_not_found',
     token_user_not_found: 'token_user_not_found',
