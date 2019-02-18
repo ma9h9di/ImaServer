@@ -10,6 +10,24 @@ import {} from "../Permission/User/getChatsInfoPermission";
 
 const db = require('../DB/db');
 
+
+function userHasThisChat(chatID, chats, accessLevel) {
+    accessLevel = accessLevel ? accessLevel : pv.support.access.member;
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < chats.length; i++) {
+            if (chats[i].chatID.equals(chatID)) {
+                if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
+                    reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+                } else {
+                    resolve(chats[i]);
+                }
+            }
+        }
+        reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+    });
+
+}
+
 //TODO *** bayad shecle check kardano avaz konim ye function behesh bedim begim inaro check kon
 function callBackAfterUser(user, input, client) {
     return new Promise(async (resolve, reject) => {
@@ -75,7 +93,7 @@ function callBackAfterUser(user, input, client) {
                         reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
-                    const contactPermissionResult = await chatPermission.check(input, user);
+                    const contactPermissionResult = await chatPermission.check(input, user,userHasThisChat);
                     contactPermissionResult.type = pv.apiType.chat;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
@@ -121,20 +139,20 @@ function callBackAfterUser(user, input, client) {
             case pv.api.message.getFullMessages:
             case pv.api.message.getChangableMessage:
                 try {
-                if (user === false) {
-                    reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                    if (user === false) {
+                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        break;
+                    }
+                    const contactPermissionResult = await messagePermission.check(input, user,userHasThisChat);
+                    contactPermissionResult.type = pv.apiType.message;
+                    user.lastActivityTime = date;
+                    user.changeAttribute.push('lastActivityTime');
+                    db.updateUserByMongoID(user.changeAttribute, user);
+                    resolve(contactPermissionResult);
                     break;
+                } catch (e) {
+                    reject(e);
                 }
-                const contactPermissionResult = await messagePermission.check(input, user);
-                contactPermissionResult.type = pv.apiType.message;
-                user.lastActivityTime = date;
-                user.changeAttribute.push('lastActivityTime');
-                db.updateUserByMongoID(user.changeAttribute, user);
-                resolve(contactPermissionResult);
-                break;
-            } catch (e) {
-                reject(e);
-            }
                 break;
             default:
                 reject(new err(pv.errCode.method_not_found).jsonErr());

@@ -23,7 +23,7 @@ function getNextSequenceValue(sequenceName) {
             {_id: sequenceName}, [],
             {$inc: {sequence_value: 1}},
             {new: true},
-            (err,sequenceDocument) => {
+            (err, sequenceDocument) => {
                 resolve(sequenceDocument.value.sequence_value);
             });
     });

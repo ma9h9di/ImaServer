@@ -20,7 +20,6 @@ const logd = require('../../Other/Funcion').logd;
 const pv = require('../../Other/PublicValue');
 const ObjectID = require('mongodb').ObjectID;
 
-
 function messageFormatCheck(data) {
     return new Promise((resolve, reject) => {
         if (!data.hasOwnProperty('message')) {
@@ -40,7 +39,8 @@ function messageFormatCheck(data) {
 
 }
 
-function findMethodPermission(input, user) {
+function findMethodPermission(input, user,userHasThisChat) {
+
     return new Promise(async (resolve, reject) => {
         try {
             let data = input.data;
@@ -48,25 +48,25 @@ function findMethodPermission(input, user) {
             switch (input.method) {
                 case pv.api.message.sendMessage:
                     data=await messageFormatCheck(data);
-                    checkAnswer = await sendMessagePermission.check(data);
+                    checkAnswer = await sendMessagePermission.check(data,user);
                     break;
                 case pv.api.message.forwardMessages:
-                    checkAnswer = await forwardMessagesPermission.check();
+                    checkAnswer = await forwardMessagesPermission.check();//todo
                     break;
                 case pv.api.message.deleteMessage:
-                    checkAnswer = await deleteMessagePermission.check();
+                    checkAnswer = await deleteMessagePermission.check();//todo
                     break;
                 case pv.api.message.clearHistory:
-                    checkAnswer = await clearHistoryPermission.check();
+                    checkAnswer = await clearHistoryPermission.check(data,user);//todo fln to app ok konim
                     break;
-                case pv.api.message.sendEmojiOnMessage:
+                case pv.api.message.sendEmojiOnMessage://todo fln nemikhadm
                     checkAnswer = await sendEmojiOnMessagePermission.check();
                     break;
-                case pv.api.message.setTyping:
+                case pv.api.message.setTyping://todo smesh avaz she? alan mohem nist
                     checkAnswer = await setTypingPermission.check();
                     break;
                 case pv.api.message.seenMessages:
-                    checkAnswer = await seenMessagesPermission.check();
+                    checkAnswer = await seenMessagesPermission.check(data,user,userHasThisChat);
                     break;
                 case pv.api.message.inChatSearch:
                     checkAnswer = await inChatSearchPermission.check();
@@ -108,15 +108,14 @@ function findMethodPermission(input, user) {
 
 module.exports = {
 
-    check: function (input, user) {
-
+    check: function (input, user,userHasThisChat) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
         return new Promise(async (resolve, reject) => {
             try {
                 user.changeAttribute = [];
-                const findMethodP = await findMethodPermission(input, user);
+                const findMethodP = await findMethodPermission(input, user,userHasThisChat);
                 resolve(findMethodP);
             } catch (e) {
                 reject(e);

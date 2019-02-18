@@ -20,23 +20,7 @@ const logd = require('../../Other/Funcion').logd;
 const pv = require('../../Other/PublicValue');
 const ObjectID = require('mongodb').ObjectID;
 
-
-function userHasThisChat(chatID, chats, accessLevel) {
-    accessLevel = accessLevel ? accessLevel : pv.support.access.member;
-    return new Promise((resolve, reject) => {
-        for (let i = 0; i < chats.length; i++) {
-            if (chats[i].chatID.equals(chatID)) {
-                if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
-                    reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-                } else {
-                    resolve(chats[i]);
-                }
-            }
-        }
-        reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
-    });
-
-}
+let userHasThisChat;
 
 function findMethodPermission(input, user) {
     return new Promise(async (resolve, reject) => {
@@ -109,10 +93,11 @@ function findMethodPermission(input, user) {
 
 module.exports = {
 
-    check: function (input, user) {
+    check: function (input, user,userHasThisChat) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
+        this.userHasThisChat=userHasThisChat;
         return new Promise(async (resolve, reject) => {
             try {
                 user.changeAttribute = [];
@@ -125,7 +110,6 @@ module.exports = {
         });
 
 
-    },
-    userHasThisChat: userHasThisChat
+    }
 };
 
