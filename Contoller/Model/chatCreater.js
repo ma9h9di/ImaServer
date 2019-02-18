@@ -19,18 +19,19 @@ function getDefaultsChat(user) {
     }
 }
 
-function getChatUser(chat, post, limitShowMessageCount) {
+function getChatUser(chat, post, limitShowMessageCount=0) {
     limitShowMessageCount = limitShowMessageCount ? limitShowMessageCount : 0;
     post = post ? post : pv.support.access.superAdmin;
     return {
         post: post,
         chatType: chat.type,
         // accessModifier:chat.accessModifier,
-        lastAvalebalMessage: chat.messageCount - limitShowMessageCount,
-        lastSeenMessage: chat.messageCount - limitShowMessageCount,
+        lastAvalebalMessage: chat.messageCount - limitShowMessageCount,//shomareye akharim mssagi ke mitone bbine
+        lastSeenMessage: chat.messageCount - limitShowMessageCount,//shomareye akharim messagi ke dide
         chatID: chat._id,
         joinTime: new Date().getTime(),
-        changeChatTime:chat.changeChatTime
+        changeChatTime:chat.changeChatTime,
+        lastMessageChangeTime: new Date().getTime()//zaman akharim payam
     };
 }
 

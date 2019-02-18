@@ -48,7 +48,7 @@ function findMethodPermission(input, user,userHasThisChat) {
             switch (input.method) {
                 case pv.api.message.sendMessage:
                     data=await messageFormatCheck(data);
-                    checkAnswer = await sendMessagePermission.check(data,user);
+                    checkAnswer = await sendMessagePermission.check(data,user,userHasThisChat);
                     break;
                 case pv.api.message.forwardMessages:
                     checkAnswer = await forwardMessagesPermission.check();//todo
