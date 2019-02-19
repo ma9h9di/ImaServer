@@ -10,17 +10,17 @@ function call(newMessage, user, userChat) {
         try {
             let answer;
             //write your code Mahdi Khazayi Nezhad
-            userChat.lastMessageChangeTime = newMessage.lastEditTime;
-            /*
-            * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek elementesho update
-            * konim
-            * db.updateUserChat(user,userChat)
-            */
             /*
             * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid bayad ye message ro add konim
             * dakhelesh bayad colection chat ro ham ok kone yani shomare akharim messago in chizaro tosh bezare
             *
-            * await db.addMessage(newMessage)
+            * newMessage = await db.addMessage(newMessage)
+            */
+            userChat.lastMessageCount = newMessage.count;
+            /*
+            * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
+            * elementesho update `lastMessageChangeTime` konim in update many
+            * db.updateUserChat(userChat,['lastMessageCount'])
             */
             answer = newMessage;
             resolve({data: answer})

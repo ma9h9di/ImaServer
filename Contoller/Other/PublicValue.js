@@ -154,7 +154,8 @@ const supportValue = {
     chatType: {
         group: 'group',
         channel: 'channel',
-        shop: 'shop'
+        shop: 'shop',
+        privateChat:'privateChat'
     },
     groupType: {
         normal: 'normal',

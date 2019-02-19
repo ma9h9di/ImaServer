@@ -45,7 +45,18 @@ function randomString(length) {
     for (let i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
     return result;
 }
+function pi(k1,k2){return (((k1+k2)*(k1+k2+1))/2)+k2}
+function hashMessageID(senderChatID,receivedChatID){
+    let k1=senderChatID;
+    let k2=receivedChatID;
+    if(k1<k2){
+        //swaping
+        k2=[k1,k1=k2][0]
+    }
+    return pi(k1,k2);
+}
 
 logd("create Function", " hello");
 exports.logd = logd;
 exports.randomString = randomString;
+exports.hashMessageID = hashMessageID;

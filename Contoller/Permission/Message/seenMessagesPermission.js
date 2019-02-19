@@ -4,14 +4,23 @@ const seenMessagesApi = require('../../API/Message/seenMessagesApi');
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
-
+//chatID
+// maxSeenMessageCount
 module.exports = {
-    check: function (data) {
+    check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
+            let userChat;
             try { 
                  //write your code Mahdi Khazayi Nezhad ...
-                         
-                const seenMessages = await seenMessagesApi.call();
+                if (!data.hasOwnProperty('chatID')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                }
+                if (!data.hasOwnProperty('maxSeenMessageCount')) {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['']}).jsonErr());
+                }
+                userChat = await userHasThisChat(data.chatID, user.chats);
+
+                const seenMessages = await seenMessagesApi.call(userChat,user,data.maxSeenMessageCount);
                 resolve(seenMessages);
             } catch (e) {
                 reject(e);

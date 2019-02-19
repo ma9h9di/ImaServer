@@ -1,18 +1,18 @@
-const sendMessagePermission =require('./sendMessagePermission');
-const forwardMessagesPermission =require('./forwardMessagesPermission');
-const deleteMessagePermission =require('./deleteMessagePermission');
-const clearHistoryPermission =require('./clearHistoryPermission');
-const sendEmojiOnMessagePermission =require('./sendEmojiOnMessagePermission');
-const setTypingPermission =require('./setTypingPermission');
-const seenMessagesPermission =require('./seenMessagesPermission');
-const inChatSearchPermission =require('./inChatSearchPermission');
-const globalSearchPermission =require('./globalSearchPermission');
-const messageSearchPermission =require('./messageSearchPermission');
-const payPermission =require('./payPermission');
-const sendSupperTicketPermission =require('./sendSupperTicketPermission');
-const getMessagesPermission =require('./getMessagesPermission');
-const getFullMessagesPermission =require('./getFullMessagesPermission');
-const getChangeableMessagePermission =require('./getChangeableMessagePermission');
+const sendMessagePermission = require('./sendMessagePermission');
+const forwardMessagesPermission = require('./forwardMessagesPermission');
+const deleteMessagePermission = require('./deleteMessagePermission');
+const clearHistoryPermission = require('./clearHistoryPermission');
+const sendEmojiOnMessagePermission = require('./sendEmojiOnMessagePermission');
+const setTypingPermission = require('./setTypingPermission');
+const seenMessagesPermission = require('./seenMessagesPermission');
+const inChatSearchPermission = require('./inChatSearchPermission');
+const globalSearchPermission = require('./globalSearchPermission');
+const messageSearchPermission = require('./messageSearchPermission');
+const payPermission = require('./payPermission');
+const sendSupperTicketPermission = require('./sendSupperTicketPermission');
+const getMessagesPermission = require('./getMessagesPermission');
+const getFullMessagesPermission = require('./getFullMessagesPermission');
+const getChangeableMessagePermission = require('./getChangeableMessagePermission');
 
 
 const err = require('../../Model/error');
@@ -39,7 +39,7 @@ function messageFormatCheck(data) {
 
 }
 
-function findMethodPermission(input, user,userHasThisChat) {
+function findMethodPermission(input, user, userHasThisChat) {
 
     return new Promise(async (resolve, reject) => {
         try {
@@ -47,26 +47,41 @@ function findMethodPermission(input, user,userHasThisChat) {
             let checkAnswer;
             switch (input.method) {
                 case pv.api.message.sendMessage:
-                    data=await messageFormatCheck(data);
-                    checkAnswer = await sendMessagePermission.check(data,user,userHasThisChat);
+                    data = await messageFormatCheck(data);
+                    checkAnswer = await sendMessagePermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.message.forwardMessages:
-                    checkAnswer = await forwardMessagesPermission.check();//todo
+                    checkAnswer = await forwardMessagesPermission.check();
+                    /*
+                    * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : forward hazfe fln
+                    */
                     break;
                 case pv.api.message.deleteMessage:
-                    checkAnswer = await deleteMessagePermission.check();//todo
+                    checkAnswer = await deleteMessagePermission.check();
+                    /*
+                    * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : deletam fln hzfe
+                    */
                     break;
                 case pv.api.message.clearHistory:
-                    checkAnswer = await clearHistoryPermission.check(data,user);//todo fln to app ok konim
+                    checkAnswer = await clearHistoryPermission.check(data, user);
+                    /*
+                    * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : fln to app handel mikonim
+                    */
                     break;
-                case pv.api.message.sendEmojiOnMessage://todo fln nemikhadm
+                case pv.api.message.sendEmojiOnMessage:
                     checkAnswer = await sendEmojiOnMessagePermission.check();
+                    /*
+                    * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : emoji fln hzf
+                    */
                     break;
-                case pv.api.message.setTyping://todo smesh avaz she? alan mohem nist
+                case pv.api.message.setTyping:
                     checkAnswer = await setTypingPermission.check();
+                    /*
+                    * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : esmesh avaz beshe
+                    */
                     break;
                 case pv.api.message.seenMessages:
-                    checkAnswer = await seenMessagesPermission.check(data,user,userHasThisChat);
+                    checkAnswer = await seenMessagesPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.message.inChatSearch:
                     checkAnswer = await inChatSearchPermission.check();
@@ -108,14 +123,14 @@ function findMethodPermission(input, user,userHasThisChat) {
 
 module.exports = {
 
-    check: function (input, user,userHasThisChat) {
+    check: function (input, user, userHasThisChat) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
         return new Promise(async (resolve, reject) => {
             try {
                 user.changeAttribute = [];
-                const findMethodP = await findMethodPermission(input, user,userHasThisChat);
+                const findMethodP = await findMethodPermission(input, user, userHasThisChat);
                 resolve(findMethodP);
             } catch (e) {
                 reject(e);

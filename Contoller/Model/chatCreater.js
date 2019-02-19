@@ -1,16 +1,17 @@
 const logd = require('../Other/Funcion').logd;
+const hashMessageID = require('../Other/Funcion').hashMessageID;
 const pv = require('../Other/PublicValue');
 
 function getDefaultsChat(user) {
     return {
         superAdmin: user._id,
         membersCount: 1,
-        membersID: [{_id:user._id}],
+        membersID: [{_id: user._id}],
         changeChatTime: new Date().getTime(),//when name or title change when dont use
         lastMessageTime: new Date().getTime(),//when new message ke chat bekhad biad bala
-        admin: [{_id:user._id}],
+        admin: [{_id: user._id}],
         accessModifier: pv.support.accessModifier.private,
-        photoURL:[],
+        photoURL: [],
         messageCount: 0,
         Created: {
             creatorDate: new Date().getTime(),
@@ -19,10 +20,10 @@ function getDefaultsChat(user) {
     }
 }
 
-function getChatUser(chat, post, limitShowMessageCount=0) {
+function getChatUser(chat, post, limitShowMessageCount = 0) {
     limitShowMessageCount = limitShowMessageCount ? limitShowMessageCount : 0;
     post = post ? post : pv.support.access.superAdmin;
-    return {
+    let chatUser = {
         post: post,
         chatType: chat.type,
         // accessModifier:chat.accessModifier,
@@ -30,9 +31,13 @@ function getChatUser(chat, post, limitShowMessageCount=0) {
         lastSeenMessage: chat.messageCount - limitShowMessageCount,//shomareye akharim messagi ke dide
         chatID: chat._id,
         joinTime: new Date().getTime(),
-        changeChatTime:chat.changeChatTime,
-        lastMessageChangeTime: new Date().getTime()//zaman akharim payam
+        changeChatTime: chat.changeChatTime,
+        lastMessageCount: 0//shomare akharin payami ke to in chat hast
     };
+    if (chat.hasOwnProperty('hashID')) {
+        chatUser[hashID] = chat.hashID;
+    }
+    return chatUser;
 }
 
 class Chat {
@@ -80,8 +85,14 @@ class Shop extends Channel {
         this.chatJson.type = pv.support.chatType.shop;
 
     }
+}
 
-
+class privateChat extends Chat {
+    constructor(userForChat, userCreator) {
+        super(userForChat.firstName, userForChat.bio, userCreator);
+        this.chatJson.type = pv.support.chatType.privateChat;
+        this.chatJson.hashID = hashMessageID(userForChat.userID, userCreator.userID)
+    }
 }
 
 module.exports = {

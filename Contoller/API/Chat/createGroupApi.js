@@ -15,14 +15,14 @@ function call(data, user) {
         try {
             const chat =await db.createChat(newGroup);
             try {
-                const value =await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
+                await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
                 //todo in ja baz bayad bbinim khorji chiye dg
                 const allPromiseAddUser=[];
                 for (let i = 0; i < data.userIDs.length; i++) {
                     allPromiseAddUser.push(addUser.callApi({userID:new objectID(data.userIDs[i]),chatID:chat._id,limitShowMessageCount:0}));
                 }
                 try {
-                    const allPromiseAddUserValue=await Promise.all(allPromiseAddUser);
+                    await Promise.all(allPromiseAddUser);
                     const fullChat=await getFullChat.callByFullChat(chat);
                     resolve(fullChat);
 
