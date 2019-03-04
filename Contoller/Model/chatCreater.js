@@ -35,7 +35,9 @@ function getChatUser(chat, post, limitShowMessageCount = 0) {
         lastMessageCount: 0//shomare akharin payami ke to in chat hast
     };
     if (chat.hasOwnProperty('hashID')) {
-        chatUser[hashID] = chat.hashID;
+        chatUser['hashID'] = chat.hashID;
+    }else{
+        chatUser['hashID']=chat._id;
     }
     return chatUser;
 }

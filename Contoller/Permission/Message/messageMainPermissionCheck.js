@@ -5,6 +5,7 @@ const clearHistoryPermission = require('./clearHistoryPermission');
 const sendEmojiOnMessagePermission = require('./sendEmojiOnMessagePermission');
 const setTypingPermission = require('./setTypingPermission');
 const seenMessagesPermission = require('./seenMessagesPermission');
+const getSeenMessagesPermission = require('./getSeenMessagesPermission');
 const inChatSearchPermission = require('./inChatSearchPermission');
 const globalSearchPermission = require('./globalSearchPermission');
 const messageSearchPermission = require('./messageSearchPermission');
@@ -45,6 +46,9 @@ function findMethodPermission(input, user, userHasThisChat) {
         try {
             let data = input.data;
             let checkAnswer;
+            if (!data.hasOwnProperty('chatID')) {
+                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+            }
             switch (input.method) {
                 case pv.api.message.sendMessage:
                     data = await messageFormatCheck(data);
@@ -75,13 +79,16 @@ function findMethodPermission(input, user, userHasThisChat) {
                     */
                     break;
                 case pv.api.message.setTyping:
-                    checkAnswer = await setTypingPermission.check();
+                    checkAnswer = await setTypingPermission.check(data, user, userHasThisChat);
                     /*
                     * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : esmesh avaz beshe
                     */
                     break;
                 case pv.api.message.seenMessages:
                     checkAnswer = await seenMessagesPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.message.getSeenMessages:
+                    checkAnswer = await getSeenMessagesPermission.check(data, user);
                     break;
                 case pv.api.message.inChatSearch:
                     checkAnswer = await inChatSearchPermission.check();
@@ -99,7 +106,7 @@ function findMethodPermission(input, user, userHasThisChat) {
                     checkAnswer = await sendSupperTicketPermission.check();
                     break;
                 case pv.api.message.getMessages:
-                    checkAnswer = await getMessagesPermission.check();
+                    checkAnswer = await getMessagesPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.message.getFullMessages:
                     checkAnswer = await getFullMessagesPermission.check();

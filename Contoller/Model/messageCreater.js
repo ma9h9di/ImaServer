@@ -2,7 +2,7 @@ const messageType = require('../Other/PublicValue').messageType;
 const err = require('../Model/error');
 const hashMessageID=require('../Other/Funcion').hashMessageID;
 
-function newMessage(temp, user, chatID, random_id) {
+function newMessage(temp, user, userChat, random_id) {
     return {
         // firstSeenTime
         // attached
@@ -20,18 +20,19 @@ function newMessage(temp, user, chatID, random_id) {
         isSeen: false,
         messageText: temp.text,
         senderUserID: user.userID,
-        receivedChatID: chatID,
-        hashID:hashMessageID(user.userID,chatID),
+        receivedChatID: userChat.chatID,
+        hashID:userChat.hashID,
         random_id: random_id
 
     }
 }
 
-function getNewMessage(messageTemp, type, user, chatID, random_id) {
+function getNewMessage(messageTemp, user, userChat, random_id) {
+    let type=messageTemp.type;
     return new Promise(async (resolve, reject) => {
         switch (type) {
             case messageType.text: {
-                const newM = newMessage(messageTemp, user, chatID, random_id);
+                const newM = newMessage(messageTemp, user, userChat, random_id);
                 newM.type = type;
                 resolve(newM);
                 break;

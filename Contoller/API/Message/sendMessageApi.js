@@ -4,9 +4,11 @@ const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
+const getNewMessage = require('../../Model/messageCreater').getNewMessage;
 
-function call(newMessage, user, userChat) {
+function call(data, user, userChat) {
     return new Promise(async (resolve) => {
+        const newMessage = await getNewMessage(data.message, user, userChat, data.random_ID);
         try {
             let answer;
             //write your code Mahdi Khazayi Nezhad

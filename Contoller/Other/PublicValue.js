@@ -43,6 +43,7 @@ const allApi = {
         sendEmojiOnMessage: 'sendEmojiOnMessage',
         setTyping: 'setTyping',
         seenMessages: 'seenMessages',
+        getSeenMessages: 'getSeenMessages',
         inChatSearch: 'inChatSearch',
         globalSearch: 'globalSearch',
         messageSearch: 'messageSearch',

@@ -4,7 +4,6 @@ const editMessageApi = require('../../API/Message/editMessageApi');
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
-const getNewMessage = require('../../Model/messageCreater').getNewMessage;
 
 
 module.exports = {
@@ -46,8 +45,7 @@ module.exports = {
                 let answerCall;
 
                 if (editMessageID === undefined) {
-                    const newMessage = await getNewMessage(data, user, data.chatID, data.random_ID);
-                    answerCall = await sendMessageApi.call(newMessage, user,userChat);
+                    answerCall = await sendMessageApi.call(data, user,userChat);
                 } else {
                     try {
                         const lastMessage = {};
