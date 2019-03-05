@@ -34,17 +34,11 @@ module.exports = {
     check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             try {
-                const checkPermissionCanBeUpdate = await checkPermissionCanBeUpdateUserName(userHasThisChat, data, user);
-                resolve(checkPermissionCanBeUpdate);
+                await checkPermissionCanBeUpdateUserName(userHasThisChat, data, user);
+                const checkChannelUsername = await checkChannelUsernameApi.call(data.newUsername);
+                resolve(checkChannelUsername);
             } catch (e) {
-                try {
-                    const checkChannelUsername = await checkChannelUsernameApi.call(data.newUsername);
-                    resolve(checkChannelUsername);
-                } catch (e) {
-                    reject(e);
-
-                }
-
+                resolve(false);
             }
         });
     },

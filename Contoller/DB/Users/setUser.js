@@ -74,7 +74,7 @@ function deleteDataChatUser(userChat, userID) {
     return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
-            userCollection.updateOne({userID: userID, 'chats.chatID': userChat.chatID},
+            userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
                 {$set: userChat}, function (err, res) {
                     if (err) {
                         throw err;
