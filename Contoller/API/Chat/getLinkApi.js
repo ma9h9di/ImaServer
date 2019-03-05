@@ -4,7 +4,7 @@ const randomString = require("../../Other/Funcion").randomString;
 const pv = require("../../Other/PublicValue");
 const err = require('../../Model/error');
 
-const setLinkApi = require('./getLinkApi');
+const setLinkApi = require('./setLinkApi');
 
 
 function call(userChat) {

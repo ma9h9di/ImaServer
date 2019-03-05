@@ -1,5 +1,3 @@
-const getChatsApi = require("./getChatsApi");
-
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 const db = require("../../DB/db");

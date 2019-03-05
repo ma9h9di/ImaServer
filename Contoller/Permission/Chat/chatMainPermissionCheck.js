@@ -32,7 +32,7 @@ function findMethodPermission(input, user) {
                     checkPerAnswer = await getFullChatPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.getChats://test
-                    checkPerAnswer = await getChatsPermission.check(data,user);
+                    checkPerAnswer = await getChatsPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.getSortedUpdatedChatList:
                     checkPerAnswer = await getSortedUpdatedChatListPermission.check(user);
@@ -54,7 +54,7 @@ function findMethodPermission(input, user) {
                     break;
                 case pv.api.chat.deleteChat:
                     //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
-                    checkPerAnswer = await deleteChatPermission.check(data, user,userHasThisChat);
+                    checkPerAnswer = await deleteChatPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.createGroup://tested
                     checkPerAnswer = await createGroupPermission.check(data, user);
@@ -69,7 +69,7 @@ function findMethodPermission(input, user) {
                     checkPerAnswer = await setLinkPermission.check(data, user);
                     break;
                 case pv.api.chat.getLink:
-                    checkPerAnswer = await getLinkPermission.check(data, user);
+                    checkPerAnswer = await getLinkPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.getPin:
                     checkPerAnswer = await getPinPermission.check(user);
@@ -93,11 +93,11 @@ function findMethodPermission(input, user) {
 
 module.exports = {
 
-    check: function (input, user,userHasThisChat) {
+    check: function (input, user, userHasThisChat) {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
-        this.userHasThisChat=userHasThisChat;
+        this.userHasThisChat = userHasThisChat;
         return new Promise(async (resolve, reject) => {
             try {
                 user.changeAttribute = [];

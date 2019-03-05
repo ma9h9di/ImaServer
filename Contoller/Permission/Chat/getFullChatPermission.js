@@ -29,7 +29,7 @@ module.exports = {
                         //do error chat_not_found ezafe nashode
                         reject(new err(pv.errCode.chat.chat_not_found).jsonErr());
                     }
-                    if (!value.public) {
+                    if (value.accessModifier!==pv.support.accessModifier.public) {
                         reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                     }
                     value.accessLevel = pv.support.access.member;
