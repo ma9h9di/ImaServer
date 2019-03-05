@@ -7,6 +7,7 @@ const setChatInfoPermission = require('./setChatInfoPermission');
 const addChatUserPermission = require('./addChatUserPermission');
 const removeUserPermission = require('./removeUserPermission');
 const deleteChatPermission = require('./deleteChatPermission');
+const createPrivateChatPermission = require('./createPrivateChatPermission');
 const createGroupPermission = require('./createGroupPermission');
 const createChannelPermission = require('./createChannelPermission');
 const createShopPermission = require('./createShopPermission');
@@ -55,6 +56,9 @@ function findMethodPermission(input, user) {
                 case pv.api.chat.deleteChat:
                     //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
                     checkPerAnswer = await deleteChatPermission.check(data, user, userHasThisChat);
+                    break;
+                case pv.api.chat.createPrivateChat://tested
+                    checkPerAnswer = await createPrivateChatPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.createGroup://tested
                     checkPerAnswer = await createGroupPermission.check(data, user);

@@ -89,9 +89,16 @@ class Shop extends Channel {
     }
 }
 
-class privateChat extends Chat {
+class PrivateChat extends Chat {
     constructor(userForChat, userCreator) {
         super(userForChat.firstName, userForChat.bio, userCreator);
+
+        delete this.chatJson.admin;
+        delete this.chatJson.superAdmin;
+        delete this.chatJson.title;
+        delete this.chatJson.description;
+
+        this.chatJson.membersID.push({_id: userForChat._id});
         this.chatJson.type = pv.support.chatType.privateChat;
         this.chatJson.hashID = hashMessageID(userForChat.userID, userCreator.userID)
     }
@@ -101,5 +108,6 @@ module.exports = {
     Group: Group,
     Channel: Channel,
     Shop: Shop,
+    PrivateChat: PrivateChat,
     getChatUser: getChatUser
 };

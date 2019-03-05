@@ -24,6 +24,7 @@ const allApi = {
         removeUser: 'removeUser',
         deleteChat: 'deleteChat',
         createGroup: 'createGroup',
+        createPrivateChat: 'createPrivateChat',
         createChannel: 'createChannel',
         createShop: 'createShop',
         setLink: 'setLink',
