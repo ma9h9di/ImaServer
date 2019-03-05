@@ -32,7 +32,7 @@ function findMethodPermission(input, user) {
                     checkPerAnswer = await getFullChatPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.getChats://test
-                    checkPerAnswer = await getChatsPermission.check(data);
+                    checkPerAnswer = await getChatsPermission.check(data,user);
                     break;
                 case pv.api.chat.getSortedUpdatedChatList:
                     checkPerAnswer = await getSortedUpdatedChatListPermission.check(user);
@@ -54,7 +54,7 @@ function findMethodPermission(input, user) {
                     break;
                 case pv.api.chat.deleteChat:
                     //TODO : deleteChat nemidonm in chi kar mikone dobare behem tozih bedin
-                    checkPerAnswer = await deleteChatPermission.check(data, user);
+                    checkPerAnswer = await deleteChatPermission.check(data, user,userHasThisChat);
                     break;
                 case pv.api.chat.createGroup://tested
                     checkPerAnswer = await createGroupPermission.check(data, user);

@@ -7,23 +7,23 @@ const err = require('../../Model/error');
 const ObjectID = require("mongodb").ObjectID;
 
 
-function call(userAdded, data) {
+function call(userAdded, data, userChat) {
     // data._id=data.chatID;
     // data.chatID = new ObjectID(data.chatID);
     return new Promise(async (resolve) => {
 
         try {
-            let value = await db.getChats([data.chatID], {
-                'changeChatTime': 1, 'accessModifier': 1, 'type': 1, 'messageCount': 1, '_id': 1
+            let value = await db.getChats([userChat.chatID], {
+                'changeChatTime': 1, 'accessModifier': 1, 'type': 1, 'messageCount': 1, '_id': 1, 'hashID': 1
             });
 
             //todo inja hatamn bayad value[0] bashe ya nemidonm chie
             value = value[0];
             const chatInsert = getChatUser(value, pv.support.access.member, data.limitShowMessageCount);
-            const promiseAddChat = db.joinChat(userAdded.userID, chatInsert);
-            const promiseAddUse = db.addMemberToChat(data.userID, value.chatID);
+
             try {
-                const values = await Promise.all([promiseAddChat, promiseAddUse]);
+                await db.joinChat(userAdded.userID, chatInsert);
+                await db.addMemberToChat(userAdded.userID, value.hashID);
                 resolve({data: {successful: true}});
             } catch (e) {
                 resolve({data: {successful: false}})
@@ -38,36 +38,17 @@ function call(userAdded, data) {
 
 }
 
-function callApi(data) {
+function callApi(data, userChat) {
     // data._id=data.chatID;
-    return new Promise((resolve, reject) => {
-        const promiseUser = db.getUserByID(new ObjectID(data.userID));
-        promiseUser.then(userAdded => {
-            // data.chatID = new ObjectID(data.chatID);
-            const promiseChatNeed = db.getChats([data.chatID], {
-                'changeChatTime': 1, 'accessModifier': 1, 'type': 1, 'messageCount': 1, '_id': 1
-            });
-            promiseChatNeed.then(value => {
-                //todo inja hatamn bayad value[0] bashe ya nemidonm chie
-                value = value[0];
-                const chatInsert = getChatUser(value, pv.support.access.member, data.limitShowMessageCount);
-                const promiseAddChat = db.joinChat(userAdded.userID, chatInsert);
-                const promiseAddUse = db.addMemberToChat(data.userID, value.chatID);
-                Promise.all([promiseAddChat, promiseAddUse]).then(function (values) {
-                    //todo khoroji injast dg harchi mikhay bego bedam
-                    resolve(true);
-                }).catch(reason => {
-                    reject(false);
-
-                });
-            }).catch(error => {
-                reject(false);
-
-            });
-        }).catch(error => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const userAdded = await db.getUserByID(new ObjectID(data.userID));
+            await call(userAdded, data, userChat);
+            resolve(true);
+        } catch (e) {
             reject(false);
+        }
 
-        });
 
     });
 

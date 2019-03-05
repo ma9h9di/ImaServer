@@ -15,11 +15,14 @@ function userHasThisChat(chatID, chats, accessLevel) {
     accessLevel = accessLevel ? accessLevel : pv.support.access.member;
     return new Promise((resolve, reject) => {
         for (let i = 0; i < chats.length; i++) {
-            if (chats[i].chatID.equals(chatID)) {
+            if (chats[i].chatID===(chatID)) {
                 if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
                     reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                 } else {
-                    resolve(chats[i]);
+                    let cloneOfChatsI = JSON.parse(JSON.stringify(chats[i]));
+                    //set kardan chat id dorost
+                    cloneOfChatsI.chatID=cloneOfChatsI.hashID;
+                    resolve(cloneOfChatsI);
                 }
             }
         }

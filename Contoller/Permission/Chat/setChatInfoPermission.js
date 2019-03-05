@@ -32,6 +32,7 @@ module.exports = {
                     data.accessModifier = data.accessModifier === pv.support.accessModifier.public ? data.accessModifier : pv.support.accessModifier.private;
                 try {
                     let userHaveChat =await userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
+                    data.chatID=userHaveChat.chatID;
                     const setChatInfo=await setChatInfoApi.call(data);
                     resolve(setChatInfo);
                 } catch (e){

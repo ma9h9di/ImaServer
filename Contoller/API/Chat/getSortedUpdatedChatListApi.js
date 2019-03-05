@@ -12,7 +12,7 @@ const err = require('../../Model/error');
 async function getSortedForAllTypeChat(user){
     let chatIDs = [];
     for (let i = 0; i < user.chats.length; i++) {
-        chatIDs.push(user.chats[i].chatID);
+        chatIDs.push(user.chats[i].hashID);
     }
 //todo db.getLastTimesChats Majid
     const getLastTimesChatsPromise = db.getChatsLastTime(chatIDs);
@@ -27,7 +27,7 @@ async function getSortedForAllTypeChat(user){
 async function getSortedForUserTypeChat(user){
     let chatIDs = [];
     for (let i = 0; i < user.chats.length; i++) {
-        chatIDs.push(user.chats[i].chatID);
+        chatIDs.push(user.chats[i].hashID);
     }
 //todo db.getLastTimesChats Majid
 //     const getLastTimesChatsPromise = db.getChatsLastTime(chatIDs);

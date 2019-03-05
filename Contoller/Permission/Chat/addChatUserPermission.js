@@ -31,7 +31,7 @@ module.exports = {
                 } catch (e) {
                     try {
                         const userHaveChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
-                        const addChatUse = await addChatUserApi.call(userAdded, data);
+                        const addChatUse = await addChatUserApi.call(userAdded, data, userHaveChat);
                         resolve(addChatUse);
                     } catch (e) {
                         reject(e);

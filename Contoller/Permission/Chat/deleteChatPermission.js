@@ -1,13 +1,11 @@
 const deleteChatUserApi = require('../../API/Chat/deleteChatUserApi');
 
-const userHasThisChat = require('./chatMainPermissionCheck').userHasThisChat;
-
 const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
 module.exports = {
-    check: function (data, user) {
+    check: function (data, user,userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {
