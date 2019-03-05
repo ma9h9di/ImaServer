@@ -1,13 +1,13 @@
-var checkPhonePermission = require('./checkPhonePermissionCheck');
-var sendSmsPermission = require('./sendSmsPermissionCheck');
-var sendCodePermissionCheck = require('./sendCodePermissionCheck');
-var singInPermissionCheck = require('./singInPermissionCheck');
-var singUpPermissionCheck = require('./singUpPermissionCheck');
-var err = require('../../Model/error');
-var Device = require('../../Model/device');
-var logd = require('../../Other/Funcion').logd;
-var pv = require('../../Other/PublicValue');
-var db = require('../../DB/db');
+let checkPhonePermission = require('./checkPhonePermissionCheck');
+let sendSmsPermission = require('./sendSmsPermissionCheck');
+let sendCodePermissionCheck = require('./sendCodePermissionCheck');
+let singInPermissionCheck = require('./singInPermissionCheck');
+let singUpPermissionCheck = require('./singUpPermissionCheck');
+let err = require('../../Model/error');
+let Device = require('../../Model/device');
+let logd = require('../../Other/Funcion').logd;
+let pv = require('../../Other/PublicValue');
+let db = require('../../DB/db');
 
 
 module.exports = {
@@ -17,8 +17,8 @@ module.exports = {
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
         return new Promise(async (resolve, reject) => {
-            var data = input.data;
-            var address = client.request.connection.remoteAddress.split(".").join("-");
+            let data = input.data;
+            let address = client.request.connection.remoteAddress.split(".").join("-");
             if (!data.hasOwnProperty('device')) {
                 reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
             } else {
@@ -48,10 +48,10 @@ module.exports = {
             // logd('insert Device IP ', device);
             device.authentication.totalCount = device.authentication.totalCount + 1;
             if (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
-                var date = new Date();
+                let date = new Date();
                 logd('device.authentication.totalCount :', device.authentication.totalCount);
                 if (device.authentication.totalCount % pv.permission.NumberOfAuthenticationReq === 0) {
-                    var extraTime = Math.pow(1 * 60 * 1000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
+                    let extraTime = Math.pow(1 * 60 * 1000, device.authentication.totalCount / pv.permission.NumberOfAuthenticationReq);
                     device.authentication.nextAccessTime = date.getTime() + extraTime;
                     logd('device.authentication.nextAccessTime :', device.authentication.nextAccessTime);
                 } else if (device.authentication.nextAccessTime > date.getTime()) {

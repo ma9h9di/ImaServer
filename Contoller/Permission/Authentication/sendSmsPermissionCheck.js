@@ -1,12 +1,12 @@
-var err = require('../../Model/error');
-var warn = require('../../Model/warning');
-var User = require('../../Model/user');
-var pv = require('../../Other/PublicValue');
+let err = require('../../Model/error');
+let warn = require('../../Model/warning');
+let User = require('../../Model/user');
+let pv = require('../../Other/PublicValue');
 module.exports = {
     check: function (data, user) {
         //check all for checkPhone
         return new Promise(async (resolve, reject) => {
-            var extraData = undefined;
+            let extraData = undefined;
             if (!user) {
                 reject(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
             }

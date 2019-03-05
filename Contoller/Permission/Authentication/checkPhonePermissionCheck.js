@@ -1,13 +1,13 @@
-var CheckPhone = require('../../API/Authentication/CheckPhone');
-var err = require('../../Model/error');
-var warn = require('../../Model/warning');
-var User = require('../../Model/user');
-var pv = require('../../Other/PublicValue');
-var db = require('../../DB/db');
+let CheckPhone = require('../../API/Authentication/CheckPhone');
+let err = require('../../Model/error');
+let warn = require('../../Model/warning');
+let User = require('../../Model/user');
+let pv = require('../../Other/PublicValue');
+let db = require('../../DB/db');
 module.exports = {
     check: function (data, user) {
         //check all for chackPhone
-        var extraData;
+        let extraData;
 
         function callCheckPhone(newUser) {
             return new Promise(async (resolve, reject) => {

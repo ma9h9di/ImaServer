@@ -28,7 +28,7 @@ module.exports = {
 
                 //age ezafi dasht eybi nadare age kam dashte bashe eyb dare :|
 
-                // for (var key in data.contact) {
+                // for (let key in data.contact) {
                 //     if (key !== "first_name" && key !== "last_name" && key !== "phone_number") {
                 //         outputCallBack(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
                 //         return;
