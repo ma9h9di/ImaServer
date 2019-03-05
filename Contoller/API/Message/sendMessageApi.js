@@ -25,6 +25,8 @@ function call(data, user, userChat) {
             * db.updateUserChat(userChat,['lastMessageCount'])
             */
             answer = newMessage;
+
+
             resolve({data: answer})
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());

@@ -27,14 +27,32 @@ function getNextSequenceValue(sequenceName) {
                 resolve(sequenceDocument.value.sequence_value);
             });
     });
+    // return sequenceDocument.sequence_value;
+}
 
-
+function createSequenceDocument(sequenceName) {
+    return new Promise(async (resolve) => {
+        try {
+            const countersCollection = mongoUtil.getDb().collection("Counters");
+            countersCollection.insertOne({_id:sequenceName,sequence_value:0}, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                if (!res) {
+                    res = false;
+                }
+                resolve(res.ops[0]);
+            });
+        } catch (e) {
+            reject(e);
+        }    });
     // return sequenceDocument.sequence_value;
 }
 
 module.exports = {
     connectToServer: connectToServer,
     getNextSequenceValue: getNextSequenceValue,
+    createSequenceDocument: createSequenceDocument,
     getDb: function () {
         return _db;
     }

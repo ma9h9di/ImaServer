@@ -11,13 +11,15 @@ function createChat(chat) {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
             chat.chatID = uuid;
-            userCollection.insertOne(chat, function (err, res) {
+            const insertDoumentSquence=createSequenceDocument(chat.chatID);
+            userCollection.insertOne(chat,async function (err, res) {
                 if (err) {
                     throw err;
                 }
                 if (!res) {
                     res = false;
                 }
+                await insertDoumentSquence;
                 resolve(res.ops[0]);
             });
         } catch (e) {
