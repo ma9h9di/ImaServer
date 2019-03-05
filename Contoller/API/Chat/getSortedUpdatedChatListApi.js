@@ -4,10 +4,9 @@ const db = require("../../DB/db");
 const err = require('../../Model/error');
 
 
-
 //in function be darde zamani mikhore ke gp in chiza dashte bashim
 //alan behtare hamaro bezarim to khode user
-async function getSortedForAllTypeChat(user){
+async function getSortedForAllTypeChat(user) {
     let chatIDs = [];
     for (let i = 0; i < user.chats.length; i++) {
         chatIDs.push(user.chats[i].hashID);
@@ -22,7 +21,8 @@ async function getSortedForAllTypeChat(user){
     }
     return value[1];
 }
-async function getSortedForUserTypeChat(user){
+
+async function getSortedForUserTypeChat(user) {
     let chatIDs = [];
     for (let i = 0; i < user.chats.length; i++) {
         chatIDs.push(user.chats[i].hashID);
@@ -30,14 +30,13 @@ async function getSortedForUserTypeChat(user){
 //todo db.getLastTimesChats Majid
 //     const getLastTimesChatsPromise = db.getChatsLastTime(chatIDs);
     const promise = db.getChats(chatIDs, pv.support.limitedChatKey);
-    const value = await Promise.all([ promise]);
+    const value = await Promise.all([promise]);
 //Todo:inja bayad run konm test konm bbinm chi mishe
     for (let i = 0; i < value[1].length; i++) {
         value[1][i].lastChangeTime = user.chats[i].lastMessageCount;
     }
     return value[1];
 }
-
 
 
 function call(user) {

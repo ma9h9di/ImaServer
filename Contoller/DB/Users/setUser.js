@@ -90,11 +90,36 @@ function deleteDataChatUser(userChat, userID) {
 
 }
 
+function updateChatUser(userChat,keys, userID) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newChatUser={};
+            for (let i=0;i<keys.length;i++){
+                newChatUser[keys[i]]=userChat[keys[i]];
+            }
+            var userCollection = mongoUtil.getDb().collection("Users");
+            userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
+                {$set: newChatUser}, function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    // console.log("new updated document is: ", res.ops[0]);
+                    resolve({});
+                });
+        } catch (e) {
+            logd(e);
+            reject(e);
+        }
+    });
+
+}
+
 module.exports =
     {
         insertUser: insertUser,
         updateUserByMongoID: updateUserByMongoID,
         updateUserByPhoneNumber: updateUserByPhoneNumber,
         deleteDataChatUser: deleteDataChatUser,
+        updateChatUser:updateChatUser
     }
 ;

@@ -9,9 +9,9 @@ function call(user) {
         let pinsChat = [];
         for (let i = 0; i < user.chats.length; i++) {
             if (user.chats[i].pin)
-                pinsChat.push(user.chats[i])
+                pinsChat.push(user.chats[i].chatID)
         }
-        resolve({data: {pins: pinsChat}})
+        resolve({data: {chatIDsPin: pinsChat}})
     });
 
 }

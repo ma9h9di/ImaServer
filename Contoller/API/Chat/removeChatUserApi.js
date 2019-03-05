@@ -18,9 +18,8 @@ function call(data) {
     // };
     return new Promise(async (resolve) => {
         try {
-            const promiseAddChat = db.leaveChat(data.userID, data.chatID);
-            const promiseAddUse = db.removeMemberFromChat(data.userID, data.chatID);
-            const values=await Promise.all([promiseAddChat, promiseAddUse]);
+            await db.leaveChat(data.userID, data.chatID);
+            await db.removeMemberFromChat(data.userID, data.chatID);
             resolve({data: {successful: true}})
         } catch (e){
             resolve({data: {successful: false}});
@@ -28,9 +27,6 @@ function call(data) {
         }
     });
 
-    // }).catch(error => {
-    //
-    // });
 
 
 }
