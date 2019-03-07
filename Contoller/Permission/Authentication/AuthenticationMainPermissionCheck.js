@@ -96,6 +96,7 @@ module.exports = {
                                 resultCheckPer=await sendSmsPermission.check(data, user);
                                 break;
                             case pv.api.authentication.signIn:
+                                data.socketID=client.id;
                                 resultCheckPer=await singInPermissionCheck.check(data, user);
                                 break;
                             case pv.api.authentication.signUp:

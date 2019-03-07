@@ -15,13 +15,13 @@ function userHasThisChat(chatID, chats, accessLevel) {
     accessLevel = accessLevel ? accessLevel : pv.support.access.member;
     return new Promise((resolve, reject) => {
         for (let i = 0; i < chats.length; i++) {
-            if (chats[i].chatID===(chatID)) {
+            if (chats[i].chatID === (chatID)) {
                 if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
                     reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                 } else {
                     let cloneOfChatsI = JSON.parse(JSON.stringify(chats[i]));
                     //set kardan chat id dorost
-                    cloneOfChatsI.chatID=cloneOfChatsI.hashID;
+                    cloneOfChatsI.chatID = cloneOfChatsI.hashID;
                     resolve(cloneOfChatsI);
                 }
             }
@@ -96,7 +96,7 @@ function callBackAfterUser(user, input, client) {
                         reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
-                    const contactPermissionResult = await chatPermission.check(input, user,userHasThisChat);
+                    const contactPermissionResult = await chatPermission.check(input, user, userHasThisChat);
                     contactPermissionResult.type = pv.apiType.chat;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
@@ -146,7 +146,7 @@ function callBackAfterUser(user, input, client) {
                         reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
-                    const contactPermissionResult = await messagePermission.check(input, user,userHasThisChat);
+                    const contactPermissionResult = await messagePermission.check(input, user, userHasThisChat);
                     contactPermissionResult.type = pv.apiType.message;
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
@@ -162,6 +162,26 @@ function callBackAfterUser(user, input, client) {
                 return;
         }
     });
+}
+
+function clinetSessionSet(user, token, client) {
+    let sessionArray = user.session;
+    let targetSession;
+    for (let i = 0; i < sessionArray.length; i++) {
+        if (sessionArray[i].token === token) {
+            targetSession = sessionArray[i];
+            break;
+        }
+    }
+    if (targetSession.socketID !== client.id) {
+        targetSession.socketID = client.id;
+        /*
+        * todo Mahdi Khazayi Nezhad 07/03/2019 (logic) : inja bayad faghat yek usero
+        * yek sessein khastesho update konim
+        * db.sessionUpdate(user,targetSession)
+        */
+    }
+
 }
 
 function check(input, client) {
@@ -206,6 +226,8 @@ function check(input, client) {
                     reject(new err(pv.errCode.token_field_not_found).jsonErr());
                 }
                 user = await db.getUserByToken(data.token);
+                //session work
+                clinetSessionSet(user, data.token, client);
             }
             try {
                 const apiAnswer = await callBackAfterUser(user, input, client);

@@ -13,16 +13,15 @@ function newMessage(temp, user, userChat, random_id) {
         // replayRefrence
         // messageID
         // array of messageEmoji
-        lastEditTime: new Date().getTime(),
+        lastEditTime: new Date().getTime(),//nemikhay
         serverReceivedTime: new Date().getTime(),
-        changeMessageTime: new Date().getTime(),
+        changeMessageTime: new Date().getTime(),//nemikhay
         seenCount: 0,
-        isSeen: false,
         messageText: temp.text,
         senderUserID: user.userID,
-        receivedChatID: userChat.chatID,
-        hashID:userChat.hashID,
-        random_id: random_id
+        hashID:userChat.hashID,//nemikhay
+        random_id: random_id,
+        //messageCounter
 
     }
 }

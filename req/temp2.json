@@ -46,7 +46,7 @@
             "tokenExpireDate" : 1919403320512.0,
             "createdDate" : 1540712120512.0,
             "lastActive" : 1540712129293.0,
-            "SocketID" : "",
+            "socketID" : "",
             "device" : {
                 "platform" : "android",
                 "unique_device_key" : "a42189c8bcd59090",

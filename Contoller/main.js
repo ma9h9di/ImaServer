@@ -9,6 +9,11 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
     let method = decrypt_msg.method === undefined ? 'err' : decrypt_msg.method;
     method = method + '_result';
     const sendData = {'event': method, 'data': output};
+    let pushToUser = false;
+    if (!data.hasOwnProperty('pushToUser')) {
+        pushToUser = data.pushToUser;
+        delete data.pushToUser;
+    }
     // logd('output', sendData);
     switch (output.type) {
         case pv.apiType.err:
@@ -23,9 +28,22 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
         case pv.apiType.chat:
             soketFunction.chatEmit(client.id, sendData);
             break;
+        case pv.apiType.message:
+            soketFunction.messageEmit(client.id, sendData);
+            break;
         case pv.apiType.user:
             soketFunction.userEmit(client.id, sendData);
             break;
+    }
+    if (pushToUser) {
+        for (let i = 0; i < pushToUser.length; i++) {
+            let element = pushToUser[i];
+            try {
+                soketFunction.userEmit(element.clientID, element.data, element.channel);
+            } catch (e) {
+
+            }
+        }
     }
 }
 

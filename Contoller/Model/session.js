@@ -15,7 +15,7 @@ module.exports = {
             tokenExpireDate: d.getTime(),
             createdDate: date.getTime(),
             lastActive: date.getTime(),
-            SocketID: socketId,
+            socketID: socketId,
             device: device,
             app: {
                 appVersion: app.appVersion,

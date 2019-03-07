@@ -1,9 +1,9 @@
 const logd = require('./Funcion').logd;
 module.exports = function (io) {
-    function oneSessionEmit(socketId, sendData) {
+    function oneSessionEmit(socketId, sendData,channel='main') {
         const date = new Date();
         sendData.data.time = date.getTime();
-        io.of('/main').connected[socketId].emit(sendData.event, sendData.data);
+        io.of('/'+channel).connected[socketId].emit(sendData.event, sendData.data);
     }
 
     return {
@@ -23,6 +23,18 @@ module.exports = function (io) {
         chatEmit: function (socketId, sendData) {
             oneSessionEmit(socketId, sendData);
             logd('send in ' + sendData.event, sendData.data);
+            // io.of('/main').connected[socketId].emit('disconnect');
+        },
+        messageEmit: function (socketId, sendData) {
+            oneSessionEmit(socketId, sendData);
+            logd('send in ' + sendData.event, sendData.data);
+            // io.of('/main').connected[socketId].emit('disconnect');
+        },
+        pushToUserEmit: function (socketId, sendData,channel) {
+
+            oneSessionEmit(socketId, sendData,channel);
+
+            logd(channel,'send in ' + sendData.event, sendData.data);
             // io.of('/main').connected[socketId].emit('disconnect');
         },
         userEmit: function (socketId, sendData) {
