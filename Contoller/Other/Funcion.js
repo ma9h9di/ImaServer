@@ -56,7 +56,16 @@ function hashMessageID(senderChatID,receivedChatID){
     return pi(k1,k2);
 }
 
+function pushToUserGenerater(orginalObject,pushData,userSessions,channel){
+    if (!orginalObject.hasOwnProperty('pushToUser')) {
+        orginalObject.pushToUser=[];
+    }
+    for (let i = 0; i < userSessions; i++) {
+        orginalObject.pushToUser.push({data:pushData,clientID:userSessions[i].socketID,channel:channel})
+    }
+}
 logd("create Function", " hello");
 exports.logd = logd;
 exports.randomString = randomString;
 exports.hashMessageID = hashMessageID;
+exports.pushToUserGenerater = pushToUserGenerater;

@@ -6,6 +6,14 @@ const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
 
+function canSendMessageToThisChat(userChat) {
+    return (userChat.chatType===pv.support.chatType.privateChat
+        ||userChat.chatType===pv.support.chatType.group)||
+        pv.support.access.accessLevel.indexOf(userChat.post) > pv.support.access.accessLevel.indexOf(
+            pv.support.access.member
+        );
+}
+
 module.exports = {
     check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
@@ -28,6 +36,9 @@ module.exports = {
                         * await db.canSendMessageThisChat(data.chatID,user)
                         */
                         userChat = await userHasThisChat(data.chatID, user.chats);
+                        if (!canSendMessageToThisChat(userChat)) {
+                            reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                        }
                     } catch (e) {
                         reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                     }
@@ -45,7 +56,8 @@ module.exports = {
                 let answerCall;
 
                 if (editMessageID === undefined) {
-                    answerCall = await sendMessageApi.call(data, user,userChat);
+
+                    answerCall = await sendMessageApi.call(data, user, userChat);
                 } else {
                     try {
                         const lastMessage = {};
