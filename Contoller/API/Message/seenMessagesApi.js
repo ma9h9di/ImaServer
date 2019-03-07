@@ -14,13 +14,25 @@ function call(userChat, user, maxSeenMessageCount) {
             // answer = new err(pv.errCode.not_implemented).jsonErr();
             userChat.lastSeenMessage = maxSeenMessageCount;
             /*
-             * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
+             * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
              * elementesho update `lastSeenMessage` konim
              * ham zaman hameye chataye ghablo bayad seenCountesho yeki bbri bala
              * await db.updateUserChat(user,userChat,['lastSeenMessage'])
              * answer={'successful':true}
              */
+            await db.updateSeenMessages(userChat.chatID,user.userID,maxSeenMessageCount);
+            let members = await db.getMembersChat(userChat.chatID);
+            members.forEach(async
+                member => {
+                    let mid = member._id;
+                    if (mid !== user.userID) {
+                        await db.updateChatUser(userChat, ['lastSeenMessage'], user.userID);
 
+                    }
+                }
+            );
+
+            answer = {'successful': true}
             pushToAllUser({
                 chatID: userChat.userSeenChatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,

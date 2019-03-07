@@ -3,12 +3,11 @@
 const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
 
-function getMessage(messageID) {
-
+function getMembersChat(chatID) {
     return new Promise((resolve, reject) => {
         try {
-            const messageCollection = mongoUtil.getDb().collection("Messages");
-            messageCollection.findOne({hashID: {$eq: messageID.chatID},messageCount: {$eq: messageID.messageCount}}, function (err, res) {
+            const userCollection = mongoUtil.getDb().collection("Chats");
+            userCollection.findOne({chatID: {$eq: chatID}}, {'membersID': 1, '_id': 0}, function (err, res) {
                 if (err) {
                     throw err;
                 }
@@ -23,9 +22,8 @@ function getMessage(messageID) {
     });
 }
 
-
 module.exports =
     {
-        getMessage: getMessage,
+        getMembersChat: getMembersChat
     }
 ;

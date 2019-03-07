@@ -8,7 +8,7 @@ function getDefaultsChat(user) {
         membersCount: 1,
         membersID: [{_id: user._id}],
         changeChatTime: new Date().getTime(),//when name or title change when dont use
-        admin: [{_id: user._id}],
+        admin: [{_id: user.userID}],
         accessModifier: pv.support.accessModifier.private,
         photoURL: [],
         lastMessageTime: new Date().getTime(),//when new message ke chat bekhad biad bala
@@ -99,7 +99,7 @@ class PrivateChat extends Chat {
         delete this.chatJson.title;
         delete this.chatJson.description;
 
-        this.chatJson.membersID.push({_id: userForChat._id});
+        this.chatJson.membersID.push({_id: userForChat.userID});
         this.chatJson.type = pv.support.chatType.privateChat;
         this.chatJson.hashID = hashMessageID(userForChat.userID, userCreator.userID)
     }

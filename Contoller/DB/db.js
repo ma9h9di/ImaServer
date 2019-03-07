@@ -24,8 +24,10 @@ const createChat = require('./Chat/createChat');
 const getChatsLastTime = require('./Chat/getChatsLastTime');
 const setChatsLastTime = require('./Chat/setChatsLastTime');
 const addChatImageByMongoID = require('./Chat/addChatImageByMongoID');
+const getMembersChat = require('./Chat/getMembersChat');
 
 const getMessage = require('./Message/getMessage');
+const setMessage = require('./Message/setMessage');
 
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
@@ -39,6 +41,7 @@ module.exports = {
     updateChatUser: setUser.updateChatUser,
     joinChat: joinOrLeave.joinChat,
     leaveChat: joinOrLeave.leaveChat,
+    getMembersChat: getMembersChat.getMembersChat,
 
     getDevice: getDevice.getDevice,
     insertDevice: setDevice.insertDevice,
@@ -66,7 +69,8 @@ module.exports = {
 
     //message
     getMessage:getMessage.getMessage,
-    addMessage:getMessage.addMessage,
+    addMessage:setMessage.addMessage,
+    updateSeenMessages:setMessage.updateSeenMessages,
 
 };
 

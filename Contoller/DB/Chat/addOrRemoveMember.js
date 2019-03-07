@@ -14,7 +14,7 @@ function addMemberToChat(userID, chatID) {
                     chatID: {$eq: chatID}
                 },
                 {
-                    $addToSet: {membersID: {userID: userID}}
+                    $addToSet: {membersID: {_id: userID}}
                 },
                 function (err, res) {
                     if (err) {

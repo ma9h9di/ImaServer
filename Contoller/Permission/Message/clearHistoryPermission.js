@@ -33,7 +33,7 @@ module.exports = {
                     }
                 }
 
-                const clearHistory = await clearHistoryApi.call(data.chatID, user);
+                const clearHistory = await clearHistoryApi.call(userChat, user);
                 resolve(clearHistory);
             } catch (e) {
                 reject(e);

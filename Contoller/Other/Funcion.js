@@ -1,17 +1,20 @@
-var livelog = false;
+const db = require('../DB/db');
+
+let livelog = false;
+
 
 function isset(obj) {
-    return 'undefined' != typeof(obj);
+    return 'undefined' !== typeof(obj);
 }
 
-var log = function (name, str) {
+let log = function (name, str) {
     if (!isset(str)) {
         str = name;
         name = undefined;
     }
     if (livelog !== false && isset(LE)) {
-        var uid = device.code;
-        var obj = {'uid': uid, 'prefix': livelog};
+        let uid = device.code;
+        let obj = {'uid': uid, 'prefix': livelog};
         if (name) {
             obj.name = name;
             obj.val = str;
@@ -30,11 +33,11 @@ var log = function (name, str) {
 };
 const logd = function (name, str) {
 
-    var a = (new Error()).stack.match(/[a-zA-Z\.]+\:[0-9]+\:/g);
+    let a = (new Error()).stack.match(/[a-zA-Z\.]+\:[0-9]+\:/g);
     a = a[1];
     a = a.split(':');
-    var file = a[0];
-    var line = a[1];
+    let file = a[0];
+    let line = a[1];
 
     log("--> " + file + ":" + line + "\t" + name, str);
 };
@@ -69,15 +72,16 @@ function pushToUserGenerater(orginalObject, pushData, userSessions, channel) {
     }
 }
 
-function pushToAllUser(orginalObject, chatID, event, channel) {
-    let members = [];
+async function pushToAllUser(orginalObject, chatID, event, channel) {
+    let members;
     /*
-    * todo Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
+    * do Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
     * to array memberasho bargardoni
     * members = await db.getMembersChat(userChat.chatID)
     */
+    members = await db.getMembersChat(chatID);
     members.forEach(member => {
-        pushToUserGenerater(orginalObject, {data: orginalObject, event: 'newMessage'}, member, 'message_event')
+        pushToUserGenerater(orginalObject, {data: orginalObject, event: event}, member._id, channel)
     });
 }
 
