@@ -8,10 +8,10 @@ function getDefaultsChat(user) {
         membersCount: 1,
         membersID: [{_id: user._id}],
         changeChatTime: new Date().getTime(),//when name or title change when dont use
-        lastMessageTime: new Date().getTime(),//when new message ke chat bekhad biad bala
         admin: [{_id: user._id}],
         accessModifier: pv.support.accessModifier.private,
         photoURL: [],
+        lastMessageTime: new Date().getTime(),//when new message ke chat bekhad biad bala
         messageCount: 0,
         Created: {
             creatorDate: new Date().getTime(),
@@ -32,6 +32,7 @@ function getChatUser(chat, post, limitShowMessageCount = 0) {
         chatID: chat._id,
         joinTime: new Date().getTime(),
         changeChatTime: chat.changeChatTime,
+        lastMessageTime:new Date().getTime(),
         lastMessageCount: 0//shomare akharin payami ke to in chat hast
     };
     if (chat.hasOwnProperty('hashID')) {

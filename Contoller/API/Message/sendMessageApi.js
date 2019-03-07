@@ -9,19 +9,23 @@ const getNewMessage = require('../../Model/messageCreater').getNewMessage;
 
 function call(data, user, userChat) {
     return new Promise(async (resolve) => {
-        const newMessage = await getNewMessage(data.message, user, userChat, data.random_ID);
+        let newMessage = await getNewMessage(data.message, user, userChat, data.random_ID);
         try {
             let answer;
             //write your code Mahdi Khazayi Nezhad
             /*
-            * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid bayad ye message ro add konim
+            * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid bayad ye message ro add konim
             * dakhelesh bayad colection chat ro ham ok kone yani shomare akharim messago in chizaro tosh bezare
-            *
             * newMessage = await db.addMessage(newMessage)
             */
-            userChat.lastMessageCount = newMessage.count;
+            newMessage = await db.addMessage(newMessage);
+            userChat.lastMessageCount = newMessage.messageCount;
+            userChat.lastMessageTime = newMessage.lastEditTime;
+            const updateKeys = ['lastMessageCount', 'lastMessageTime'];
+            await db.updateChatUser(userChat, updateKeys, user.userID);
+            await db.updateChatByMongoID(updateKeys, userChat);
             /*
-            * todo Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
+            * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
             * elementesho update `lastMessageChangeTime` konim in update many
             * db.updateUserChat(userChat,['lastMessageCount'])
             */

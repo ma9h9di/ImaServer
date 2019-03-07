@@ -67,7 +67,7 @@ function findMethodPermission(input, user, userHasThisChat) {
                     */
                     break;
                 case pv.api.message.clearHistory:
-                    checkAnswer = await clearHistoryPermission.check(data, user);
+                    checkAnswer = await clearHistoryPermission.check(data, user, userHasThisChat);
                     /*
                     * todo Mahdi Khazayi Nezhad 19/02/2019 (logic) : fln to app handel mikonim
                     */

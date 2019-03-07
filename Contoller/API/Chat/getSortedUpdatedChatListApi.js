@@ -33,7 +33,7 @@ async function getSortedForUserTypeChat(user) {
     const value = await Promise.all([promise]);
 //Todo:inja bayad run konm test konm bbinm chi mishe
     for (let i = 0; i < value[1].length; i++) {
-        value[1][i].lastChangeTime = user.chats[i].lastMessageCount;
+        value[1][i].lastChangeTime = user.chats[i].lastMessageTime;
     }
     return value[1];
 }

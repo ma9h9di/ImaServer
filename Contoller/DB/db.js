@@ -25,6 +25,8 @@ const getChatsLastTime = require('./Chat/getChatsLastTime');
 const setChatsLastTime = require('./Chat/setChatsLastTime');
 const addChatImageByMongoID = require('./Chat/addChatImageByMongoID');
 
+const getMessage = require('./Message/getMessage');
+
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
     getUserByToken: getUser.getUserByToken,
@@ -60,7 +62,11 @@ module.exports = {
     removeMemberFromChat: addOrRemoveMember.removeMemberFromChat,
     createChat: createChat.createChat,
     setChatsLastTime: setChatsLastTime.setChatsLastTime,
-    addChatImageByMongoID: addChatImageByMongoID.addChatImageByMongoID
+    addChatImageByMongoID: addChatImageByMongoID.addChatImageByMongoID,
+
+    //message
+    getMessage:getMessage.getMessage,
+    addMessage:getMessage.addMessage,
 
 };
 
