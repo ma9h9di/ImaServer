@@ -3,6 +3,8 @@ const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
+const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
+
 const PrivateChat = require("../../Model/chatCreater").PrivateChat;
 const getChatUser = require("../../Model/chatCreater").getChatUser;
 
@@ -24,7 +26,6 @@ function call(tagetUser, user, userHasThisChat) {
                 } catch (e) {
                     resolve(new err(pv.errCode.internal_err).jsonErr());
                 }
-
             } catch (e) {
                 //inja yani inke in usere tahala ba in yaro chat nakarde
                 let newPV = new PrivateChat(tagetUser, user).getInit();
@@ -35,6 +36,9 @@ function call(tagetUser, user, userHasThisChat) {
                 userChat.chatID = user.userID;
                 await db.joinChat(tagetUser.userID, userChat);
                 answer = await callByFullChat(chat);
+
+                pushToAllUser(answer,chat.chatID,'add_chat','chat_event');
+
                 resolve(answer);
             }
             resolve({data: answer})

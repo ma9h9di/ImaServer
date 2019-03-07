@@ -64,8 +64,20 @@ function pushToUserGenerater(orginalObject,pushData,userSessions,channel){
         orginalObject.pushToUser.push({data:pushData,clientID:userSessions[i].socketID,channel:channel})
     }
 }
+
+function pushToAllUser(orginalObject,chatID,event,channel){
+    let members=[];
+    /*
+    * todo Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
+    * to array memberasho bargardoni
+    * members = await db.getMembersChat(userChat.chatID)
+    */
+    members.forEach(member => {
+        pushToUserGenerater(orginalObject,{data:orginalObject,event:'newMessage'},member,'message_event')
+    });
+}
 logd("create Function", " hello");
 exports.logd = logd;
 exports.randomString = randomString;
 exports.hashMessageID = hashMessageID;
-exports.pushToUserGenerater = pushToUserGenerater;
+exports.pushToAllUser = pushToAllUser;

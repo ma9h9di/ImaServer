@@ -1,7 +1,7 @@
 //create by Mahdi Khazayi Nezhad at 12/23/2018 11:24 AM
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
-const pushToUserGenerater = require("../../Other/Funcion").pushToUserGenerater;
+const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
@@ -27,17 +27,7 @@ function call(data, user, userChat) {
             */
             answer = {data: newMessage};
 
-            let members=[];
-            /*
-            * todo Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
-            * to array memberasho bargardoni
-            * members = await db.getMembersChat(userChat.chatID)
-            */
-            members.forEach(member => {
-                pushToUserGenerater(answer,{data:answer,event:'newMessage'},member,'newMessage')
-            });
-
-
+            pushToAllUser(answer,userChat.chatID,'new_message','message_event');
 
             resolve(answer)
         } catch (e) {

@@ -21,6 +21,7 @@ function userHasThisChat(chatID, chats, accessLevel) {
                 } else {
                     let cloneOfChatsI = JSON.parse(JSON.stringify(chats[i]));
                     //set kardan chat id dorost
+                    cloneOfChatsI.userSeenChatID = cloneOfChatsI.chatID;
                     cloneOfChatsI.chatID = cloneOfChatsI.hashID;
                     resolve(cloneOfChatsI);
                 }

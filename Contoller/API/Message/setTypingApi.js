@@ -4,13 +4,16 @@ const logd = require("../../Other/Funcion").logd;
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
+const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
 
-function call(data) {
+
+function call(userChat,user,status) {
     return new Promise(async (resolve) => {
         try {
-            let answer;
             //write your code Mahdi Khazayi Nezhad
-            answer = new err(pv.errCode.not_implemented).jsonErr();
+            let answer={successful:true};
+            pushToAllUser({chatID:userChat.userSeenChatID,status:status,userID:user.userID},userChat.chatID,'event','status_even');
+
             resolve({data: answer})
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
