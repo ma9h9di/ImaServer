@@ -8,9 +8,9 @@ const db = require('../../DB/db');
 module.exports = {
     check: function (data) {
         return new Promise(async (resolve, reject) => {
-            try { 
-                 //write your code Mahdi Khazayi Nezhad ...
-                         
+            try {
+                //write your code Mahdi Khazayi Nezhad ...
+
                 const sendSupperTicket = await sendSupperTicketApi.call();
                 resolve(sendSupperTicket);
             } catch (e) {

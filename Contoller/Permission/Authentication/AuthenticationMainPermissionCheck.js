@@ -87,20 +87,20 @@ module.exports = {
                         let resultCheckPer;
                         switch (input.method) {
                             case pv.api.authentication.checkPhone:
-                                resultCheckPer=await checkPhonePermission.check(data, user);
+                                resultCheckPer = await checkPhonePermission.check(data, user);
                                 break;
                             case pv.api.authentication.sendCode:
-                                resultCheckPer=await sendCodePermissionCheck.check(data, user);
+                                resultCheckPer = await sendCodePermissionCheck.check(data, user);
                                 break;
                             case pv.api.authentication.sendSms:
-                                resultCheckPer=await sendSmsPermission.check(data, user);
+                                resultCheckPer = await sendSmsPermission.check(data, user);
                                 break;
                             case pv.api.authentication.signIn:
-                                data.socketID=client.id;
-                                resultCheckPer=await singInPermissionCheck.check(data, user);
+                                data.socketID = client.id;
+                                resultCheckPer = await singInPermissionCheck.check(data, user);
                                 break;
                             case pv.api.authentication.signUp:
-                                resultCheckPer=await singUpPermissionCheck.check(data, user);
+                                resultCheckPer = await singUpPermissionCheck.check(data, user);
                                 break;
                             case pv.api.authentication.logOut:
                                 break;

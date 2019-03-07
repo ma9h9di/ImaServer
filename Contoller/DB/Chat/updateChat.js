@@ -2,10 +2,10 @@
 
 const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
-const setChatsLastTime=require('./setChatsLastTime').setChatsLastTime;
+const setChatsLastTime = require('./setChatsLastTime').setChatsLastTime;
 
 function updateChatByMongoID(changedKeysArray, newChat) {
-    newChat.changeChatTime=new Date().getTime();
+    newChat.changeChatTime = new Date().getTime();
     changedKeysArray.push('changeChatTime');
     setChatsLastTime(newChat);
     return new Promise((resolve, reject) => {

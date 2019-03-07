@@ -9,7 +9,7 @@ function call(userID, resolve) {
     return new Promise(async (resolve) => {
         try {
             const value = await db.getUserByID(userID, pv.support.userInfoKey);
-        //Todo:inja bayad run konm test konm bbinm chi mishe
+            //Todo:inja bayad run konm test konm bbinm chi mishe
             logd('in the getChats', value);
             resolve({data: {fullUserInfo: value}})
         } catch (e) {

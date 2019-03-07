@@ -5,11 +5,11 @@ const pv = require('../../Other/PublicValue');
 
 module.exports = {
     check: function (user) {
-        return new Promise(async (resolve,reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                const getSortedUpdatedChatList=await getSortedUpdatedChatListApi.call(user);
+                const getSortedUpdatedChatList = await getSortedUpdatedChatListApi.call(user);
                 resolve(getSortedUpdatedChatList);
-            } catch (e){
+            } catch (e) {
                 reject(e);
             }
         });

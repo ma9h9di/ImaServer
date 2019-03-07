@@ -5,7 +5,7 @@ var logd = require('../../Other/Funcion').logd;
 
 
 function updateContact(user, contact) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
             logd("starting query :::::::::::::::::::::::::");
@@ -45,7 +45,7 @@ function updateContact(user, contact) {
 }
 
 function deleteContact(user, contact) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
             logd("starting query :::::::::::::::::::::::::");
@@ -81,6 +81,7 @@ function deleteContact(user, contact) {
     });
 
 }
+
 module.exports =
     {
         updateContact: updateContact,

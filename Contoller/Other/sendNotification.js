@@ -25,7 +25,7 @@ module.exports = {
                         logd('Error sending message:', error);
                         reject(false);
                     });
-            }catch (e) {
+            } catch (e) {
                 logd('Error sending message:', e);
                 reject(false);
             }

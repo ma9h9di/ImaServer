@@ -5,7 +5,7 @@ var logd = require('../../Other/Funcion').logd;
 
 
 function insertDevice(device) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var deviceCollection = mongoUtil.getDb().collection("Devices");
             deviceCollection.insertOne(device, function (err, res) {
@@ -23,7 +23,7 @@ function insertDevice(device) {
 }
 
 function updateDevice(device) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var deviceCollection = mongoUtil.getDb().collection("Devices");
             deviceCollection.updateMany({unique_device_key: device.unique_device_key}, {$set: device}, function (err, res) {

@@ -157,7 +157,7 @@ const supportValue = {
         group: 'group',
         channel: 'channel',
         shop: 'shop',
-        privateChat:'privateChat'
+        privateChat: 'privateChat'
     },
     groupType: {
         normal: 'normal',
@@ -219,7 +219,7 @@ const string = {
 
 const errCode = {
     internal_err: 'internal_err',
-    not_implemented:'not_implemented',
+    not_implemented: 'not_implemented',
     error_code_not_found: 'error_code_not_found',
     token_field_not_found: 'token_field_not_found',
     token_user_not_found: 'token_user_not_found',
@@ -253,8 +253,8 @@ const errCode = {
         username_pattern_denied: 'username_pattern_denied',
         user_exist: 'user_exist',
     },
-    message :{
-        message_not_found :'message_not_found',
+    message: {
+        message_not_found: 'message_not_found',
         access_denied_message: 'access_denied_message',
         message_type_not_denied: 'message_type_not_denied',
         access_denied_send: 'access_denied_send',
@@ -268,8 +268,8 @@ const fileType = {
 const fileCategory = {
     profile: 'profile'
 };
-const messageType={
-  text: 'text'
+const messageType = {
+    text: 'text'
 };
 
 module.exports = {
@@ -291,6 +291,6 @@ module.exports = {
 
     fileCategory: fileCategory,
 
-    messageType:messageType
+    messageType: messageType
 
 };

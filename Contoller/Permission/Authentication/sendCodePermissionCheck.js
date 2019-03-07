@@ -24,7 +24,7 @@ module.exports = {
                 if (extraData !== undefined)
                     result.warning = extraData;
                 resolve(result);
-            } catch (e){
+            } catch (e) {
                 reject(e);
 
             }

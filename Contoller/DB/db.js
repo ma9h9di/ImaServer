@@ -29,7 +29,7 @@ module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
     getUserByToken: getUser.getUserByToken,
     getUserByID: getUser.getUserByID,
-    getUsersInfo:getUser.getUsersInfo,
+    getUsersInfo: getUser.getUsersInfo,
     insertUser: setUser.insertUser,
     deleteDataChatUser: setUser.deleteDataChatUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
@@ -55,12 +55,12 @@ module.exports = {
     checkChannelUsername: checkChannelUsername.checkChannelUsername,
     updateChannelUsername: updateChannelUsername.updateChannelUsername,
     updateChatByMongoID: updateChatByMongoID.updateChatByMongoID,
-    getChatsLastTime:getChatsLastTime.getChatsLastTime,
+    getChatsLastTime: getChatsLastTime.getChatsLastTime,
     addMemberToChat: addOrRemoveMember.addMemberToChat,
     removeMemberFromChat: addOrRemoveMember.removeMemberFromChat,
     createChat: createChat.createChat,
-    setChatsLastTime:setChatsLastTime.setChatsLastTime,
-    addChatImageByMongoID:addChatImageByMongoID.addChatImageByMongoID
+    setChatsLastTime: setChatsLastTime.setChatsLastTime,
+    addChatImageByMongoID: addChatImageByMongoID.addChatImageByMongoID
 
 };
 

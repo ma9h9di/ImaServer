@@ -4,7 +4,7 @@ var mongoUtil = require('../mongoUtil');
 var logd = require('../../Other/Funcion').logd;
 
 function getDevice(unique_device_key) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var deviceCollection = mongoUtil.getDb().collection("Devices");
             logd('getDevice  :', unique_device_key);

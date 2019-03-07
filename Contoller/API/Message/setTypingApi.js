@@ -7,12 +7,16 @@ const err = require('../../Model/error');
 const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
 
 
-function call(userChat,user,status) {
+function call(userChat, user, status) {
     return new Promise(async (resolve) => {
         try {
             //write your code Mahdi Khazayi Nezhad
-            let answer={successful:true};
-            pushToAllUser({chatID:userChat.userSeenChatID,status:status,userID:user.userID},userChat.chatID,'event','status_even');
+            let answer = {successful: true};
+            pushToAllUser({
+                chatID: userChat.userSeenChatID,
+                status: status,
+                userID: user.userID
+            }, userChat.chatID, 'event', 'status_even');
 
             resolve({data: answer})
         } catch (e) {

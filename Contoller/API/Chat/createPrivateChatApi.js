@@ -37,7 +37,7 @@ function call(tagetUser, user, userHasThisChat) {
                 await db.joinChat(tagetUser.userID, userChat);
                 answer = await callByFullChat(chat);
 
-                pushToAllUser(answer,chat.chatID,'add_chat','chat_event');
+                pushToAllUser(answer, chat.chatID, 'add_chat', 'chat_event');
 
                 resolve(answer);
             }

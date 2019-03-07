@@ -19,7 +19,7 @@ module.exports = {
                 }
                 userChat = await userHasThisChat(data.chatID, user.chats);
 
-                const seenMessages = await setTypingApi.call(userChat,user,data.status);
+                const seenMessages = await setTypingApi.call(userChat, user, data.status);
                 resolve(seenMessages);
             } catch (e) {
                 reject(e);

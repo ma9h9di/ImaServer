@@ -21,12 +21,11 @@ function call(data) {
             await db.leaveChat(data.userID, data.chatID);
             await db.removeMemberFromChat(data.userID, data.chatID);
             resolve({data: {successful: true}})
-        } catch (e){
+        } catch (e) {
             resolve({data: {successful: false}});
 
         }
     });
-
 
 
 }

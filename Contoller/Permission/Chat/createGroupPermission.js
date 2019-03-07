@@ -7,7 +7,7 @@ const logd = require('../../Other/Funcion').logd;
 module.exports = {
     check: function (data, user) {
         //todo age ro sakhte tedad gp ina bekhaim kari konim jash injas vali flan ke chizi nadarim vase in ghazie
-        return new Promise(async (resolve,reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
 
                 if (!data.hasOwnProperty('title')) {
@@ -22,14 +22,14 @@ module.exports = {
                 if (!data.hasOwnProperty('userIDs')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
                 }
-                if(data.userIDs.length<=0){
+                if (data.userIDs.length <= 0) {
                     reject(new err(pv.errCode.empty_argumnet, undefined, {params: ['userIDs']}).jsonErr());
                 }
                 data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
                 //TODO: age gharar shod tedad groh sakhtano check konim injast
-                const createGroup=await createGroupApi.call(data, user);
+                const createGroup = await createGroupApi.call(data, user);
                 resolve(createGroup);
-            } catch (e){
+            } catch (e) {
                 reject(e);
             }
         });

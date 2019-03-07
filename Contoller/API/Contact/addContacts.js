@@ -22,7 +22,7 @@ function call(contacts, user) {
             lookedUpContacts.push(contacts[i]);
         }
         logd('in addContact in then promise', lookedUpContacts.length);
-        const result=await db.addContacts(user, lookedUpContacts);
+        const result = await db.addContacts(user, lookedUpContacts);
         resolve({data: result});
 
     });

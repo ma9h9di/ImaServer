@@ -8,9 +8,9 @@ const ObjectID = require('mongodb').ObjectID;
 function call(chat, value) {
     return new Promise(async (resolve) => {
         try {
-            const promise =await db.addChatImageByMongoID(value.id, chat);
+            const promise = await db.addChatImageByMongoID(value.id, chat);
             resolve(promise);
-        } catch (e){
+        } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
         }
     });

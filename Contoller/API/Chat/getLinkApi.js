@@ -15,8 +15,8 @@ function call(userChat) {
             if (result.data.link) {
                 resolve(result);
             } else {
-               const c=await call(userChat);
-               resolve(c);
+                const c = await call(userChat);
+                resolve(c);
             }
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());

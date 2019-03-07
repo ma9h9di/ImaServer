@@ -5,10 +5,10 @@ const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
 
-function call(chatID,user) {
+function call(chatID, user) {
     return new Promise(async (resolve) => {
         try {
-            let answer={successful:true};
+            let answer = {successful: true};
             //write your code Mahdi Khazayi Nezhad
             /*
             * todo Mahdi Khazayi Nezhad 12/23/2018 (db) : getLast id in chat #majid

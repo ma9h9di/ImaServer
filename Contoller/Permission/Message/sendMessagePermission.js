@@ -7,8 +7,8 @@ const db = require('../../DB/db');
 
 
 function canSendMessageToThisChat(userChat) {
-    return (userChat.chatType===pv.support.chatType.privateChat
-        ||userChat.chatType===pv.support.chatType.group)||
+    return (userChat.chatType === pv.support.chatType.privateChat
+        || userChat.chatType === pv.support.chatType.group) ||
         pv.support.access.accessLevel.indexOf(userChat.post) > pv.support.access.accessLevel.indexOf(
             pv.support.access.member
         );

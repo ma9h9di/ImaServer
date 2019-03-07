@@ -21,7 +21,11 @@ function call(userChat, user, maxSeenMessageCount) {
              * answer={'successful':true}
              */
 
-            pushToAllUser({chatID:userChat.userSeenChatID,lastSeenMessageCount:userChat.lastSeenMessage,userID:user.userID},userChat.chatID,'event','seen_even');
+            pushToAllUser({
+                chatID: userChat.userSeenChatID,
+                lastSeenMessageCount: userChat.lastSeenMessage,
+                userID: user.userID
+            }, userChat.chatID, 'event', 'seen_even');
 
             resolve({data: answer})
         } catch (e) {

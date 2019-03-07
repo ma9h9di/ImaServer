@@ -20,11 +20,11 @@ module.exports = {
 
             }
             try {
-                const result=await require('../../API/Authentication/SendSmS')(user).call();
+                const result = await require('../../API/Authentication/SendSmS')(user).call();
                 if (extraData !== undefined)
                     result.warning = extraData;
                 resolve(result);
-            } catch (e){
+            } catch (e) {
                 reject(e);
 
             }

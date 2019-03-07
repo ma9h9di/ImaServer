@@ -5,7 +5,7 @@ const logd = require('../../Other/Funcion').logd;
 module.exports = function (user) {
     let result = {};
 
-    function addSession(device, app,socketID) {
+    function addSession(device, app, socketID) {
         return require('../../Model/session').CreateNewSession(device, app, socketID, user.session.length + 1);
         // return '1111'
     }
@@ -28,7 +28,7 @@ module.exports = function (user) {
                         //age taraf ghablan be in marhale reside on ghabliash gheyre faal mishan
                         if (user.status === 'deactivate')
                             user.session = [];
-                        const session = addSession(data.device, data.app,data.socketID);
+                        const session = addSession(data.device, data.app, data.socketID);
                         user.session.push(session);
                         result.message = pv.string[user.language].singUpTrue;
                         result.successful = true;

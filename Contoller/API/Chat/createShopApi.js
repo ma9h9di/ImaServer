@@ -11,9 +11,9 @@ function call(data, user) {
         let newShop = new Shop(data.title, data.description, user).getInit();
         try {
             try {
-                const chat =await db.createChat(newShop);
-                const value =await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
-                const fullChat=await getFullChat.callByFullChat(chat);
+                const chat = await db.createChat(newShop);
+                const value = await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
+                const fullChat = await getFullChat.callByFullChat(chat);
                 resolve(fullChat);
 
             } catch (e) {

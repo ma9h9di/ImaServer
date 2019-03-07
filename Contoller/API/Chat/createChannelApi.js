@@ -14,9 +14,9 @@ function call(data, user) {
             const value = await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
             try {
                 //todo in ja baz bayad bbinim khorji chiye dg
-                const fullChat=await getFullChat.callByFullChat(chat);
+                const fullChat = await getFullChat.callByFullChat(chat);
                 resolve(fullChat);
-            } catch (e){
+            } catch (e) {
                 resolve(new err(pv.errCode.internal_err).jsonErr());
 
             }

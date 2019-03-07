@@ -1,6 +1,6 @@
 const messageType = require('../Other/PublicValue').messageType;
 const err = require('../Model/error');
-const hashMessageID=require('../Other/Funcion').hashMessageID;
+const hashMessageID = require('../Other/Funcion').hashMessageID;
 
 function newMessage(temp, user, userChat, random_id) {
     return {
@@ -19,7 +19,7 @@ function newMessage(temp, user, userChat, random_id) {
         seenCount: 0,
         messageText: temp.text,
         senderUserID: user.userID,
-        hashID:userChat.hashID,//nemikhay
+        hashID: userChat.hashID,//nemikhay
         random_id: random_id,
         //messageCounter
 
@@ -27,7 +27,7 @@ function newMessage(temp, user, userChat, random_id) {
 }
 
 function getNewMessage(messageTemp, user, userChat, random_id) {
-    let type=messageTemp.type;
+    let type = messageTemp.type;
     return new Promise(async (resolve, reject) => {
         switch (type) {
             case messageType.text: {
@@ -43,5 +43,5 @@ function getNewMessage(messageTemp, user, userChat, random_id) {
 }
 
 module.exports = {
-    getNewMessage:getNewMessage
+    getNewMessage: getNewMessage
 };

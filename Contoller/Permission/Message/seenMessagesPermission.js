@@ -10,8 +10,8 @@ module.exports = {
     check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             let userChat;
-            try { 
-                 //write your code Mahdi Khazayi Nezhad ...
+            try {
+                //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('chatID')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
@@ -20,7 +20,7 @@ module.exports = {
                 }
                 userChat = await userHasThisChat(data.chatID, user.chats);
 
-                const seenMessages = await seenMessagesApi.call(userChat,user,data.maxSeenMessageCount);
+                const seenMessages = await seenMessagesApi.call(userChat, user, data.maxSeenMessageCount);
                 resolve(seenMessages);
             } catch (e) {
                 reject(e);

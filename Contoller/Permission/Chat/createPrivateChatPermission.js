@@ -15,7 +15,7 @@ module.exports = {
                 }
                 const targetUser = await db.getUserByID(new ObjectID(data.userID));
 
-                const createPrivateChat = await createPrivateChatApi.call(targetUser, user,userHasThisChat);
+                const createPrivateChat = await createPrivateChatApi.call(targetUser, user, userHasThisChat);
                 resolve(createPrivateChat);
             } catch (e) {
                 reject(e);

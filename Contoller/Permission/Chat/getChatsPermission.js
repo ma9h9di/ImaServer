@@ -4,13 +4,13 @@ const err = require('../../Model/error');
 const pv = require('../../Other/PublicValue');
 
 module.exports = {
-    check: function (data,user,userHasThisChat) {
+    check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             if (!data.hasOwnProperty('chatIDs')) {
                 reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatIDs']}).jsonErr());
             }
             try {
-                const getChats = await getChatsApi.call(data.chatIDs,user,userHasThisChat);
+                const getChats = await getChatsApi.call(data.chatIDs, user, userHasThisChat);
                 resolve(getChats)
             } catch (e) {
                 reject(e);

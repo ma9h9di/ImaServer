@@ -6,13 +6,13 @@ const pv = require('../../Other/PublicValue');
 const db = require('../../DB/db');
 
 module.exports = {
-    check: function (data,user) {
+    check: function (data, user) {
         return new Promise(async (resolve, reject) => {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('chatID')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
-                }else {
+                } else {
                     try {
                         /*
                         * todo Mahdi Khazayi Nezhad 12/23/2018 (db) : #majid in usere to in chate mitone pm bede
@@ -25,7 +25,7 @@ module.exports = {
                     }
                 }
 
-                const clearHistory = await clearHistoryApi.call(data.chatID,user);
+                const clearHistory = await clearHistoryApi.call(data.chatID, user);
                 resolve(clearHistory);
             } catch (e) {
                 reject(e);

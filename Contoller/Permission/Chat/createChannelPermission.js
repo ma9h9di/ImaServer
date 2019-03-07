@@ -5,7 +5,7 @@ const pv = require('../../Other/PublicValue');
 
 module.exports = {
     check: function (data, user) {
-        return new Promise(async (resolve,reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 //todo age ro sakhte tedad gp ina bekhaim kari konim jash injas vali flan ke chizi nadarim vase in ghazie
                 if (!data.hasOwnProperty('title')) {
@@ -19,10 +19,10 @@ module.exports = {
                 }
                 data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
                 //TODO: age gharar shod tedad groh sakhtano check konim injast
-                const createChannel=await createChannelApi.call(data, user);
+                const createChannel = await createChannelApi.call(data, user);
                 resolve(createChannel);
 
-            } catch (e){
+            } catch (e) {
                 reject(e);
 
             }

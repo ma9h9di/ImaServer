@@ -34,7 +34,7 @@ function createSequenceDocument(sequenceName) {
     return new Promise(async (resolve) => {
         try {
             const countersCollection = mongoUtil.getDb().collection("Counters");
-            countersCollection.insertOne({_id:sequenceName,sequence_value:0}, function (err, res) {
+            countersCollection.insertOne({_id: sequenceName, sequence_value: 0}, function (err, res) {
                 if (err) {
                     throw err;
                 }
@@ -45,7 +45,8 @@ function createSequenceDocument(sequenceName) {
             });
         } catch (e) {
             reject(e);
-        }    });
+        }
+    });
     // return sequenceDocument.sequence_value;
 }
 

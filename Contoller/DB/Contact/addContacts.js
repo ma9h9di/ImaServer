@@ -5,7 +5,7 @@ var logd = require('../../Other/Funcion').logd;
 
 
 function addContacts(user, contacts) {
-    return new Promise(async (resolve,reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
 

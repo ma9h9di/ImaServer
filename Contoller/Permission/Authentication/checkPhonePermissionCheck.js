@@ -57,7 +57,7 @@ module.exports = {
                 user = await db.insertUser(user);
             }
             try {
-                const phone=await callCheckPhone(user);
+                const phone = await callCheckPhone(user);
                 resolve(phone);
             } catch (e) {
                 reject(e);

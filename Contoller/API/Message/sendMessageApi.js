@@ -27,7 +27,7 @@ function call(data, user, userChat) {
             */
             answer = {data: newMessage};
 
-            pushToAllUser(answer,userChat.chatID,'new_message','message_event');
+            pushToAllUser(answer, userChat.chatID, 'new_message', 'message_event');
 
             resolve(answer)
         } catch (e) {

@@ -6,7 +6,7 @@ const err = require('../../Model/error');
 function callByFullChat(value) {
     return new Promise(async (resolve) => {
         const fullChatKey = pv.support.fullChatKey;
-        value.accessLevel=value.accessLevel?value.accessLevel:pv.support.access.member;
+        value.accessLevel = value.accessLevel ? value.accessLevel : pv.support.access.member;
         let chatInfo = {};
         for (let i = 0; i < fullChatKey.length; i++) {
             let key = fullChatKey[i];
@@ -23,11 +23,11 @@ function callByFullChat(value) {
 function callByInfoChat(value) {
     return new Promise(async (resolve) => {
         try {
-            const allChatData =await db.getChatByChatId(value.chatID);
-            allChatData.accessLevel=value.post;
-            const callByFullChat=await callByFullChat(allChatData);
+            const allChatData = await db.getChatByChatId(value.chatID);
+            allChatData.accessLevel = value.post;
+            const callByFullChat = await callByFullChat(allChatData);
             resolve(callByFullChat);
-        } catch (e){
+        } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }

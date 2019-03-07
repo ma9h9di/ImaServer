@@ -9,7 +9,7 @@ module.exports = {
     check: function (data) {
         return new Promise(async (resolve, reject) => {
             try {
-                 //write your code Mahdi Khazayi Nezhad ...
+                //write your code Mahdi Khazayi Nezhad ...
 
                 const getFullMessages = await getFullMessagesApi.call();
                 resolve(getFullMessages);

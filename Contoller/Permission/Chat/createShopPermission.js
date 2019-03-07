@@ -6,7 +6,7 @@ const pv = require('../../Other/PublicValue');
 module.exports = {
     check: function (data, user) {
         //todo age ro sakhte tedad gp ina bekhaim kari konim jash injas vali flan ke chizi nadarim vase in ghazie
-        return new Promise(async (resolve,reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('title')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
@@ -21,14 +21,13 @@ module.exports = {
 
                 //TODO: age gharar shod tedad groh sakhtano check konim injast
 
-               const createShop=await createShopApi.call(data, user);
-               resolve(createShop);
-            } catch (e){
+                const createShop = await createShopApi.call(data, user);
+                resolve(createShop);
+            } catch (e) {
                 reject(e);
 
             }
         });
-
 
 
     }

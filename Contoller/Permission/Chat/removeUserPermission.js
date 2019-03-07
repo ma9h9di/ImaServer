@@ -23,8 +23,8 @@ module.exports = {
 
                 try {
                     //2 ta user ozve bashan
-                    const promiseUserWorkerHaveChat =await userHasThisChat(data.chatID, user.chats);
-                    const promiseUserRemovededHaveChat =await userHasThisChat(data.chatID, userRemoveded.chats);
+                    const promiseUserWorkerHaveChat = await userHasThisChat(data.chatID, user.chats);
+                    const promiseUserRemovededHaveChat = await userHasThisChat(data.chatID, userRemoveded.chats);
 
                     if (pv.support.access.accessLevel.indexOf(promiseUserWorkerHaveChat.post) >= pv.support.access.accessLevel.indexOf(pv.support.access.admin)
                         && pv.support.access.accessLevel.indexOf(promiseUserWorkerHaveChat.post) >= pv.support.access.accessLevel.indexOf(promiseUserRemovededHaveChat.post)) {

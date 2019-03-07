@@ -90,12 +90,12 @@ function deleteDataChatUser(userChat, userID) {
 
 }
 
-function updateChatUser(userChat,keys, userID) {
+function updateChatUser(userChat, keys, userID) {
     return new Promise(async (resolve, reject) => {
         try {
-            let newChatUser={};
-            for (let i=0;i<keys.length;i++){
-                newChatUser[keys[i]]=userChat[keys[i]];
+            let newChatUser = {};
+            for (let i = 0; i < keys.length; i++) {
+                newChatUser[keys[i]] = userChat[keys[i]];
             }
             var userCollection = mongoUtil.getDb().collection("Users");
             userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
@@ -120,6 +120,6 @@ module.exports =
         updateUserByMongoID: updateUserByMongoID,
         updateUserByPhoneNumber: updateUserByPhoneNumber,
         deleteDataChatUser: deleteDataChatUser,
-        updateChatUser:updateChatUser
+        updateChatUser: updateChatUser
     }
 ;

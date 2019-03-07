@@ -36,8 +36,8 @@ function getChatUser(chat, post, limitShowMessageCount = 0) {
     };
     if (chat.hasOwnProperty('hashID')) {
         chatUser['hashID'] = chat.hashID;
-    }else{
-        chatUser['hashID']=chat._id;
+    } else {
+        chatUser['hashID'] = chat._id;
     }
     return chatUser;
 }
