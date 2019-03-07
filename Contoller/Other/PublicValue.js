@@ -111,6 +111,15 @@ const supportValue = {
         'accessLevel'
 
     ],
+    fullMessageKey: {
+        'serverReceivedTime': 1,
+        'seenCount': 1,
+        'messageText': 1,
+        'senderUserID': 1,
+        'random_id': 1,
+        'lastEditTime': 1,
+        'messageCount': 1
+    },
     limitedChatKey: {
         // '_id':1,
         'title': 1,

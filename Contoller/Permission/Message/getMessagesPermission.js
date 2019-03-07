@@ -19,7 +19,7 @@ module.exports = {
                     * nakardim ke natonim behesh message bedim
                     */
                     /*
-                    * todo Mahdi Khazayi Nezhad 12/23/2018 (db) : #majid in usere to in chate mitone pm bede
+                    * do Mahdi Khazayi Nezhad 12/23/2018 (db) : #majid in usere to in chate mitone pm bede
                     * age peyda nakarde reject kon mn to try catch mizaram age peyda kardi on chat id ro bargardon
                     * await db.canSendMessageThisChat(data.chatID,user)
                     */

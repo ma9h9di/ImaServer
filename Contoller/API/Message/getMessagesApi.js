@@ -17,8 +17,9 @@ function call(chatID, messageIDs) {
             * yani kolan bar asase counte to in chat id countayi ke to in
             * messageIDs hast
             * massageIDs ye arayas [2,3,6,4]
-            * answer await db.getMessages(chatID,messageIDs)
+            * answer = await db.getMessages(chatID,messageIDs)
             */
+            answer = await db.getMessage(chatID,messageIDs,pv.support.fullMessageKey);
             resolve({data: answer})
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());

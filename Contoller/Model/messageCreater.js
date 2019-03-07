@@ -26,6 +26,7 @@ function newMessage(temp, user, userChat, random_id) {
     }
 }
 
+
 function getNewMessage(messageTemp, user, userChat, random_id) {
     let type = messageTemp.type;
     return new Promise(async (resolve, reject) => {

@@ -15,7 +15,7 @@ function canSendMessageToThisChat(userChat) {
 }
 
 module.exports = {
-    canSendMessageToThisChat:canSendMessageToThisChat,
+    canSendMessageToThisChat: canSendMessageToThisChat,
     check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -66,7 +66,7 @@ module.exports = {
                         * do Mahdi Khazayi Nezhad 12/23/2018 (db) : #majid
                         *  lastMessage = await db.getMessage({chatID:data.chatID,messageID:editMessageID});
                         */
-                        lastMessage = await db.getMessage({chatID:userChat.chatID,messageCount:editMessageID});
+                        lastMessage = await db.getMessage(userChat.chatID, [editMessageID])[0];
                         if (lastMessage.senderID === user.userID) {
                             answerCall = await editMessageApi.call(lastMessage, data.message, user);
                         }
