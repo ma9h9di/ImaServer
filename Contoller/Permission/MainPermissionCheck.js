@@ -6,7 +6,6 @@ const messagePermission = require('./Message/messageMainPermissionCheck');
 const logd = require('../Other/Funcion').logd;
 const err = require('../Model/error');
 const pv = require('../Other/PublicValue');
-import {} from "../Permission/User/getChatsInfoPermission";
 
 const db = require('../DB/db');
 

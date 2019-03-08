@@ -20,17 +20,17 @@ function call(userChat, user, maxSeenMessageCount) {
              * await db.updateUserChat(user,userChat,['lastSeenMessage'])
              * answer={'successful':true}
              */
-            await db.updateSeenMessages(userChat.chatID,user.userID,maxSeenMessageCount);
+            await db.updateSeenMessages(userChat.chatID, user.userID, maxSeenMessageCount);
             let members = await db.getMembersChat(userChat.chatID);
-            members.forEach(async
-                member => {
-                    let mid = member._id;
-                    if (mid !== user.userID) {
-                        await db.updateChatUser(userChat, ['lastSeenMessage'], user.userID);
+            for (let i = 0; i < members.length; i++) {
+                let member=members[i];
+                let mid = member._id;
+                if (mid !== user.userID) {
+                    await db.updateChatUser(userChat, ['lastSeenMessage'], user.userID);
 
-                    }
                 }
-            );
+
+            }
 
             answer = {'successful': true}
             pushToAllUser({

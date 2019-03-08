@@ -5,7 +5,6 @@ const clearHistoryPermission = require('./clearHistoryPermission');
 const sendEmojiOnMessagePermission = require('./sendEmojiOnMessagePermission');
 const setTypingPermission = require('./setTypingPermission');
 const seenMessagesPermission = require('./seenMessagesPermission');
-const getSeenMessagesPermission = require('./getSeenMessagesPermission');
 const inChatSearchPermission = require('./inChatSearchPermission');
 const globalSearchPermission = require('./globalSearchPermission');
 const messageSearchPermission = require('./messageSearchPermission');
@@ -86,9 +85,6 @@ function findMethodPermission(input, user, userHasThisChat) {
                     break;
                 case pv.api.message.seenMessages:
                     checkAnswer = await seenMessagesPermission.check(data, user, userHasThisChat);
-                    break;
-                case pv.api.message.getSeenMessages:
-                    checkAnswer = await getSeenMessagesPermission.check(data, user);
                     break;
                 case pv.api.message.inChatSearch:
                     checkAnswer = await inChatSearchPermission.check();
