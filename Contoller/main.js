@@ -10,9 +10,9 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
     method = method + '_result';
     const sendData = {'event': method, 'data': output};
     let pushToUser = false;
-    if (!data.hasOwnProperty('pushToUser')) {
-        pushToUser = data.pushToUser;
-        delete data.pushToUser;
+    if (!output.hasOwnProperty('pushToUser')) {
+        pushToUser = output.pushToUser;
+        delete output.pushToUser;
     }
     // logd('output', sendData);
     switch (output.type) {

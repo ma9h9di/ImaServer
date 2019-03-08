@@ -46,6 +46,7 @@ module.exports = function (user) {
                     result.successful = false;
                     result.token = "";
                 }
+                // logd('token Generated',result.token)
                 resolve({'data': result});
             })
         }
