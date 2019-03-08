@@ -74,6 +74,8 @@ function deleteDataChatUser(userChat, userID) {
     return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
+            userID=parseInt(userID);
+            userChat.hashID=parseInt(userChat.hashID);
             userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
                 {$set: userChat}, function (err, res) {
                     if (err) {
@@ -98,6 +100,8 @@ function updateChatUser(userChat, keys, userID) {
                 newChatUser[keys[i]] = userChat[keys[i]];
             }
             var userCollection = mongoUtil.getDb().collection("Users");
+            userID=parseInt(userID);
+            userChat.hashID=parseInt(userChat.hashID);
             userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
                 {$set: newChatUser}, function (err, res) {
                     if (err) {

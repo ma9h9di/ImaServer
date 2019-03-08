@@ -9,6 +9,9 @@ function getChats(chatIDs, selectedField) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
+            for (let i = 0; i < chatIDs; i++) {
+                chatIDs[i] = parseInt(chatIDs[i]);
+            }
             userCollection.find({chatID: {$in: chatIDs}}).project(selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;

@@ -7,6 +7,8 @@ function getMembersChat(chatID) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
+            chatID = parseInt(chatID);
+
             userCollection.findOne({chatID: {$eq: chatID}}, {'membersID': 1, '_id': 0}, function (err, res) {
                 if (err) {
                     throw err;

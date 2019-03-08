@@ -9,6 +9,7 @@ function addMemberToChat(userID, chatID) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
+            chatID = parseInt(chatID);
             userCollection.updateOne(
                 {
                     chatID: {$eq: chatID}

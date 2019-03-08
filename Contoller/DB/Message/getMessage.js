@@ -31,7 +31,10 @@ function getMessages(chatID, messageIDs, key = undefined) {
     return new Promise((resolve, reject) => {
         try {
             const messageCollection = mongoUtil.getDb().collection("Messages");
-
+            chatID = parseInt(chatID);
+            for (let i = 0; i < messageIDs.length; i++) {
+                messageIDs[i] = parseInt(messageIDs[i])
+            }
             messageCollection.find({
                 hashID: chatID,
                 messageCount: {$in: messageIDs}

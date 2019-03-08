@@ -8,6 +8,8 @@ function joinChat(userID, chatJson) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Users");
+            userID = parseInt(userID);
+
             userCollection.updateOne(
                 {
                     userID: {$eq: userID}

@@ -1,0 +1,16 @@
+{
+  "input": {
+    "method": "createPrivateChat",
+    "data": {
+      "userID": "11",
+      "token": "token1"
+    }
+  },
+  "output": {
+    "data": {
+      "successful": true
+    },
+    "type": "chat",
+    "time": 1539036643518
+  }
+}

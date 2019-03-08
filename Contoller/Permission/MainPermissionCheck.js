@@ -86,6 +86,7 @@ function callBackAfterUser(user, input, client) {
             case pv.api.chat.deleteChat:
             case pv.api.chat.createGroup:
             case pv.api.chat.createChannel:
+            case pv.api.chat.createPrivateChat:
             case pv.api.chat.createShop:
             case pv.api.chat.setLink:
             case pv.api.chat.getLink:

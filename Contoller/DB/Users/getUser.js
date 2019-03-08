@@ -25,11 +25,14 @@ function getUserByPhoneNumber(phone_number) {
     });
 }
 
-function getUsersInfo(usersID, selectedField) {
+function getUsersInfo(usersIDs, selectedField) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Users");
-            userCollection.find({_id: {$in: usersID}}).project(selectedField).toArray(function (err, result) {
+            for (let i = 0; i < usersIDs; i++) {
+                usersIDs[i]=parseInt(usersIDs[i]);
+            }
+            userCollection.find({userID: {$in: usersIDs}}).project(selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;
                 }
@@ -49,13 +52,13 @@ function getUsersInfo(usersID, selectedField) {
     });
 }
 
-function getUserByID(id, selectedField) {
-    selectedField = selectedField ? selectedField : {};
+function getUserByID(id) {
     return new Promise(function (resolve, reject) {
         try {
             let userCollection = mongoUtil.getDb().collection("Users");
-            logd('getUserByID phoneNumber :', id);
-            userCollection.findOne({userID: {$eq: id}}, {fields: selectedField}, function (err, res) {
+            logd('getUserByID userID :', id);
+            id=parseInt(id);
+            userCollection.findOne({userID: {$eq: id}}, function (err, res) {
                 logd('getUserByID err :', err);
                 if (err) {
                     reject(err);

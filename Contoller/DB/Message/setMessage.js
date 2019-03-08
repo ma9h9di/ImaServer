@@ -3,11 +3,18 @@
 const mongoUtil = require('../mongoUtil');
 const logd = require('../../Other/Funcion').logd;
 
-function updateSeenMessages(chatID,userID,maxNumberCount) {
+function updateSeenMessages(chatID, userID, maxNumberCount) {
     return new Promise(async (resolve, reject) => {
         try {
             const messageCollection = mongoUtil.getDb().collection("Messages");
-            messageCollection.updateMany({hashID:chatID,senderUserID: { $ne: userID },messageCount: { $lte: maxNumberCount }}, {$set: {seenCount:1}}, function (err, res) {
+            chatID = parseInt(chatID);
+            userID = parseInt(userID);
+            maxNumberCount = parseInt(maxNumberCount);
+            messageCollection.updateMany({
+                hashID: chatID,
+                senderUserID: {$ne: userID},
+                messageCount: {$lte: maxNumberCount}
+            }, {$set: {seenCount: 1}}, function (err, res) {
                 if (err) {
                     throw err;
                 }
@@ -47,6 +54,6 @@ function addMessage(newMessage) {
 module.exports =
     {
         updateSeenMessages: updateSeenMessages,
-        addMessage:addMessage
+        addMessage: addMessage
     }
 ;

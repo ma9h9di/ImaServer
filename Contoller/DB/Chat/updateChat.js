@@ -16,6 +16,8 @@ function updateChatByMongoID(changedKeysArray, newChat) {
                 if (newChat.hasOwnProperty(changedKeysArray[i]))
                     tempUser[changedKeysArray[i]] = newChat[changedKeysArray[i]];
             }
+            newChat.chatID = parseInt(newChat.chatID);
+
             chatCollection.updateOne({chatID: newChat.chatID}, {$set: tempUser}, function (err, res) {
                 if (err) {
                     throw err;

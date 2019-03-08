@@ -13,7 +13,10 @@ module.exports = {
                 if (!data.hasOwnProperty('userID')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
                 }
-                const targetUser = await db.getUserByID(new ObjectID(data.userID));
+                if (data.userID===user.userID){
+                    reject(new err(pv.errCode.invalid_arguments, undefined, {params: ['userID']}).jsonErr());
+                }
+                const targetUser = await db.getUserByID(data.userID);
 
                 const createPrivateChat = await createPrivateChatApi.call(targetUser, user, userHasThisChat);
                 resolve(createPrivateChat);
