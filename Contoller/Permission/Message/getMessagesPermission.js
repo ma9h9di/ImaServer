@@ -32,7 +32,7 @@ module.exports = {
                 }
 
 
-                const getMessages = await getMessagesApi.call(hashMessageID(data.chatID, user.userID), data.messageIDs);
+                const getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs);
                 resolve(getMessages);
             } catch (e) {
                 reject(e);

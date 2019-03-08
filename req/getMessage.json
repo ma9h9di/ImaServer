@@ -1,0 +1,39 @@
+{
+  "input": {
+    "method": "getMessages",
+    "data": {
+      "chatID": 11,
+      "token": "token1",
+      "messageIDs": [
+        1,
+        22
+      ]
+    }
+  },
+  "output": {
+    "data": [
+      {
+        "_id": "5c82ace2c154c21768d54cd8",
+        "lastEditTime": 1552067810449,
+        "serverReceivedTime": 1552067810449,
+        "seenCount": 1,
+        "messageText": "testFirstMessage",
+        "senderUserID": 10,
+        "random_id": null,
+        "messageCount": 1
+      },
+      {
+        "_id": "5c82b2f959d15a2288ed2d60",
+        "lastEditTime": 1552069369668,
+        "serverReceivedTime": 1552069369668,
+        "seenCount": 1,
+        "messageText": "slm",
+        "senderUserID": 10,
+        "random_id": "sdads",
+        "messageCount": 22
+      }
+    ],
+    "type": "message",
+    "time": 1552081846829
+  }
+}
