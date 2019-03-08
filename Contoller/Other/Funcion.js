@@ -1,5 +1,3 @@
-const db = require('../DB/db');
-
 let livelog = false;
 
 
@@ -50,7 +48,7 @@ function randomString(length) {
 }
 
 function pi(k1, k2) {
-    return (((k1 + k2) * (k1 + k2 + 1)) / 2) + k2
+    return -((((k1 + k2) * (k1 + k2 + 1)) / 2) + k2)
 }
 
 function hashMessageID(senderChatID, receivedChatID) {
@@ -63,26 +61,33 @@ function hashMessageID(senderChatID, receivedChatID) {
     return pi(k1, k2);
 }
 
-function pushToUserGenerater(orginalObject, pushData, userSessions, channel) {
+async function pushToUserGenerater(orginalObject, pushData, userSessions) {
     if (!orginalObject.hasOwnProperty('pushToUser')) {
         orginalObject.pushToUser = [];
     }
-    for (let i = 0; i < userSessions; i++) {
-        orginalObject.pushToUser.push({data: pushData, clientID: userSessions[i].socketID, channel: channel})
+    for (let i = 0; i < userSessions.length; i++) {
+        orginalObject.pushToUser.push({data: pushData, clientID: userSessions[i].socketID})
     }
 }
 
-async function pushToAllUser(orginalObject, chatID, event, channel) {
+async function pushToAllUser(orginalObject, chatID, event) {
     let members;
     /*
     * do Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
     * to array memberasho bargardoni
     * members = await db.getMembersChat(userChat.chatID)
     */
+    const db = require('../DB/db');
     members = await db.getMembersChat(chatID);
-    members.forEach(member => {
-        pushToUserGenerater(orginalObject, {data: orginalObject, event: event}, member._id, channel)
-    });
+    let memberFormat = [];
+    for (let i = 0; i < members.length; i++) {
+        memberFormat.push(members[i]._id);
+    }
+    let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0});
+    for (let i = 0; i < userSessions.length; i++) {
+        await pushToUserGenerater(orginalObject, {data: orginalObject, event: event}, userSessions[i].session);
+    }
+
 }
 
 logd("create Function", " hello");

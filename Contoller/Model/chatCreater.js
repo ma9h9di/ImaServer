@@ -4,9 +4,9 @@ const pv = require('../Other/PublicValue');
 
 function getDefaultsChat(user) {
     return {
-        superAdmin: user._id,
+        superAdmin: user.userID,
         membersCount: 1,
-        membersID: [{_id: user._id}],
+        membersID: [{_id: user.userID}],
         changeChatTime: new Date().getTime(),//when name or title change when dont use
         admin: [{_id: user.userID}],
         accessModifier: pv.support.accessModifier.private,
@@ -15,7 +15,7 @@ function getDefaultsChat(user) {
         messageCount: 0,
         Created: {
             creatorDate: new Date().getTime(),
-            userCreated: user._id
+            userCreated: user.userID
         }
     }
 }
@@ -100,6 +100,8 @@ class PrivateChat extends Chat {
         delete this.chatJson.description;
 
         this.chatJson.membersID.push({_id: userForChat.userID});
+        this.chatJson.membersCount++;
+
         this.chatJson.type = pv.support.chatType.privateChat;
         this.chatJson.hashID = hashMessageID(userForChat.userID, userCreator.userID)
     }

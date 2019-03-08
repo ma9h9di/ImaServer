@@ -17,6 +17,10 @@ function connectToServer(callback) {
     });
 }
 
+function getDb() {
+    return _db;
+}
+
 function getNextSequenceValue(sequenceName) {
     return new Promise(async (resolve) => {
         const sequenceDocument = _db.collection("Counters").findAndModify(
@@ -33,18 +37,16 @@ function getNextSequenceValue(sequenceName) {
 function createSequenceDocument(sequenceName) {
     return new Promise(async (resolve) => {
         try {
-            const countersCollection = mongoUtil.getDb().collection("Counters");
+            const countersCollection = getDb().collection("Counters");
             countersCollection.insertOne({_id: sequenceName, sequence_value: 0}, function (err, res) {
-                if (err) {
-                    throw err;
-                }
+
                 if (!res) {
                     res = false;
                 }
-                resolve(res.ops[0]);
+                resolve(res);
             });
         } catch (e) {
-            reject(e);
+            resolve(e);
         }
     });
     // return sequenceDocument.sequence_value;
@@ -54,7 +56,5 @@ module.exports = {
     connectToServer: connectToServer,
     getNextSequenceValue: getNextSequenceValue,
     createSequenceDocument: createSequenceDocument,
-    getDb: function () {
-        return _db;
-    }
+    getDb: getDb
 };

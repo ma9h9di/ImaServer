@@ -11,7 +11,6 @@ function createChat(chat) {
         try {
             const userCollection = mongoUtil.getDb().collection("Chats");
             chat.chatID = uuid;
-            const insertDoumentSquence = createSequenceDocument(chat.chatID);
             userCollection.insertOne(chat, async function (err, res) {
                 if (err) {
                     throw err;
@@ -19,7 +18,11 @@ function createChat(chat) {
                 if (!res) {
                     res = false;
                 }
-                await insertDoumentSquence;
+                try {
+                    await mongoUtil.createSequenceDocument(chat.chatID);
+                }catch (e) {
+                    logd(e)
+                }
                 resolve(res.ops[0]);
             });
         } catch (e) {

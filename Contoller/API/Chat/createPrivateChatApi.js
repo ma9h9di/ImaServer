@@ -11,6 +11,7 @@ const getChatUser = require("../../Model/chatCreater").getChatUser;
 const err = require('../../Model/error');
 
 const callByInfoChat = require('./getFullChatApi').callByInfoChat;
+const callByFullChat = require('./getFullChatApi').callByFullChat;
 
 function call(tagetUser, user, userHasThisChat) {
     return new Promise(async (resolve) => {
@@ -22,6 +23,9 @@ function call(tagetUser, user, userHasThisChat) {
                 let userChat = await userHasThisChat(tagetUser.userID, user.chats);
                 try {
                     answer = await callByInfoChat(userChat);
+
+                    await pushToAllUser(answer, userChat.chatID, 'run_result');
+
                     resolve(answer);
                 } catch (e) {
                     resolve(new err(pv.errCode.internal_err).jsonErr());
@@ -30,14 +34,15 @@ function call(tagetUser, user, userHasThisChat) {
                 //inja yani inke in usere tahala ba in yaro chat nakarde
                 let newPV = new PrivateChat(tagetUser, user).getInit();
                 const chat = await db.createChat(newPV);
-                let userChat = getChatUser(chat);
+                let userChat = getChatUser(chat, pv.support.access.member);
                 userChat.chatID = tagetUser.userID;
                 await db.joinChat(user.userID, userChat);
                 userChat.chatID = user.userID;
                 await db.joinChat(tagetUser.userID, userChat);
                 answer = await callByFullChat(chat);
 
-                pushToAllUser(answer, chat.chatID, 'add_chat', 'chat_event');
+
+                pushToAllUser(answer, chat.chatID, 'run');
 
                 resolve(answer);
             }

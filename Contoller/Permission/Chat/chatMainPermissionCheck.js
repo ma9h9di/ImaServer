@@ -21,9 +21,8 @@ const logd = require('../../Other/Funcion').logd;
 const pv = require('../../Other/PublicValue');
 const ObjectID = require('mongodb').ObjectID;
 
-let userHasThisChat;
 
-function findMethodPermission(input, user) {
+function findMethodPermission(input, user, userHasThisChat) {
     return new Promise(async (resolve, reject) => {
         let checkPerAnswer;
         let data = input.data;
@@ -87,6 +86,7 @@ function findMethodPermission(input, user) {
                     return;
 
             }
+            resolve(checkPerAnswer);
         } catch (e) {
             reject(e);
         }
@@ -101,11 +101,10 @@ module.exports = {
         //todo check koliat az ghabil in ke in methode vojod dare age nadare
         //todo * getDevice from db and check dont use authecion methods more than 20 from  hours
         //todo #DB
-        this.userHasThisChat = userHasThisChat;
         return new Promise(async (resolve, reject) => {
             try {
                 user.changeAttribute = [];
-                const findMethod = await findMethodPermission(input, user);
+                const findMethod = await findMethodPermission(input, user, userHasThisChat);
                 resolve(findMethod);
             } catch (e) {
                 reject(e);

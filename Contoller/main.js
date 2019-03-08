@@ -10,7 +10,7 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
     method = method + '_result';
     const sendData = {'event': method, 'data': output};
     let pushToUser = false;
-    if (!output.hasOwnProperty('pushToUser')) {
+    if (output.hasOwnProperty('pushToUser')) {
         pushToUser = output.pushToUser;
         delete output.pushToUser;
     }
@@ -39,9 +39,9 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
         for (let i = 0; i < pushToUser.length; i++) {
             let element = pushToUser[i];
             try {
-                soketFunction.userEmit(element.clientID, element.data, element.channel);
+                soketFunction.pushToUserEmit(element.clientID, element.data);
             } catch (e) {
-
+                logd('in push to userErr',e)
             }
         }
     }

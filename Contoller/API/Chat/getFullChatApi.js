@@ -25,8 +25,8 @@ function callByInfoChat(value) {
         try {
             const allChatData = await db.getChatByChatId(value.chatID);
             allChatData.accessLevel = value.post;
-            const callByFullChat = await callByFullChat(allChatData);
-            resolve(callByFullChat);
+            const callByFullChatA = await callByFullChat(allChatData);
+            resolve(callByFullChatA);
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
 
