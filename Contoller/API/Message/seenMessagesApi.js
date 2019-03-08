@@ -32,7 +32,7 @@ function call(userChat, user, maxSeenMessageCount) {
 
             }
 
-            answer = {'successful': true}
+            answer = {'successful': true};
             await pushToAllUser({
                 chatID: userChat.userSeenChatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,

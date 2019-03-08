@@ -31,7 +31,7 @@ function call(data, user, userChat) {
             */
             answer = {data: newMessage};
 
-            await pushToAllUser(answer, userChat.chatID, 'new_message');
+            await pushToAllUser(answer, userChat.chatID, 'message_event');
 
             resolve(answer)
         } catch (e) {

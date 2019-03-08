@@ -8,9 +8,23 @@
   },
   "output": {
     "data": {
-      "successful": true
+      "_id": "5c822e9a20c74e3a60b5625d",
+      "type": "privateChat",
+      "membersCount": 2,
+      "membersID": [
+        {
+          "_id": 10
+        },
+        {
+          "_id": 11
+        }
+      ],
+      "photoURL": [],
+      "accessModifier": "private",
+      "changeChatTime": 1552035481955,
+      "accessLevel": "member"
     },
     "type": "chat",
-    "time": 1539036643518
+    "time": 1552064751624
   }
 }

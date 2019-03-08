@@ -1,0 +1,31 @@
+{
+  "input": {
+    "method": "sendMessage",
+    "data": {
+      "message": {
+        "text": "testFirstMessage2",
+        "type": "text"
+      },
+      "chatID": 11,
+      "token": "token1",
+      "random_ID": "sdads"
+    }
+  },
+  "output": {
+    "data": {
+      "lastEditTime": 1552067918493,
+      "serverReceivedTime": 1552067918493,
+      "changeMessageTime": 1552067918493,
+      "seenCount": 0,
+      "messageText": "testFirstMessage2",
+      "senderUserID": 10,
+      "hashID": -241,
+      "random_id": "sdads",
+      "type": "text",
+      "messageCount": 3,
+      "_id": "5c82ad4ec154c21768d54cda"
+    },
+    "type": "message",
+    "time": 1552067919387
+  }
+}
