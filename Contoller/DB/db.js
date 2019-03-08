@@ -37,6 +37,7 @@ module.exports = {
     insertUser: setUser.insertUser,
     deleteDataChatUser: setUser.deleteDataChatUser,
     updateUserByMongoID: setUser.updateUserByMongoID,
+    updateSessionUserByToken: setUser.updateSessionUserByToken,
     updateUserByPhoneNumber: setUser.updateUserByPhoneNumber,
     updateChatUser: setUser.updateChatUser,
     joinChat: joinOrLeave.joinChat,

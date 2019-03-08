@@ -165,7 +165,7 @@ function callBackAfterUser(user, input, client) {
     });
 }
 
-function clinetSessionSet(user, token, client) {
+async function clinetSessionSet(user, token, client) {
     let sessionArray = user.session;
     let targetSession;
     for (let i = 0; i < sessionArray.length; i++) {
@@ -181,6 +181,8 @@ function clinetSessionSet(user, token, client) {
         * yek sessein khastesho update konim
         * db.sessionUpdate(user,targetSession)
         */
+        await db.updateSessionUserByToken(token, client.id)
+
     }
 
 }
@@ -228,7 +230,7 @@ function check(input, client) {
                 }
                 user = await db.getUserByToken(data.token);
                 //session work
-                clinetSessionSet(user, data.token, client);
+                await clinetSessionSet(user, data.token, client);
             }
             try {
                 const apiAnswer = await callBackAfterUser(user, input, client);

@@ -70,6 +70,26 @@ function updateUserByMongoID(changedKeysArray, newUser) {
 
 }
 
+function updateSessionUserByToken(token,newSocketID) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var userCollection = mongoUtil.getDb().collection("Users");
+
+            userCollection.updateOne({'session.token': token}, {$set: {'session.$.socketID':newSocketID}}, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                // console.log("new updated document is: ", res.ops[0]);
+                resolve({});
+            });
+        } catch (e) {
+            logd(e);
+            reject(e);
+        }
+    });
+
+}
+
 function deleteDataChatUser(userChat, userID) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -124,6 +144,7 @@ module.exports =
         updateUserByMongoID: updateUserByMongoID,
         updateUserByPhoneNumber: updateUserByPhoneNumber,
         deleteDataChatUser: deleteDataChatUser,
-        updateChatUser: updateChatUser
+        updateChatUser: updateChatUser,
+        updateSessionUserByToken:updateSessionUserByToken
     }
 ;
