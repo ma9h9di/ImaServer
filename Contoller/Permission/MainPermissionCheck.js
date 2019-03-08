@@ -177,9 +177,9 @@ async function clinetSessionSet(user, token, client) {
     if (targetSession.socketID !== client.id) {
         targetSession.socketID = client.id;
         /*
-        * todo Mahdi Khazayi Nezhad 07/03/2019 (logic) : inja bayad faghat yek usero
+        * do Mahdi Khazayi Nezhad 07/03/2019 (logic) : inja bayad faghat yek usero
         * yek sessein khastesho update konim
-        * db.sessionUpdate(user,targetSession)
+        * db.updateSessionUserByToken(token, client.id)
         */
         await db.updateSessionUserByToken(token, client.id)
 
