@@ -10,8 +10,13 @@ function call(userChat, user, maxSeenMessageCount) {
     return new Promise(async (resolve) => {
         try {
             let answer;
+            answer = {data: {'successful': true}};
+
             //write your code Mahdi Khazayi Nezhad
             // answer = new err(pv.errCode.not_implemented).jsonErr();
+            if (userChat.lastSeenMessage <= maxSeenMessageCount) {
+                resolve(answer);
+            }
             userChat.lastSeenMessage = maxSeenMessageCount;
             /*
              * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
@@ -32,14 +37,13 @@ function call(userChat, user, maxSeenMessageCount) {
 
             }
 
-            answer = {'successful': true};
-            await pushToAllUser({
+            await pushToAllUser(answer, userChat.chatID, 'seen_event', {
                 chatID: userChat.userSeenChatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,
                 userID: user.userID
-            }, userChat.chatID, 'seen_even');
+            });
 
-            resolve({data: answer})
+            resolve(answer)
         } catch (e) {
 
             resolve(new err(pv.errCode.internal_err).jsonErr());

@@ -70,8 +70,11 @@ async function pushToUserGenerater(orginalObject, pushData, userSessions) {
     }
 }
 
-async function pushToAllUser(orginalObject, chatID, event) {
+async function pushToAllUser(orginalObject, chatID, event,pushData=undefined) {
     let members;
+    if (pushData===undefined) {
+        pushData=orginalObject;
+    }
     /*
     * do Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
     * to array memberasho bargardoni
@@ -85,7 +88,7 @@ async function pushToAllUser(orginalObject, chatID, event) {
     }
     let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0});
     for (let i = 0; i < userSessions.length; i++) {
-        await pushToUserGenerater(orginalObject, {data: orginalObject, event: event}, userSessions[i].session);
+        await pushToUserGenerater(orginalObject, {data: pushData, event: event}, userSessions[i].session);
     }
 
 }

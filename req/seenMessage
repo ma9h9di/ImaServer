@@ -1,0 +1,17 @@
+{
+  "input": {
+    "method": "seenMessages",
+    "data": {
+      "chatID": 11,
+      "token": "token1",
+      "maxSeenMessageCount": 20
+    }
+  },
+  "output": {
+    "data": {
+      "successful": true
+    },
+    "type": "message",
+    "time": 1552079772325
+  }
+}
