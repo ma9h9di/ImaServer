@@ -23,7 +23,7 @@ function call(userChat, user, maxSeenMessageCount) {
             await db.updateSeenMessages(userChat.chatID, user.userID, maxSeenMessageCount);
             let members = await db.getMembersChat(userChat.chatID);
             for (let i = 0; i < members.length; i++) {
-                let member=members[i];
+                let member = members[i];
                 let mid = member._id;
                 if (mid !== user.userID) {
                     await db.updateChatUser(userChat, ['lastSeenMessage'], user.userID);
@@ -33,11 +33,11 @@ function call(userChat, user, maxSeenMessageCount) {
             }
 
             answer = {'successful': true}
-            pushToAllUser({
+            await pushToAllUser({
                 chatID: userChat.userSeenChatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,
                 userID: user.userID
-            }, userChat.chatID, 'event', 'seen_even');
+            }, userChat.chatID, 'seen_even');
 
             resolve({data: answer})
         } catch (e) {

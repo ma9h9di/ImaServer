@@ -24,7 +24,7 @@ function call(tagetUser, user, userHasThisChat) {
                 try {
                     answer = await callByInfoChat(userChat);
 
-                    await pushToAllUser(answer, userChat.chatID, 'message_event');
+                    // await pushToAllUser(answer, userChat.chatID, 'message_event');
 
                     resolve(answer);
                 } catch (e) {
@@ -42,7 +42,7 @@ function call(tagetUser, user, userHasThisChat) {
                 answer = await callByFullChat(chat);
 
 
-                await pushToAllUser(answer, chat.chatID, 'message_event');
+                await pushToAllUser(answer, chat.chatID, 'chat_event');
 
                 resolve(answer);
             }

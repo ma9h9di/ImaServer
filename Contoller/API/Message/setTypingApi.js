@@ -12,11 +12,11 @@ function call(userChat, user, status) {
         try {
             //write your code Mahdi Khazayi Nezhad
             let answer = {successful: true};
-            pushToAllUser({
+            await pushToAllUser({
                 chatID: userChat.userSeenChatID,
                 status: status,
                 userID: user.userID
-            }, userChat.chatID, 'event', 'status_even');
+            }, userChat.chatID,'status_even');
 
             resolve({data: answer})
         } catch (e) {
