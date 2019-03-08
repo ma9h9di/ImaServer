@@ -15,7 +15,7 @@ module.exports = {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('status')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['']}).jsonErr());
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['status']}).jsonErr());
                 }
                 userChat = await userHasThisChat(data.chatID, user.chats);
 

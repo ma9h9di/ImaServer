@@ -1,0 +1,17 @@
+{
+  "input": {
+    "method": "setTyping",
+    "data": {
+      "chatID": 11,
+      "token": "token1",
+      "status": "typing"
+    }
+  },
+  "output": {
+    "data": {
+      "successful": true
+    },
+    "type": "message",
+    "time": 1552081536138
+  }
+}

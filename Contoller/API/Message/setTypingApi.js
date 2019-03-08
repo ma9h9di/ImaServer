@@ -11,14 +11,14 @@ function call(userChat, user, status) {
     return new Promise(async (resolve) => {
         try {
             //write your code Mahdi Khazayi Nezhad
-            let answer = {successful: true};
-            await pushToAllUser({
+            let answer = {data:{successful: true}};
+            await pushToAllUser(answer, userChat.chatID,'status_event',{
                 chatID: userChat.userSeenChatID,
                 status: status,
                 userID: user.userID
-            }, userChat.chatID,'status_even');
+            });
 
-            resolve({data: answer})
+            resolve(answer)
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
 
