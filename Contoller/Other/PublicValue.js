@@ -118,7 +118,8 @@ const supportValue = {
         'senderUserID': 1,
         'random_id': 1,
         'lastEditTime': 1,
-        'messageCount': 1
+        'messageCount': 1,
+        'hashID':1
     },
     limitedChatKey: {
         // '_id':1,
