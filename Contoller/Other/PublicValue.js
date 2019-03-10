@@ -108,7 +108,8 @@ const supportValue = {
         'description',
         'accessModifier',
         'changeChatTime',
-        'accessLevel'
+        'accessLevel',
+        'chatID'
 
     ],
     fullMessageKey: {
@@ -126,7 +127,8 @@ const supportValue = {
         'title': 1,
         'type': 1,
         'photoURL': 1,
-        'changeChatTime': 1
+        'changeChatTime': 1,
+        'chatID':1
 
     },
     userInfoKey: {
