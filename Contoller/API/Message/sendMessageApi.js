@@ -24,8 +24,8 @@ function call(data, user, userChat) {
             const updateKeys = ['lastMessageCount', 'lastMessageTime'];
             await db.updateChatUser(userChat, updateKeys, user.userID);
             await db.updateChatByMongoID(updateKeys, userChat);
-            data.chatID=userChat.chatID;
-            delete data.hashID;
+            newMessage.chatID=userChat.userSeenChatID;
+            delete newMessage.hashID;
             /*
             * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
             * elementesho update `lastMessageChangeTime` konim in update many
