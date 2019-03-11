@@ -1,0 +1,7 @@
+{
+  "method": "getFullUserInfo",
+  "data": {
+    "userID": 1,
+    "token": "token1"
+  }
+}

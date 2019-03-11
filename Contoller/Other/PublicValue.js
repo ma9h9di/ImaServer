@@ -113,6 +113,7 @@ const supportValue = {
 
     ],
     fullMessageKey: {
+        '_id': 0,
         'serverReceivedTime': 1,
         'seenCount': 1,
         'messageText': 1,
@@ -120,19 +121,19 @@ const supportValue = {
         'random_id': 1,
         'lastEditTime': 1,
         'messageCount': 1,
-        'hashID':1
+        'hashID': 1
     },
     limitedChatKey: {
-        // '_id':1,
+        '_id': 0,
         'title': 1,
         'type': 1,
         'photoURL': 1,
         'changeChatTime': 1,
-        'chatID':1
+        'chatID': 1
 
     },
     userInfoKey: {
-        // '_id':1,
+        '_id': 0,
         'profileImage': 1,
         'lastActivityTime': 1,
         'lastProfileChange': 1,
@@ -201,8 +202,11 @@ const permission = {
         allApi.authentication.signUp,
         allApi.authentication.signIn,
     ],
-    NumberOfAuthenticationReq: 20
+    NumberOfAuthenticationReq: 10020
 };
+/*
+* todo Mahdi Khazayi Nezhad 11/03/2019 (debug) : NumberOfAuthenticationReq beshe 20
+*/
 
 const defaultValue = {
     language: supportValue.language.en,

@@ -16,7 +16,7 @@ module.exports = function (user) {
         return {
             uname: 'ma7h5di',
             //todo in bayad 2 vardashte beshe
-            pass: '12170142',
+            // pass: '12170142',
             from: '+98100020400',
             message: pv.string[user.language].verifySmsMessage.replace('{{code}}', user.authentication.validationCode),
             to: [user.phone_number],
@@ -29,6 +29,7 @@ module.exports = function (user) {
     function gnreateNewVerifyCode() {
         user.authentication.validationCode = randomVerifyNumber(pv.defaultValue.verifyCodeLength);
         user.authentication.validationCodeExpire = date + pv.defaultValue.ExpireVerifyCodeTime;
+
 
     }
 
@@ -65,7 +66,8 @@ module.exports = function (user) {
                     body = JSON.parse(body);
                     console.log(body);
                     //todo in bayad beshe 0
-                    resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
+                    // resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
+                    resolve({'data': {'successful': true}});
                 });
             });
         },

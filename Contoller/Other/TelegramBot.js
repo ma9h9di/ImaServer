@@ -5,7 +5,7 @@ const ME_CHAT_ID = 282004191;
 const bot = new Telegraf(BOT_TOKEN);
 const telegram = bot.telegram;
 bot.start((ctx) => ctx.reply("Welcome " + ctx.chat.id));
-bot.launch();
+// bot.launch();
 console.log("bot Started");
 
 function sendErrMessage(err) {

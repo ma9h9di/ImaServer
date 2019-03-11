@@ -29,13 +29,14 @@ async function getSortedForUserTypeChat(user) {
     }
 //todo db.getLastTimesChats Majid
 //     const getLastTimesChatsPromise = db.getChatsLastTime(chatIDs);
-    const promise = db.getChats(chatIDs, pv.support.limitedChatKey);
-    const value = await Promise.all([promise]);
+    const value =await db.getChats(chatIDs, pv.support.limitedChatKey);
+    // const value = await Promise.all([promise]);
 //Todo:inja bayad run konm test konm bbinm chi mishe
-    for (let i = 0; i < value[1].length; i++) {
-        value[1][i].lastChangeTime = user.chats[i].lastMessageTime;
+    for (let i = 0; i < value.length; i++) {
+        value[i].lastChangeTime = user.chats[i].lastMessageTime;
+        value[i].chatID = user.chats[i].chatID;
     }
-    return value[1];
+    return value;
 }
 
 
