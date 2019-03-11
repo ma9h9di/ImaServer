@@ -19,8 +19,8 @@ function call(chatID, messageIDs) {
             * massageIDs ye arayas [2,3,6,4]
             * answer = await db.getMessages(chatID,messageIDs)
             */
-            answer = await db.getMessage(chatID,messageIDs,pv.support.fullMessageKey);
-            resolve({data: {messages:answer}})
+            answer = await db.getMessage(chatID, messageIDs, pv.support.fullMessageKey);
+            resolve({data: {messages: answer}})
         } catch (e) {
             resolve(new err(pv.errCode.internal_err).jsonErr());
 
@@ -28,6 +28,16 @@ function call(chatID, messageIDs) {
     });
 }
 
+async function callByNumber(chatID, startMessageData, numberMessage) {
+    let messageIDs = [];
+    for (let id = startMessageData; id < startMessageData + numberMessage; id++) {
+        messageIDs.push(id);
+    }
+    await call(chatID, messageIDs);
+
+}
+
 module.exports = {
-    call: call
+    call: call,
+    callByNumber: callByNumber
 };

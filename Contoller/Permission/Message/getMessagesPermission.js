@@ -12,7 +12,7 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 let userChat;
-
+                let getMessages;
                 try {
                     /*
                     * todo Mahdi Khazayi Nezhad 18/02/2019 (logic) : alan ke hame useran kasio mahdo
@@ -27,12 +27,22 @@ module.exports = {
                 } catch (e) {
                     reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                 }
-                if (!data.hasOwnProperty('messageIDs')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['messageIDs']}).jsonErr());
+                if (data.hasOwnProperty('numberMessage')) {
+                    let startMessageData = Math.max(userChat.lastMessageCount, data.numberMessage);
+                    if (data.hasOwnProperty('startMessage')) {
+                        startMessageData = Math.min(data.startMessage, startMessageData);
+                        startMessageData = Math.max(startMessageData, data.numberMessage);
+                    }
+                    getMessages = await getMessagesApi.callByNumber(userChat.chatID, startMessageData,data.numberMessage);
+
+                } else if (data.hasOwnProperty('messageIDs')) {
+                    getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs);
+                }
+                else {
+                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['messageIDs','numberMessage']}).jsonErr());
                 }
 
 
-                const getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs);
                 resolve(getMessages);
             } catch (e) {
                 reject(e);
