@@ -29,11 +29,15 @@ function call(chatID, messageIDs) {
 }
 
 async function callByNumber(chatID, startMessageData, numberMessage) {
-    let messageIDs = [];
-    for (let id = startMessageData; id < startMessageData + numberMessage; id++) {
-        messageIDs.push(id);
-    }
-    await call(chatID, messageIDs);
+    return new Promise(async (resolve) => {
+        let messageIDs = [];
+        for (let id = startMessageData; id < startMessageData + numberMessage; id++) {
+            messageIDs.push(id);
+        }
+        const answer =await call(chatID, messageIDs);
+        resolve(answer)
+    });
+
 
 }
 
