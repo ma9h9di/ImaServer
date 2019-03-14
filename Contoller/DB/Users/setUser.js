@@ -119,7 +119,7 @@ function updateChatUser(userChat, keys, userID) {
             for (let i = 0; i < keys.length; i++) {
                 newChatUser['chats.$.'+keys[i]] = userChat[keys[i]];
             }
-            var userCollection = mongoUtil.getDb().collection("Chats");//id user ha va chat ha nemikhaym mese ham bashan
+            var userCollection = mongoUtil.getDb().collection("Users");//id user ha va chat ha nemikhaym mese ham bashan
             userID=parseInt(userID);
             userChat.hashID=parseInt(userChat.hashID);
             userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
