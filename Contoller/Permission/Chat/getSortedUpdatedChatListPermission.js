@@ -8,9 +8,9 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 const getSortedUpdatedChatList = await getSortedUpdatedChatListApi.call(user);
-                resolve(getSortedUpdatedChatList);
+                return resolve(getSortedUpdatedChatList);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

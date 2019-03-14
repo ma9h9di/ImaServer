@@ -18,15 +18,15 @@ function updateChannelUsername(chatID, username, key) {
                     throw err;
                 }
                 if (!res) {
-                    resolve(false);
+                    return resolve(false);
                 }
                 if (res.matchedCount > 0) {
-                    resolve(username);
+                    return resolve(username);
                 }
-                resolve(false);
+                return resolve(false);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

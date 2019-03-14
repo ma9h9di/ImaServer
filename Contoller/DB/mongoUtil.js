@@ -28,7 +28,7 @@ function getNextSequenceValue(sequenceName) {
             {$inc: {sequence_value: 1}},
             {new: true},
             (err, sequenceDocument) => {
-                resolve(sequenceDocument.value.sequence_value);
+                return resolve(sequenceDocument.value.sequence_value);
             });
     });
     // return sequenceDocument.sequence_value;
@@ -43,10 +43,10 @@ function createSequenceDocument(sequenceName) {
                 if (!res) {
                     res = false;
                 }
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
-            resolve(e);
+            return resolve(e);
         }
     });
     // return sequenceDocument.sequence_value;

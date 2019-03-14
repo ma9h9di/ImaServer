@@ -11,26 +11,26 @@ module.exports = {
             try {
 
                 if (!data.hasOwnProperty('title')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
                 }
                 if ((data.title + '').length < pv.support.minTitleSize) {
-                    reject(new err(pv.errCode.chat.title_size_problem).jsonErr());
+                    return reject(new err(pv.errCode.chat.title_size_problem).jsonErr());
                 }
                 if (!data.hasOwnProperty('description')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('userIDs')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
                 }
                 if (data.userIDs.length <= 0) {
-                    reject(new err(pv.errCode.empty_argumnet, undefined, {params: ['userIDs']}).jsonErr());
+                    return reject(new err(pv.errCode.empty_argumnet, undefined, {params: ['userIDs']}).jsonErr());
                 }
                 data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
                 //TODO: age gharar shod tedad groh sakhtano check konim injast
                 const createGroup = await createGroupApi.call(data, user);
-                resolve(createGroup);
+                return resolve(createGroup);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

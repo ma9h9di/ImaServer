@@ -15,20 +15,20 @@ module.exports = {
                                 user.changeAttribute.push('spam');
                             }
                             if (contacts.length > pv.defaultValue.addContactLimitation) {
-                                reject(new err(pv.errCode.contact.add_contact_limitation_reached).jsonErr());
+                                return reject(new err(pv.errCode.contact.add_contact_limitation_reached).jsonErr());
                             } else {
                                 const addc = await addContacts.call(contacts, user);
-                                resolve(addc);
+                                return resolve(addc);
                             }
                         }
                     }
                 }
                 else {
                     const addc = await addContacts.call(contacts, user);
-                    resolve(addc);
+                    return resolve(addc);
                 }
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

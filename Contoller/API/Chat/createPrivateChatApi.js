@@ -26,9 +26,9 @@ function call(tagetUser, user, userHasThisChat) {
 
                     // await pushToAllUser(answer, userChat.chatID, 'message_event');
 
-                    resolve(answer);
+                    return resolve(answer);
                 } catch (e) {
-                    resolve(new err(pv.errCode.internal_err).jsonErr());
+                    return resolve(new err(pv.errCode.internal_err).jsonErr());
                 }
             } catch (e) {
                 //inja yani inke in usere tahala ba in yaro chat nakarde
@@ -44,11 +44,11 @@ function call(tagetUser, user, userHasThisChat) {
 
                 await pushToAllUser(answer, chat.chatID, 'chat_event');
 
-                resolve(answer);
+                return resolve(answer);
             }
-            resolve({data: answer})
+            return resolve({data: answer})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

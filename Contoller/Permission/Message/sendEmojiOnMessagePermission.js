@@ -11,9 +11,9 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 const sendEmojiOnMessage = await sendEmojiOnMessageApi.call();
-                resolve(sendEmojiOnMessage);
+                return resolve(sendEmojiOnMessage);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

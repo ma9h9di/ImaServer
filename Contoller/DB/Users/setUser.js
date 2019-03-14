@@ -16,11 +16,11 @@ function insertUser(user) {
                     throw err;
                 }
                 console.log("response is: ", res.ops[0]);
-                resolve(res.ops[0]);
+                return resolve(res.ops[0]);
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -37,11 +37,11 @@ function updateUserByPhoneNumber(newUser) {
                     throw err;
                 }
                 // console.log("new updated document is: ", res.ops[0]);
-                resolve({});
+                return resolve({});
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -60,11 +60,11 @@ function updateUserByMongoID(changedKeysArray, newUser) {
                     throw err;
                 }
                 // console.log("new updated document is: ", res.ops[0]);
-                resolve({});
+                return resolve({});
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -80,11 +80,11 @@ function updateSessionUserByToken(token,newSocketID) {
                     throw err;
                 }
                 // console.log("new updated document is: ", res.ops[0]);
-                resolve({});
+                return resolve({});
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -102,11 +102,11 @@ function deleteDataChatUser(userChat, userID) {
                         throw err;
                     }
                     // console.log("new updated document is: ", res.ops[0]);
-                    resolve({});
+                    return resolve({});
                 });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -128,11 +128,11 @@ function updateChatUser(userChat, keys, userID) {
                         throw err;
                     }
                     // console.log("new updated document is: ", res.ops[0]);
-                    resolve({});
+                    return resolve({});
                 });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 

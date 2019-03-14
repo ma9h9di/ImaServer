@@ -33,8 +33,8 @@ module.exports = {
                     case pv.api.contacts.addContacts:
                         for (let i = 0; i < data.contacts.length; i++) {
                             if (!contactFormatValidation(data.contacts[i])) {
-                                reject(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
-                                return;
+                                return reject(new err(pv.errCode.contact.contact_format_invalid).jsonErr());
+
                             }
                         }
                         checkAnswer = await addContactsPermission.check(data.contacts, user); // todo
@@ -43,12 +43,12 @@ module.exports = {
                         checkAnswer = await updateContact.check(user, data);
                         break;
                     default:
-                        reject(new err(pv.errCode.method_not_found).jsonErr());
+                        return reject(new err(pv.errCode.method_not_found).jsonErr());
 
                 }
-                resolve(checkAnswer);
+                return resolve(checkAnswer);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

@@ -9,22 +9,22 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('title')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['title']}).jsonErr());
                 }
                 if ((data.title + '').length < pv.support.minTitleSize) {
-                    reject(new err(pv.errCode.chat.title_size_problem).jsonErr());
+                    return reject(new err(pv.errCode.chat.title_size_problem).jsonErr());
                 }
                 if (!data.hasOwnProperty('description')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['description']}).jsonErr());
                 }
                 data.description = data.description.substring(0, pv.defaultValue.descriptionLength);
 
                 //TODO: age gharar shod tedad groh sakhtano check konim injast
 
                 const createShop = await createShopApi.call(data, user);
-                resolve(createShop);
+                return resolve(createShop);
             } catch (e) {
-                reject(e);
+                return reject(e);
 
             }
         });

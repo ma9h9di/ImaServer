@@ -11,7 +11,7 @@ function call(user) {
             if (user.chats[i].pin)
                 pinsChat.push(user.chats[i].chatID)
         }
-        resolve({data: {chatIDsPin: pinsChat}})
+        return resolve({data: {chatIDsPin: pinsChat}})
     });
 
 }

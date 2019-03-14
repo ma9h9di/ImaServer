@@ -23,18 +23,18 @@ const ObjectID = require('mongodb').ObjectID;
 function messageFormatCheck(data) {
     return new Promise((resolve, reject) => {
         if (!data.hasOwnProperty('message')) {
-            reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['message']}).jsonErr());
+            return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['message']}).jsonErr());
         }
 
         const message = data.message;
         if (!message.hasOwnProperty('text')) {
-            reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['text']}).jsonErr());
+            return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['text']}).jsonErr());
         }
         if (!message.hasOwnProperty('type')) {
-            reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['type']}).jsonErr());
+            return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['type']}).jsonErr());
         }
 
-        resolve(data);
+        return resolve(data);
     });
 
 }
@@ -46,7 +46,7 @@ function findMethodPermission(input, user, userHasThisChat) {
             let data = input.data;
             let checkAnswer;
             if (!data.hasOwnProperty('chatID')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             }
             switch (input.method) {
                 case pv.api.message.sendMessage:
@@ -111,13 +111,13 @@ function findMethodPermission(input, user, userHasThisChat) {
                     checkAnswer = await getChangeableMessagePermission.check();
                     break;
                 default:
-                    reject(new err(pv.errCode.method_not_found).jsonErr());
+                    return reject(new err(pv.errCode.method_not_found).jsonErr());
                     break;
 
             }
-            resolve(checkAnswer);
+            return resolve(checkAnswer);
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -134,9 +134,9 @@ module.exports = {
             try {
                 user.changeAttribute = [];
                 const findMethodP = await findMethodPermission(input, user, userHasThisChat);
-                resolve(findMethodP);
+                return resolve(findMethodP);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

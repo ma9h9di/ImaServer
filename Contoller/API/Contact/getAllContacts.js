@@ -19,9 +19,9 @@ function getAllContacts(user) {
                 inImaContact: inImaContact,
                 outImaContact: contact,
             };
-            resolve({data: reData});
+            return resolve({data: reData});
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
 

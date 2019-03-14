@@ -18,11 +18,11 @@ function updateSeenMessages(chatID, userID, maxNumberCount) {
                 if (err) {
                     throw err;
                 }
-                resolve({});
+                return resolve({});
             });
         } catch (e) {
             logd(e);
-            reject(e)
+            return reject(e)
         }
     });
 }
@@ -41,10 +41,10 @@ function addMessage(newMessage) {
                 if (!res) {
                     res = false;
                 }
-                resolve(res.ops[0]);
+                return resolve(res.ops[0]);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
 
 

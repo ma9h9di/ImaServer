@@ -27,17 +27,17 @@ function addContacts(user, contacts) {
                         throw err;
                     }
                     if (!res) {
-                        resolve(false);
+                        return resolve(false);
                     } else {
                         var temp = {};
                         temp.contacts = contacts;
-                        resolve(temp);
+                        return resolve(temp);
                     }
                 }
             );
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 

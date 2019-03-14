@@ -10,15 +10,15 @@ module.exports = {
             try {
 
                 if (!data.hasOwnProperty('userID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+
                 }
 
                 let userID = data.userID;
                 const getFullUserInfo = await getFullUserInfoApi.call(userID);
-                resolve(getFullUserInfo);
+                return resolve(getFullUserInfo);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

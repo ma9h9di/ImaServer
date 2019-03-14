@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const globalSearch = await globalSearchApi.call();
-                resolve(globalSearch);
+                return resolve(globalSearch);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

@@ -19,10 +19,10 @@ const pv = require('../../Other/PublicValue');
 //                 if (!res) {
 //                     res = false;
 //                 }
-//                 resolve(res);
+//                 return resolve(res);
 //             });
 //         } catch (e) {
-//             reject(e);
+//             return reject(e);
 //         }
 //     });
 // }
@@ -47,11 +47,11 @@ function getMessages(chatID, messageIDs, key = undefined) {
                     for (let i = 0; i < res.length; i++) {
                         propArray.push(res[i]);
                     }
-                    resolve(propArray);
+                    return resolve(propArray);
                 }
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

@@ -16,12 +16,12 @@ function checkChannelUsername(username, key) {
                     throw err;
                 }
                 if (!res) {
-                    resolve(username);
+                    return resolve(username);
                 }
-                resolve(false);
+                return resolve(false);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

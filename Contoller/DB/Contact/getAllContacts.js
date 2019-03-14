@@ -18,14 +18,14 @@ function getAllContacts(user) {
                     throw err;
                 }
                 if (!res) {
-                    resolve(false);
+                    return resolve(false);
                 } else {
-                    resolve(res);
+                    return resolve(res);
                 }
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 

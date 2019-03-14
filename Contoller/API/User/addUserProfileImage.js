@@ -12,9 +12,9 @@ function call(user, value) {
             user.lastProfileChange = new Date().getTime();
             user.lastActivityTime = new Date().getTime();
             const updateUser = await db.updateUserByMongoID(['lastProfileChange', 'lastActivityTime', 'profileImage'], user);
-            resolve(updateUser);
+            return resolve(updateUser);
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

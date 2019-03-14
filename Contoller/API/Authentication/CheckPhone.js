@@ -27,7 +27,7 @@ module.exports = {
     * */
     call: function (user) {
         return new Promise(resolve => {
-            resolve({'data': {'registered': user.status === 'active'}});
+            return resolve({'data': {'registered': user.status === 'active'}});
         })
     }
 };

@@ -16,17 +16,17 @@ function userHasThisChat(chatID, chats, accessLevel) {
         for (let i = 0; i < chats.length; i++) {
             if (chats[i].chatID === (chatID)) {
                 if (pv.support.access.accessLevel.indexOf(chats[i].post) < pv.support.access.accessLevel.indexOf(accessLevel)) {
-                    reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+                    return reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                 } else {
                     let cloneOfChatsI = JSON.parse(JSON.stringify(chats[i]));
                     //set kardan chat id dorost
                     cloneOfChatsI.userSeenChatID = cloneOfChatsI.chatID;
                     cloneOfChatsI.chatID = cloneOfChatsI.hashID;
-                    resolve(cloneOfChatsI);
+                    return resolve(cloneOfChatsI);
                 }
             }
         }
-        reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+        return reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
     });
 
 }
@@ -52,9 +52,9 @@ function callBackAfterUser(user, input, client) {
                         user.lastProfileChange = date;
                         db.updateUserByPhoneNumber(user);
                     }
-                    resolve(authenticationPermissionResult);
+                    return resolve(authenticationPermissionResult);
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
                 break;
             case pv.api.contacts.getAllContacts:
@@ -62,7 +62,7 @@ function callBackAfterUser(user, input, client) {
             case pv.api.contacts.addContacts:
                 try {
                     if (user === false) {
-                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
                     const contactPermissionResult = await contactPermission.check(input, user);
@@ -70,9 +70,9 @@ function callBackAfterUser(user, input, client) {
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
                     db.updateUserByMongoID(user.changeAttribute, user);
-                    resolve(contactPermissionResult);
+                    return resolve(contactPermissionResult);
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
                 break;
             case pv.api.chat.getFullChat:
@@ -94,7 +94,7 @@ function callBackAfterUser(user, input, client) {
             case pv.api.chat.getPin://todo
                 try {
                     if (user === false) {
-                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
                     const contactPermissionResult = await chatPermission.check(input, user, userHasThisChat);
@@ -102,17 +102,17 @@ function callBackAfterUser(user, input, client) {
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
                     db.updateUserByMongoID(user.changeAttribute, user);
-                    resolve(contactPermissionResult);
+                    return resolve(contactPermissionResult);
                     break;
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
                 break;
             case pv.api.user.getUsersInfo:
             case pv.api.user.getFullUserInfo:
                 try {
                     if (user === false) {
-                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
                     const contactPermissionResult = await userPermission.check(input, user);
@@ -120,10 +120,10 @@ function callBackAfterUser(user, input, client) {
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
                     db.updateUserByMongoID(user.changeAttribute, user);
-                    resolve(contactPermissionResult);
+                    return resolve(contactPermissionResult);
                     break;
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
                 break;
 
@@ -144,7 +144,7 @@ function callBackAfterUser(user, input, client) {
             case pv.api.message.getChangableMessage:
                 try {
                     if (user === false) {
-                        reject(new err(pv.errCode.token_user_not_found).jsonErr());
+                        return reject(new err(pv.errCode.token_user_not_found).jsonErr());
                         break;
                     }
                     const contactPermissionResult = await messagePermission.check(input, user, userHasThisChat);
@@ -152,15 +152,15 @@ function callBackAfterUser(user, input, client) {
                     user.lastActivityTime = date;
                     user.changeAttribute.push('lastActivityTime');
                     db.updateUserByMongoID(user.changeAttribute, user);
-                    resolve(contactPermissionResult);
+                    return resolve(contactPermissionResult);
                     break;
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
                 break;
             default:
-                reject(new err(pv.errCode.method_not_found).jsonErr());
-                return;
+                return reject(new err(pv.errCode.method_not_found).jsonErr());
+
         }
     });
 }
@@ -195,38 +195,38 @@ function check(input, client) {
     return new Promise(async (resolve, reject) => {
         try {
             if (!input.hasOwnProperty('method')) {
-                reject(new err(pv.errCode.method_not_found).jsonErr());
-                return;
+                return reject(new err(pv.errCode.method_not_found).jsonErr());
+
             }
             if (!input.hasOwnProperty('data')) {
-                reject(new err(pv.errCode.data_not_found).jsonErr());
-                return;
+                return reject(new err(pv.errCode.data_not_found).jsonErr());
+
             }
             const data = input.data;
             let user = false;
             if (pv.permission.notNeedTokenApi.indexOf((input.method)) > -1) {
                 if (!data.hasOwnProperty('phone_number')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['phone_number']}).jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['phone_number']}).jsonErr());
+
                 }
                 if (data.phone_number.length > 14) {
-                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number longer than 14').jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number longer than 14').jsonErr());
+
                 }
                 if (data.phone_number.length < 6) {
-                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number less than 6').jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number less than 6').jsonErr());
+
                 }
                 if (data.phone_number[0] !== '+') {
-                    reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number format not valid').jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.authentication.phone_not_valid, 'phone number format not valid').jsonErr());
+
                 }
                 logd('after enter db', db);
                 user = await db.getUserByPhoneNumber(data.phone_number);
                 logd('before enter db');
             } else {
                 if (!data.hasOwnProperty('token')) {
-                    reject(new err(pv.errCode.token_field_not_found).jsonErr());
+                    return reject(new err(pv.errCode.token_field_not_found).jsonErr());
                 }
                 user = await db.getUserByToken(data.token);
                 //session work
@@ -234,12 +234,12 @@ function check(input, client) {
             }
             try {
                 const apiAnswer = await callBackAfterUser(user, input, client);
-                resolve(apiAnswer);
+                return resolve(apiAnswer);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         } catch (e) {
-            reject(new err(pv.errCode.internal_err).jsonErr());
+            return reject(new err(pv.errCode.internal_err).jsonErr());
         }
     });
 

@@ -12,9 +12,9 @@ function call(userIDs) {
             // }
             const value = await db.getUsersInfo(userIDs, pv.support.limitedUserKey);
             //Todo:inja bayad run konm test konm bbinm chi mishe
-            resolve({data: {userInfos: value}})
+            return resolve({data: {userInfos: value}})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

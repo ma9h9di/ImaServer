@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const sendSupperTicket = await sendSupperTicketApi.call();
-                resolve(sendSupperTicket);
+                return resolve(sendSupperTicket);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

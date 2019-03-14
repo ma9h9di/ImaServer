@@ -18,9 +18,9 @@ function call(userChat, user, status) {
                 userID: user.userID
             });
 
-            resolve(answer)
+            return resolve(answer)
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

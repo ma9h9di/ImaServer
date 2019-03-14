@@ -15,14 +15,14 @@ function getDevice(unique_device_key) {
                 }
                 if (!res) {
                     res = false;
-                    resolve(res);
+                    return resolve(res);
                 } else {
-                    resolve(res);
+                    return resolve(res);
                 }
             });
         } catch (e) {
             logd(e);
-            reject(e)
+            return reject(e)
         }
     });
 

@@ -18,10 +18,10 @@ function getFile(file_id, mCategory) {
             console.log("inside");
 
             const out = bucket.openDownloadStream({'metadata.category': mCategory, _id: new ObjectID(file_id)});
-            resolve(out);
+            return resolve(out);
             console.log("hello");
         } catch (e) {
-            reject(e)
+            return reject(e)
         }
 
     });

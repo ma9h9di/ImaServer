@@ -22,7 +22,7 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
                 let userChat;
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 } else {
                     try {
 
@@ -37,15 +37,15 @@ module.exports = {
                         */
                         userChat = await userHasThisChat(data.chatID, user.chats);
                         if (!canSendMessageToThisChat(userChat)) {
-                            reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                            return reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                         }
                     } catch (e) {
-                        reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                        return reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                     }
 
                 }
                 if (!data.hasOwnProperty('random_ID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['random_ID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['random_ID']}).jsonErr());
                 }
                 /*
                 * todo Mahdi Khazayi Nezhad 12/23/2018 (logic) : masalan inja check mikonm radome ham ok bode
@@ -70,16 +70,16 @@ module.exports = {
                             answerCall = await editMessageApi.call(lastMessage, data.message, user);
                         }
                         else {
-                            reject(new err(pv.errCode.message.access_denied_message, undefined, {messageID: editMessageID}).jsonErr());
+                            return reject(new err(pv.errCode.message.access_denied_message, undefined, {messageID: editMessageID}).jsonErr());
                         }
 
                     } catch (e) {
-                        reject(new err(pv.errCode.message.message_not_found, undefined, {messageID: editMessageID}).jsonErr());
+                        return reject(new err(pv.errCode.message.message_not_found, undefined, {messageID: editMessageID}).jsonErr());
                     }
                 }
-                resolve(answerCall);
+                return resolve(answerCall);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

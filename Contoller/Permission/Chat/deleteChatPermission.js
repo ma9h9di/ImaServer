@@ -9,13 +9,13 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 let userHaveChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
                 const deleteChatUser = await deleteChatUserApi.call(userHaveChat, user);
-                resolve(deleteChatUser)
+                return resolve(deleteChatUser)
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

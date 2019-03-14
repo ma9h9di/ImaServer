@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const getFullMessages = await getFullMessagesApi.call();
-                resolve(getFullMessages);
+                return resolve(getFullMessages);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

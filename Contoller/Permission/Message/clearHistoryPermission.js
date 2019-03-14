@@ -14,7 +14,7 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 } else {
                     try {
                         /*
@@ -25,18 +25,18 @@ module.exports = {
                         userChat = await userHasThisChat(data.chatID, user.chats);
 
                         if (!canSendMessageToThisChat(userChat)) {
-                            reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                            return reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                         }
 
                     } catch (e) {
-                        reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                        return reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                     }
                 }
 
                 const clearHistory = await clearHistoryApi.call(userChat, user);
-                resolve(clearHistory);
+                return resolve(clearHistory);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

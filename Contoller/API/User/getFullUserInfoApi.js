@@ -11,9 +11,9 @@ function call(userID, resolve) {
             const value = await db.getUserByID(userID, pv.support.userInfoKey);
             //Todo:inja bayad run konm test konm bbinm chi mishe
             logd('in the getChats', value);
-            resolve({data: {fullUserInfo: value}})
+            return resolve({data: {fullUserInfo: value}})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

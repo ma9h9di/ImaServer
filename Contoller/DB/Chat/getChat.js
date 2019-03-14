@@ -17,10 +17,10 @@ function getChat(chatID) {
                 if (!res) {
                     res = false;
                 }
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

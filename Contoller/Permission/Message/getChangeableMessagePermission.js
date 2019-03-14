@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const getChangeableMessage = await getChangeableMessageApi.call();
-                resolve(getChangeableMessage);
+                return resolve(getChangeableMessage);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

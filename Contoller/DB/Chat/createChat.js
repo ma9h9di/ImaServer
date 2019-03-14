@@ -23,10 +23,10 @@ function createChat(chat) {
                 }catch (e) {
                     logd(e)
                 }
-                resolve(res.ops[0]);
+                return resolve(res.ops[0]);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
 
 

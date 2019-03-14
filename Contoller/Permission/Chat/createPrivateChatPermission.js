@@ -11,17 +11,17 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('userID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
                 }
                 if (data.userID===user.userID){
-                    reject(new err(pv.errCode.invalid_arguments, undefined, {params: ['userID']}).jsonErr());
+                    return reject(new err(pv.errCode.invalid_arguments, undefined, {params: ['userID']}).jsonErr());
                 }
                 const targetUser = await db.getUserByID(data.userID);
 
                 const createPrivateChat = await createPrivateChatApi.call(targetUser, user, userHasThisChat);
-                resolve(createPrivateChat);
+                return resolve(createPrivateChat);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

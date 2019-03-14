@@ -11,9 +11,9 @@ function call(data) {
             let answer;
             //write your code Mahdi Khazayi Nezhad
             answer = new err(pv.errCode.not_implemented).jsonErr();
-            resolve({data: answer})
+            return resolve({data: answer})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

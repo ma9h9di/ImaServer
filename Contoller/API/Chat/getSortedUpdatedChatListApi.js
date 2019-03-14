@@ -45,9 +45,9 @@ function call(user) {
         try {
             let sortedChat;
             sortedChat = await getSortedForUserTypeChat(user);
-            resolve({data: {chatInfos: sortedChat}})
+            return resolve({data: {chatInfos: sortedChat}})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

@@ -34,11 +34,11 @@ function getNewMessage(messageTemp, user, userChat, random_id) {
             case messageType.text: {
                 const newM = newMessage(messageTemp, user, userChat, random_id);
                 newM.type = type;
-                resolve(newM);
+                return resolve(newM);
                 break;
             }
             default:
-                reject(new err(pv.errCode.message.message_type_not_denied, undefined, {messageType: type}).jsonErr());
+                return reject(new err(pv.errCode.message.message_type_not_denied, undefined, {messageType: type}).jsonErr());
         }
     });
 }

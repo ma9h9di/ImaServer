@@ -20,10 +20,10 @@ module.exports = function (user) {
                 try {
                     await promisss;
                     logd("notiffff", sendSms.stringTextVerifyCode());
-                    resolve({'data': {'successful': true}});
+                    return resolve({'data': {'successful': true}});
                 } catch (e) {
                     await require('./SendSmS')(user).call();
-                    resolve({'data': {'successful': true}});
+                    return resolve({'data': {'successful': true}});
                 }
 
             })

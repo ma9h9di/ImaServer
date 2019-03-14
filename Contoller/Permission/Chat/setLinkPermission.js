@@ -12,21 +12,21 @@ module.exports = {
             try {
 
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('link')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['link']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['link']}).jsonErr());
                 }
                 if ((data.link + '').length < pv.support.minLinkSize) {
-                    reject(new err(pv.errCode.chat.link_size_problem).jsonErr());
+                    return reject(new err(pv.errCode.chat.link_size_problem).jsonErr());
                 }
 
                 let userChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.superAdmin);
                 const setLink = await setLinkApi.call(userChat, data.link);
-                resolve(setLink);
+                return resolve(setLink);
 
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

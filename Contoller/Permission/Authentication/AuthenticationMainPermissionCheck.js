@@ -20,19 +20,19 @@ module.exports = {
             let data = input.data;
             let address = client.request.connection.remoteAddress.split(".").join("-");
             if (!data.hasOwnProperty('device')) {
-                reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
+                return reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
             } else {
                 if (!data.device.hasOwnProperty('platform')) {
-                    reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
+                    return reject(new err(pv.errCode.authentication.device_argument, 'device argument not found', {'params': ['device']}).jsonErr());
                 }
                 if (!data.device.hasOwnProperty('unique_device_key')) {
-                    reject(new err(pv.errCode.authentication.device_argument, 'unique_device_key in device argument not found', {'params': ['unique_device_key']}).jsonErr());
+                    return reject(new err(pv.errCode.authentication.device_argument, 'unique_device_key in device argument not found', {'params': ['unique_device_key']}).jsonErr());
                 }
                 if (!data.device.hasOwnProperty('platform_version')) {
-                    reject(new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr());
+                    return reject(new err(pv.errCode.authentication.device_argument, 'platform_versions argument in device not found', {'params': ['platform_versions']}).jsonErr());
                 }
                 if (!data.device.hasOwnProperty('model')) {
-                    reject(new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr());
+                    return reject(new err(pv.errCode.authentication.device_argument, 'model argument in device not found', {'params': ['model']}).jsonErr());
                 }
 
             }
@@ -55,7 +55,7 @@ module.exports = {
                     device.authentication.nextAccessTime = date.getTime() + extraTime;
                     logd('device.authentication.nextAccessTime :', device.authentication.nextAccessTime);
                 } else if (device.authentication.nextAccessTime > date.getTime()) {
-                    reject(new err(pv.errCode.authentication.device_spam, undefined, {'next_active_time': device.authentication.nextAccessTime}).jsonErr());
+                    return reject(new err(pv.errCode.authentication.device_spam, undefined, {'next_active_time': device.authentication.nextAccessTime}).jsonErr());
                 }
 
             }
@@ -74,7 +74,7 @@ module.exports = {
             else {
                 db.updateDevice(device);
             }
-            resolve(result);
+            return resolve(result);
 
 
             // data.device.IP = address;
@@ -107,11 +107,11 @@ module.exports = {
                             case pv.api.authentication.removeSession:
                                 break;
                             default:
-                                reject(new err(pv.errCode.method_not_found).jsonErr());
+                                return reject(new err(pv.errCode.method_not_found).jsonErr());
                         }
-                        resolve(resultCheckPer);
+                        return resolve(resultCheckPer);
                     } catch (e) {
-                        reject(e);
+                        return reject(e);
 
                     }
 

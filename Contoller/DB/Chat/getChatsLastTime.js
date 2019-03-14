@@ -19,11 +19,11 @@ function getChatsLastTime(chats) {
                     for (let i = 0; i < res.length; i++) {
                         propArray.push(res[i]);
                     }
-                    resolve(propArray);
+                    return resolve(propArray);
                 }
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

@@ -15,8 +15,8 @@ module.exports = {
                     let date = new Date().getTime();
                     for (let i = 0; i < user.spam.length; i++) {
                         if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
-                            reject(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
-                            return;
+                            return reject(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
+
                         }
                     }
 
@@ -25,7 +25,7 @@ module.exports = {
                 const result = await CheckPhone.call(newUser);
                 if (extraData !== undefined)
                     result.warning = extraData;
-                resolve(result);
+                return resolve(result);
 
             });
 
@@ -35,16 +35,16 @@ module.exports = {
             if (!user) {
 
                 if (!data.hasOwnProperty('country')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['country']}).jsonErr());
                 }
                 else {
                     if (pv.support.country.indexOf(data.country) < 0) {
-                        reject(new err(pv.errCode.authentication.country_not_support).jsonErr());
+                        return reject(new err(pv.errCode.authentication.country_not_support).jsonErr());
                     }
                 }
                 // db.createUser(data.phone_number);
                 if (!data.hasOwnProperty('language')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {'param': ['language']}).jsonErr());
                 }
                 else {
                     if (Object.values(pv.support.language).indexOf(data.language) < 0) {
@@ -58,9 +58,9 @@ module.exports = {
             }
             try {
                 const phone = await callCheckPhone(user);
-                resolve(phone);
+                return resolve(phone);
             } catch (e) {
-                reject(e);
+                return reject(e);
 
             }
 

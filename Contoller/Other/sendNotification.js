@@ -19,15 +19,15 @@ module.exports = {
                     .then((response) => {
                         // Response is a message ID string.
                         logd('Successfully sent message:', response);
-                        resolve(response);
+                        return resolve(response);
                     })
                     .catch((error) => {
                         logd('Error sending message:', error);
-                        reject(false);
+                        return reject(false);
                     });
             } catch (e) {
                 logd('Error sending message:', e);
-                reject(false);
+                return reject(false);
             }
 
 

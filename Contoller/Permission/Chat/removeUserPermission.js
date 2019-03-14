@@ -12,10 +12,10 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('userID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
                 }
                 // data.userID = new ObjectID(data.userID);
                 const userRemoveded = await db.getUserByID(data.userID);
@@ -29,26 +29,26 @@ module.exports = {
                     if (pv.support.access.accessLevel.indexOf(promiseUserWorkerHaveChat.post) >= pv.support.access.accessLevel.indexOf(pv.support.access.admin)
                         && pv.support.access.accessLevel.indexOf(promiseUserWorkerHaveChat.post) >= pv.support.access.accessLevel.indexOf(promiseUserRemovededHaveChat.post)) {
                         const removeChatUser = await removeChatUserApi.call(data);
-                        resolve(removeChatUser);
+                        return resolve(removeChatUser);
                     } else if (data.userID === user._id) {
                         const result = await deleteChatUserApi.call(promiseUserWorkerHaveChat, user);
 
                         if (result.data.successful) {
                             const removeChatUser = await removeChatUserApi.call(data);
-                            resolve(removeChatUser);
+                            return resolve(removeChatUser);
                         }
                         else
-                            reject(new err(pv.errCode.chat.access_level_denied).jsonErr());
+                            return reject(new err(pv.errCode.chat.access_level_denied).jsonErr());
 
                     } else {
-                        reject(new err(pv.errCode.chat.access_level_denied).jsonErr());
+                        return reject(new err(pv.errCode.chat.access_level_denied).jsonErr());
 
                     }
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

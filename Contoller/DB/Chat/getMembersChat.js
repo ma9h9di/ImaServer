@@ -19,18 +19,18 @@ function getMembersChat(chatID) {
                 }
                 if (!res) {
                     res = false;
-                    resolve(res)
+                    return resolve(res)
                 }
                 let propArray = [];
 
                 for (let i = 0; i < res.length; i++) {
                     propArray.push(res[i]);
                 }
-                resolve(propArray[0].membersID);
+                return resolve(propArray[0].membersID);
 
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

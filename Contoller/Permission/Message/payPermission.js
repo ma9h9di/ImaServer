@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const pay = await payApi.call();
-                resolve(pay);
+                return resolve(pay);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

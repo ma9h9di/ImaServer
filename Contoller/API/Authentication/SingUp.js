@@ -13,7 +13,7 @@ module.exports = function (user) {
                 user.firstName = data.first_name;
                 user.lastName = data.last_name;
                 user.email = data.email;
-                resolve({'data': {successful: true}});
+                return resolve({'data': {successful: true}});
             })
 
 

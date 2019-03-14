@@ -9,14 +9,14 @@ module.exports = {
     check: function (data, user, userHasThisChat) {
         return new Promise(async (resolve, reject) => {
             if (!data.hasOwnProperty('chatID')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
             }
             if (!data.hasOwnProperty('limitShowMessageCount')) {
                 data.limitShowMessageCount = 0;
                 //TODO inja bayd bayad warning bedim ke begin khodemon defulto 0 kardim
             }
             if (!data.hasOwnProperty('userID')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
             }
             try {
                 const userAdded = await db.getUserByID(new ObjectID(data.userID));
@@ -27,19 +27,19 @@ module.exports = {
                 try {
                     let value = await userHasThisChat(data.chatID, userAdded.chats, pv.support.access.admin);
                     //user exist
-                    reject(new err(pv.errCode.chat.user_exist).jsonErr());
+                    return reject(new err(pv.errCode.chat.user_exist).jsonErr());
                 } catch (e) {
                     try {
                         const userHaveChat = await userHasThisChat(data.chatID, user.chats, pv.support.access.admin);
                         const addChatUse = await addChatUserApi.call(userAdded, data, userHaveChat);
-                        resolve(addChatUse);
+                        return resolve(addChatUse);
                     } catch (e) {
-                        reject(e);
+                        return reject(e);
 
                     }
                 }
             } catch (e) {
-                reject(e);
+                return reject(e);
 
             }
         });

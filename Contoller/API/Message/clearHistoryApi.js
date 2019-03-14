@@ -21,9 +21,9 @@ function call(userChat, user) {
             userChat.lastAvalebalMessage = userChat.lastMessageCount;
             await db.updateChatUser(userChat, ['lastAvalebalMessage'], user.userID);
 
-            resolve({data: answer})
+            return resolve({data: answer})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

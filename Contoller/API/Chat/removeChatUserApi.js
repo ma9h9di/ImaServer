@@ -20,9 +20,9 @@ function call(data) {
         try {
             await db.leaveChat(data.userID, data.chatID);
             await db.removeMemberFromChat(data.userID, data.chatID);
-            resolve({data: {successful: true}})
+            return resolve({data: {successful: true}})
         } catch (e) {
-            resolve({data: {successful: false}});
+            return resolve({data: {successful: false}});
 
         }
     });

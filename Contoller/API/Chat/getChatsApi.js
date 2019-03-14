@@ -16,9 +16,9 @@ function call(chatIDs, user, userHasThisChat) {
             const value = await db.getChats(hashIDs, pv.support.limitedChatKey);
             //Todo:inja bayad run konm test konm bbinm chi mishe
             //logd('in the getChats', value);
-            resolve({data: {chatInfos: value}})
+            return resolve({data: {chatInfos: value}})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
 
     });

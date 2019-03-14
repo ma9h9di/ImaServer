@@ -13,13 +13,13 @@ function call(userChat) {
         try {
             const result = await setLinkApi.call(userChat, link);
             if (result.data.link) {
-                resolve(result);
+                return resolve(result);
             } else {
                 const c = await call(userChat);
-                resolve(c);
+                return resolve(c);
             }
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

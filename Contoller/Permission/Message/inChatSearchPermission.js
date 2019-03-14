@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const inChatSearch = await inChatSearchApi.call();
-                resolve(inChatSearch);
+                return resolve(inChatSearch);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

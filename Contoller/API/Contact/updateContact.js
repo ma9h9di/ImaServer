@@ -8,17 +8,17 @@ function updateContact(user, contact, operation, resolve) {
             switch (operation) {
                 case 'update': {
                     await db.updateContact(user, contact,);
-                    resolve({data: {contact: contact}});
+                    return resolve({data: {contact: contact}});
                     break;
                 }
                 case 'delete': {
                     await db.deleteContact(user, contact);
-                    resolve({data: {contact: contact}});
+                    return resolve({data: {contact: contact}});
                     break;
                 }
             }
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
     });
 

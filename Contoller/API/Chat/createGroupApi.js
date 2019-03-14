@@ -28,19 +28,19 @@ function call(data, user) {
                 try {
                     await Promise.all(allPromiseAddUser);
                     const fullChat = await getFullChat.callByFullChat(chat);
-                    resolve(fullChat);
+                    return resolve(fullChat);
 
                 } catch (e) {
-                    resolve(new err(pv.errCode.internal_err).jsonErr());
+                    return resolve(new err(pv.errCode.internal_err).jsonErr());
 
                 }
             } catch (e) {
-                resolve(new err(pv.errCode.internal_err).jsonErr());
+                return resolve(new err(pv.errCode.internal_err).jsonErr());
 
             }
 
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
 
 

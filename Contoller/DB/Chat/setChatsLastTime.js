@@ -14,10 +14,10 @@ function setChatsLastTime(chat) {
                     throw err;
                 }
                 // console.log("new updated document is: ", res.ops[0]);
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

@@ -25,7 +25,7 @@ module.exports = {
                     */
                     userChat = await userHasThisChat(data.chatID, user.chats);
                 } catch (e) {
-                    reject(new err(pv.errCode.message.access_denied_send).jsonErr());
+                    return reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                 }
                 if (data.hasOwnProperty('numberMessage')) {
                     let startMessageData = userChat.lastMessageCount
@@ -39,13 +39,13 @@ module.exports = {
                     getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs);
                 }
                 else {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['messageIDs','numberMessage']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['messageIDs','numberMessage']}).jsonErr());
                 }
 
 
-                resolve(getMessages);
+                return resolve(getMessages);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

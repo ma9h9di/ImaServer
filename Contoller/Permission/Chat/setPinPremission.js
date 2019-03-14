@@ -10,16 +10,16 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('pinState')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['pinState']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['pinState']}).jsonErr());
                 }
                 let value = await userHasThisChat(data.chatID, user.chats);
                 const setPin = await setPinApi.call(value, user);
-                resolve(setPin);
+                return resolve(setPin);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

@@ -20,9 +20,9 @@ function call(chatID, messageIDs) {
             * answer = await db.getMessages(chatID,messageIDs)
             */
             answer = await db.getMessage(chatID, messageIDs, pv.support.fullMessageKey);
-            resolve({data: {messages: answer}})
+            return resolve({data: {messages: answer}})
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });
@@ -35,7 +35,7 @@ async function callByNumber(chatID, startMessageData, numberMessage) {
             messageIDs.push(id);
         }
         const answer =await call(chatID, messageIDs);
-        resolve(answer)
+        return resolve(answer)
     });
 
 

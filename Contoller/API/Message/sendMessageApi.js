@@ -35,9 +35,9 @@ function call(data, user, userChat) {
 
             await pushToAllUser(answer, userChat.chatID, 'message_event');
 
-            resolve(answer)
+            return resolve(answer)
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

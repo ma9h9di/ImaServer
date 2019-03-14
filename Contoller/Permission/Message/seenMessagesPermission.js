@@ -13,17 +13,17 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('maxSeenMessageCount')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['']}).jsonErr());
                 }
                 userChat = await userHasThisChat(data.chatID, user.chats);
 
                 const seenMessages = await seenMessagesApi.call(userChat, user, data.maxSeenMessageCount);
-                resolve(seenMessages);
+                return resolve(seenMessages);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

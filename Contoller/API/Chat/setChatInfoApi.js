@@ -14,11 +14,11 @@ function call(data) {
             //Todo:inja bayad run konm test konm bbinm chi mishe
             if (value.matchedCount > 0) {
                 const ful = await fullChatInfoApi(data);
-                resolve(ful);
+                return resolve(ful);
             }
-            else resolve(new err(pv.errCode.internal_err).jsonErr());
+            else return resolve(new err(pv.errCode.internal_err).jsonErr());
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
 

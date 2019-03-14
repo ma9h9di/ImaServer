@@ -32,13 +32,13 @@ function updateContact(user, contact) {
                         console.log("res" + res);
                         var temp = {};
                         temp.contact = contact;
-                        resolve(temp);
+                        return resolve(temp);
                     }
                 }
             );
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -70,13 +70,13 @@ function deleteContact(user, contact) {
                         console.log("res" + res);
                         var temp = {};
                         temp.contact = contact;
-                        resolve(temp);
+                        return resolve(temp);
                     }
                 }
             );
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 

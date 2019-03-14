@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const deleteMessage = await deleteMessageApi.call();
-                resolve(deleteMessage);
+                return resolve(deleteMessage);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

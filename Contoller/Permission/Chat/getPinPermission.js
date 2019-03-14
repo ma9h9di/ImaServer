@@ -8,9 +8,9 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 const getPin = await getPinApi.call(user);
-                resolve(getPin);
+                return resolve(getPin);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

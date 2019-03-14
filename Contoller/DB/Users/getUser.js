@@ -11,16 +11,16 @@ function getUserByPhoneNumber(phone_number) {
             userCollection.findOne({phone_number: {$eq: phone_number}}, function (err, res) {
                 logd('getUserByPhoneNumber_promise err :', err);
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
                 if (!res) {
                     res = false;
                 }
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 }
@@ -44,10 +44,10 @@ function getUsersInfo(usersIDs, selectedField) {
                     // result[i].userID=result[i].userID!==null?result[i].userID:result[i]._id;
                     propArray.push(result[i]);
                 }
-                resolve(propArray);
+                return resolve(propArray);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }
@@ -61,18 +61,18 @@ function getUserByID(id) {
             userCollection.findOne({userID: {$eq: id}}, function (err, res) {
                 logd('getUserByID err :', err);
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 }
                 if (!res) {
                     res = false;
                 }
                 //  res.userID=res.userID!==null?res.userID:res._id;
 
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 }
@@ -96,11 +96,11 @@ function getUserByToken(token) {
                 if (!res) {
                     res = false;
                 }
-                resolve(res);
+                return resolve(res);
             });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 

@@ -23,10 +23,10 @@ function getChats(chatIDs, selectedField) {
                 for (let i = 0; i < result.length; i++) {
                     propArray.push(result[i]);
                 }
-                resolve(propArray);
+                return resolve(propArray);
             });
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 }

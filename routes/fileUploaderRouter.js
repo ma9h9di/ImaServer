@@ -36,7 +36,7 @@ async function insertFile(fileID) {
     return new Promise(async (resolve, reject) => {
         try {
             const promisSaveFile = await db.saveFile(fileID);
-            resolve(promisSaveFile)
+            return resolve(promisSaveFile)
         } catch (e) {
             catchHandelr(e);
         }

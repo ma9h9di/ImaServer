@@ -14,9 +14,9 @@ module.exports = {
                 * todo Mahdi Khazayi Nezhad 12/23/2018 (logic) : badan anjamesh midim
                 */
                 const forwardMessages = await forwardMessagesApi.call();
-                resolve(forwardMessages);
+                return resolve(forwardMessages);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

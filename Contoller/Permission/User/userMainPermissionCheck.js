@@ -20,13 +20,13 @@ function findMethodPermission(input, user) {
                     checkAnswer = await getFullUserInfoPermission.check(data);
                     break;
                 default:
-                    reject(new err(pv.errCode.method_not_found).jsonErr());
+                    return reject(new err(pv.errCode.method_not_found).jsonErr());
                     break;
 
             }
-            resolve(checkAnswer);
+            return resolve(checkAnswer);
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
     });
 
@@ -44,9 +44,9 @@ module.exports = {
             try {
                 user.changeAttribute = [];
                 const findMethodP = await findMethodPermission(input, user);
-                resolve(findMethodP);
+                return resolve(findMethodP);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

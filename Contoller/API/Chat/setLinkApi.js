@@ -10,13 +10,13 @@ function call(userChat, link) {
             const value = await db.checkChannelUsername(link, 'link');
             if (value) {
                 //linke vojod dashte bayad err bedim
-                resolve({data: {link: false}})
+                return resolve({data: {link: false}})
             } else {
                 const value1 = await db.updateChannelUsername(userChat.chatID, value, 'link');
-                resolve({data: {link: value}});
+                return resolve({data: {link: value}});
             }
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
 

@@ -9,38 +9,38 @@ module.exports = {
 
             let extraData = undefined;
             if (!user) {
-                reject(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
+                return reject(new err(pv.errCode.authentication.phone_number_not_found).jsonErr());
             }
             if (user.spam.length > 0) {
                 let date = new Date().getTime();
                 for (let i = 0; i < user.spam.length; i++) {
                     if (user.spam[i].type === 'outApp' && user.spam[i].nextAccessTime > date) {
-                        reject(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
+                        return reject(new err(pv.errCode.authentication.user_delete_spam, undefined, {'next_active_time': user.spam[i].nextAccessTime}));
                     }
                 }
 
             }
             if (!data.hasOwnProperty('verify_code')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['verify_code']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['verify_code']}).jsonErr());
             }
             else {
                 if (data.verify_code.toString().length !== pv.defaultValue.verifyCodeLength) {
-                    reject(new err(pv.errCode.invalid_arguments, 'Wrong verification code', {params: ['verify_code']}).jsonErr());
+                    return reject(new err(pv.errCode.invalid_arguments, 'Wrong verification code', {params: ['verify_code']}).jsonErr());
                 }
             }
             if (!data.hasOwnProperty('notification_model')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['notification_model']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['notification_model']}).jsonErr());
             }
             else {
                 if (!pv.support.notificationModel.hasOwnProperty(data.notification_model)) {
-                    reject(new err(pv.errCode.authentication.notification_model_not_support).jsonErr());
+                    return reject(new err(pv.errCode.authentication.notification_model_not_support).jsonErr());
                 }
             }
             if (!data.hasOwnProperty('notification_token')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['notification_token']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['notification_token']}).jsonErr());
             }
             if (!data.hasOwnProperty('app')) {
-                reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['app']}).jsonErr());
+                return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['app']}).jsonErr());
             }
             //kamel etelaate appo nagerftimm nagereftim
 
@@ -53,9 +53,9 @@ module.exports = {
                 const result = await require('../../API/Authentication/SingIn')(user).call(data);
                 if (extraData !== undefined)
                     result.warning = extraData;
-                resolve(result);
+                return resolve(result);
             } catch (e) {
-                reject(e);
+                return reject(e);
 
             }
 

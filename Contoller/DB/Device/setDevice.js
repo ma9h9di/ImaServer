@@ -12,11 +12,11 @@ function insertDevice(device) {
                 if (err) {
                     throw err;
                 }
-                resolve(res.ops[0]);
+                return resolve(res.ops[0]);
             });
         } catch (e) {
             logd(e);
-            reject(e)
+            return reject(e)
         }
     });
 
@@ -30,11 +30,11 @@ function updateDevice(device) {
                 if (err) {
                     throw err;
                 }
-                resolve({});
+                return resolve({});
             });
         } catch (e) {
             logd(e);
-            reject(e)
+            return reject(e)
         }
     });
 

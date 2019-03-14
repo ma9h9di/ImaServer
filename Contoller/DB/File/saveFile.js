@@ -28,12 +28,12 @@ function saveFile(image) {
         bufferStream.end(image.buffer);
         bufferStream.metadata = image.metadata;
         bufferStream.pipe(bucket.openUploadStream(image.originalname, image)).on('error', function (error) {
-            reject(error);
+            return reject(error);
             assert.ifError(error);
 
         }).on('finish', function (result) {
             const dataRe = {id: result._id};
-            resolve(dataRe);
+            return resolve(dataRe);
             console.log('done!');
         });
     })

@@ -10,9 +10,9 @@ module.exports = {
             try {
                 const userChatInfo = await checkChannelUsernamePermission(userHasThisChat, data, user);
                 const updateChannelUsername = await updateChannelUsernameApi.call(userChatInfo, data.newUsername);
-                resolve(updateChannelUsername);
+                return resolve(updateChannelUsername);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

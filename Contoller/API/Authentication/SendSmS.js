@@ -66,8 +66,8 @@ module.exports = function (user) {
                     body = JSON.parse(body);
                     console.log(body);
                     //todo in bayad beshe 0
-                    // resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
-                    resolve({'data': {'successful': true}});
+                    // return resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
+                    return resolve({'data': {'successful': true}});
                 });
             });
         },

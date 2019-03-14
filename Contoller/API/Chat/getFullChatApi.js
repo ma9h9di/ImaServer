@@ -14,7 +14,7 @@ function callByFullChat(value) {
                 chatInfo[key] = value[key];
             }
         }
-        resolve({'data': chatInfo});
+        return resolve({'data': chatInfo});
     });
 
 
@@ -26,9 +26,9 @@ function callByInfoChat(value) {
             const allChatData = await db.getChatByChatId(value.chatID);
             allChatData.accessLevel = value.post;
             const callByFullChatA = await callByFullChat(allChatData);
-            resolve(callByFullChatA);
+            return resolve(callByFullChatA);
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
 
         }
     });

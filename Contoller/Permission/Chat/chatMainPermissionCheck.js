@@ -82,13 +82,13 @@ function findMethodPermission(input, user, userHasThisChat) {
                     break;
 
                 default:
-                    reject(new err(pv.errCode.method_not_found).jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.method_not_found).jsonErr());
+
 
             }
-            resolve(checkPerAnswer);
+            return resolve(checkPerAnswer);
         } catch (e) {
-            reject(e);
+            return reject(e);
         }
 
     });
@@ -105,9 +105,9 @@ module.exports = {
             try {
                 user.changeAttribute = [];
                 const findMethod = await findMethodPermission(input, user, userHasThisChat);
-                resolve(findMethod);
+                return resolve(findMethod);
             } catch (e) {
-                reject(e);
+                return reject(e);
 
             }
         });

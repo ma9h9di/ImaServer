@@ -24,13 +24,13 @@ function call(userAdded, data, userChat) {
             try {
                 await db.joinChat(userAdded.userID, chatInsert);
                 await db.addMemberToChat(userAdded.userID, value.hashID);
-                resolve({data: {successful: true}});
+                return resolve({data: {successful: true}});
             } catch (e) {
-                resolve({data: {successful: false}})
+                return resolve({data: {successful: false}})
             }
 
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
 
 
@@ -44,9 +44,9 @@ function callApi(data, userChat) {
         try {
             const userAdded = await db.getUserByID(new ObjectID(data.userID));
             await call(userAdded, data, userChat);
-            resolve(true);
+            return resolve(true);
         } catch (e) {
-            reject(false);
+            return reject(false);
         }
 
 

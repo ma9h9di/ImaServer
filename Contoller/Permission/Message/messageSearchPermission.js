@@ -12,9 +12,9 @@ module.exports = {
                 //write your code Mahdi Khazayi Nezhad ...
 
                 const messageSearch = await messageSearchApi.call();
-                resolve(messageSearch);
+                return resolve(messageSearch);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }

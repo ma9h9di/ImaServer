@@ -9,15 +9,15 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('userIDs')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
-                    return;
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userIDs']}).jsonErr());
+
                 }
 
                 let userIDs = data.userIDs;
                 const getUsersInfo = await getUsersInfoApi.call(userIDs);
-                resolve(getUsersInfo);
+                return resolve(getUsersInfo);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
 

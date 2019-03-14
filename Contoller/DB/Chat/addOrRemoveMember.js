@@ -19,13 +19,13 @@ function addMemberToChat(userID, chatID) {
                 },
                 function (err, res) {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
-                    resolve(res);
+                    return resolve(res);
                 });
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 }
@@ -48,15 +48,15 @@ function removeMemberFromChat(userID, chatID) {
 
                 function (err, res) {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
-                    resolve(res);
+                    return resolve(res);
                 }
             )
             ;
         } catch (e) {
             logd(e);
-            reject(e);
+            return reject(e);
         }
     });
 }

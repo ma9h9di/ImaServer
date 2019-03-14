@@ -14,14 +14,14 @@ function call(data, user) {
                 const chat = await db.createChat(newShop);
                 const value = await db.joinChat(user.userID, require("../../Model/chatCreater").getChatUser(chat));
                 const fullChat = await getFullChat.callByFullChat(chat);
-                resolve(fullChat);
+                return resolve(fullChat);
 
             } catch (e) {
-                resolve(new err(pv.errCode.internal_err).jsonErr());
+                return resolve(new err(pv.errCode.internal_err).jsonErr());
 
             }
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
     });
 }

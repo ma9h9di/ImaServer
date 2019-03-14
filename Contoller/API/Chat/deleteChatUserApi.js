@@ -8,10 +8,10 @@ function call(userChat, user) {
         userChat.limitShowMessageCount = userChat.lastAvalebalMessage;
         try {
             const value = await db.deleteDataChatUser(userChat, user.userID);
-            resolve({data: {successful: true}});
+            return resolve({data: {successful: true}});
 
         } catch (e) {
-            resolve({data: {successful: false}});
+            return resolve({data: {successful: false}});
         }
 
     });

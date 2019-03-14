@@ -9,9 +9,9 @@ function call(chat, value) {
     return new Promise(async (resolve) => {
         try {
             const promise = await db.addChatImageByMongoID(value.id, chat);
-            resolve(promise);
+            return resolve(promise);
         } catch (e) {
-            resolve(new err(pv.errCode.internal_err).jsonErr());
+            return resolve(new err(pv.errCode.internal_err).jsonErr());
         }
     });
 

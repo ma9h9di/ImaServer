@@ -11,7 +11,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
 
                 let chatID = data.chatID;
@@ -19,7 +19,7 @@ module.exports = {
                 const chatInUserChat = await userHasThisChat(chatID, user.chats);
 
                 const getFullChat = await getFullChatApi.callByInfoChat(chatInUserChat);
-                resolve(getFullChat);
+                return resolve(getFullChat);
 
 
             } catch (e) {
@@ -27,16 +27,16 @@ module.exports = {
                     const value = await db.getChatByChatId(chatID);
                     if (!value) {
                         //do error chat_not_found ezafe nashode
-                        reject(new err(pv.errCode.chat.chat_not_found).jsonErr());
+                        return reject(new err(pv.errCode.chat.chat_not_found).jsonErr());
                     }
                     if (value.accessModifier !== pv.support.accessModifier.public) {
-                        reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
+                        return reject(new err(pv.errCode.chat.access_denied_chat).jsonErr());
                     }
                     value.accessLevel = pv.support.access.member;
                     const getFullCha = await getFullChatApi.callByFullChat(value);
-                    resolve(getFullCha);
+                    return resolve(getFullCha);
                 } catch (e) {
-                    reject(e);
+                    return reject(e);
                 }
 
 

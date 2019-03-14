@@ -12,17 +12,17 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 if (!data.hasOwnProperty('chatID')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 }
                 if (!data.hasOwnProperty('status')) {
-                    reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['status']}).jsonErr());
+                    return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['status']}).jsonErr());
                 }
                 userChat = await userHasThisChat(data.chatID, user.chats);
 
                 const seenMessages = await setTypingApi.call(userChat, user, data.status);
-                resolve(seenMessages);
+                return resolve(seenMessages);
             } catch (e) {
-                reject(e);
+                return reject(e);
             }
         });
     }
