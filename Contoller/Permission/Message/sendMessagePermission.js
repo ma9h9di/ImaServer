@@ -21,7 +21,6 @@ module.exports = {
             try {
                 //write your code Mahdi Khazayi Nezhad ...
                 let userChat;
-
                 if (!data.hasOwnProperty('chatID')) {
                     reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['chatID']}).jsonErr());
                 } else {

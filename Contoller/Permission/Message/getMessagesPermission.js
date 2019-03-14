@@ -28,7 +28,7 @@ module.exports = {
                     reject(new err(pv.errCode.message.access_denied_send).jsonErr());
                 }
                 if (data.hasOwnProperty('numberMessage')) {
-                    let startMessageData = Math.max(userChat.lastMessageCount-data.numberMessage+1, 0);
+                    let startMessageData = userChat.lastMessageCount
                     if (data.hasOwnProperty('startMessage')) {
                         startMessageData = Math.min(data.startMessage, startMessageData);
                         // startMessageData = Math.max(startMessageData, data.numberMessage);

@@ -31,7 +31,7 @@ function call(chatID, messageIDs) {
 async function callByNumber(chatID, startMessageData, numberMessage) {
     return new Promise(async (resolve) => {
         let messageIDs = [];
-        for (let id = startMessageData; id < startMessageData + numberMessage; id++) {
+        for (let id = startMessageData; id > startMessageData - numberMessage; id--) {
             messageIDs.push(id);
         }
         const answer =await call(chatID, messageIDs);
