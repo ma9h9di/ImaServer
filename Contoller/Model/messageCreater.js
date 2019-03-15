@@ -1,4 +1,5 @@
 const messageType = require('../Other/PublicValue').messageType;
+const pv = require('../Other/PublicValue');
 const err = require('../Model/error');
 const hashMessageID = require('../Other/Funcion').hashMessageID;
 
@@ -26,7 +27,12 @@ function newMessage(temp, user, userChat, random_id) {
     }
 }
 
-
+function getNewMessageNotif(newMessage,user) {
+    return {
+        body:  newMessage.messageText.substring(0, pv.defaultValue.messageLengthNothif),
+        title:user.firstName
+    }
+}
 function getNewMessage(messageTemp, user, userChat, random_id) {
     let type = messageTemp.type;
     return new Promise(async (resolve, reject) => {
@@ -44,5 +50,6 @@ function getNewMessage(messageTemp, user, userChat, random_id) {
 }
 
 module.exports = {
-    getNewMessage: getNewMessage
+    getNewMessage: getNewMessage,
+    getNewMessageNotif: getNewMessageNotif
 };

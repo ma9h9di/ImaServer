@@ -2,10 +2,23 @@
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
+const sendNotifMessage = require("../../Other/workAtTime").sendNotifMessage;
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
 const getNewMessage = require('../../Model/messageCreater').getNewMessage;
+
+
+function sendNotifSchedule(usersSession, user, newMessage) {
+    return new Promise(async resolve => {
+        for (let i = 0; i < usersSession.length; i++) {
+            if (usersSession[i].userID !== user.userID) {
+                sendNotifMessage(newMessage,user,usersSession[i].session)
+            }
+        }
+        return resolve({});
+    })
+}
 
 function call(data, user, userChat) {
     return new Promise(async (resolve) => {
@@ -24,7 +37,7 @@ function call(data, user, userChat) {
             const updateKeys = ['lastMessageCount', 'lastMessageTime'];
             await db.updateChatUser(userChat, updateKeys, user.userID);
             await db.updateChatByMongoID(updateKeys, userChat);
-            newMessage.chatID=userChat.userSeenChatID;
+            newMessage.chatID = userChat.userSeenChatID;
             delete newMessage.hashID;
             /*
             * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
@@ -33,8 +46,8 @@ function call(data, user, userChat) {
             */
             answer = {data: newMessage};
 
-            await pushToAllUser(answer, userChat.chatID, 'message_event');
-
+            const usersSession = await pushToAllUser(answer, userChat.chatID, 'message_event');
+            await sendNotifSchedule(usersSession, user, newMessage);
             return resolve(answer)
         } catch (e) {
             return resolve(new err(pv.errCode.internal_err).jsonErr());

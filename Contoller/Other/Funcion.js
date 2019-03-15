@@ -62,35 +62,42 @@ function hashMessageID(senderChatID, receivedChatID) {
 }
 
 async function pushToUserGenerater(orginalObject, pushData, userSessions) {
-    if (!orginalObject.hasOwnProperty('pushToUser')) {
-        orginalObject.pushToUser = [];
-    }
-    for (let i = 0; i < userSessions.length; i++) {
-        orginalObject.pushToUser.push({data: pushData, clientID: userSessions[i].socketID})
-    }
+    return new Promise(async resolve => {
+
+
+        if (!orginalObject.hasOwnProperty('pushToUser')) {
+            orginalObject.pushToUser = [];
+        }
+        for (let i = 0; i < userSessions.length; i++) {
+            orginalObject.pushToUser.push({data: pushData, clientID: userSessions[i].socketID})
+        }
+        resolve();
+    });
 }
 
-async function pushToAllUser(orginalObject, chatID, event,pushData=undefined) {
-    let members;
-    if (pushData===undefined) {
-        pushData=orginalObject;
-    }
-    /*
-    * do Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
-    * to array memberasho bargardoni
-    * members = await db.getMembersChat(userChat.chatID)
-    */
-    const db = require('../DB/db');
-    members = await db.getMembersChat(chatID);
-    let memberFormat = [];
-    for (let i = 0; i < members.length; i++) {
-        memberFormat.push(members[i]._id);
-    }
-    let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0});
-    for (let i = 0; i < userSessions.length; i++) {
-        await pushToUserGenerater(orginalObject, {data: pushData, event: event}, userSessions[i].session);
-    }
-
+async function pushToAllUser(orginalObject, chatID, event, pushData = undefined) {
+    return new Promise(async resolve => {
+        let members;
+        if (pushData === undefined) {
+            pushData = orginalObject;
+        }
+        /*
+        * do Mahdi Khazayi Nezhad 07/03/2019 (db) : #majid inja bayad behesh ye chatID midim
+        * to array memberasho bargardoni
+        * members = await db.getMembersChat(userChat.chatID)
+        */
+        const db = require('../DB/db');
+        members = await db.getMembersChat(chatID);
+        let memberFormat = [];
+        for (let i = 0; i < members.length; i++) {
+            memberFormat.push(members[i]._id);
+        }
+        let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0, userID: 1});
+        for (let i = 0; i < userSessions.length; i++) {
+            await pushToUserGenerater(orginalObject, {data: pushData, event: event}, userSessions[i].session);
+        }
+        resolve(userSessions);
+    });
 }
 
 logd("create Function", " hello");
