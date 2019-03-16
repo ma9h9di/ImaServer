@@ -49,7 +49,7 @@ function call(userChat, user, maxSeenMessageCount) {
 
             }
             const seenData={
-                chatID: userChat.userSeenChatID,
+                chatID: userChat.chatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,
                 userID: user.userID
             };

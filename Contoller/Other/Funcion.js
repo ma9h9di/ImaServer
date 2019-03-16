@@ -47,8 +47,13 @@ function randomString(length) {
     return result;
 }
 
+// function pi(k1, k2) {
+//     return -((((k1 + k2) * (k1 + k2 + 1)) / 2) + k2)
+// }
+const MaxNumberUser = 10000000;
+
 function pi(k1, k2) {
-    return -((((k1 + k2) * (k1 + k2 + 1)) / 2) + k2)
+    return -(k1 + k2 * MaxNumberUser)
 }
 
 function hashMessageID(senderChatID, receivedChatID) {
@@ -59,6 +64,25 @@ function hashMessageID(senderChatID, receivedChatID) {
         k2 = [k1, k1 = k2][0]
     }
     return pi(k1, k2);
+}
+
+function getPiMax(hashID, k1) {
+    return (-hashID - k1) / MaxNumberUser;
+}
+
+function getPiMin(hashID, k2) {
+    return (-hashID - k2 * MaxNumberUser)
+}
+
+function deHashMessageID(hashID, k) {
+    if (hashID < 0) {
+        const pmax = getPiMax(hashID, k);
+        if (pmax < k)
+            return pmax;
+        else return getPiMin(hashID, k);
+    } else return hashID
+
+
 }
 
 async function pushToUserGenerater(orginalObject, pushData, userSessions) {
@@ -94,7 +118,15 @@ async function pushToAllUser(orginalObject, chatID, event, pushData = undefined)
         }
         let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0, userID: 1});
         for (let i = 0; i < userSessions.length; i++) {
-            await pushToUserGenerater(orginalObject, {data: pushData, event: event}, userSessions[i].session);
+            let cloneData = JSON.parse(JSON.stringify(pushData));
+
+            if (cloneData.hasOwnProperty("data") && cloneData.data.hasOwnProperty('chatID')) {
+                cloneData.data.chatID = deHashMessageID(cloneData.data.chatID, userSessions[i].userID)
+            }
+            if (cloneData.hasOwnProperty("chatID")) {
+                cloneData.chatID = deHashMessageID(cloneData.chatID, userSessions[i].userID)
+            }
+            await pushToUserGenerater(orginalObject, {data: cloneData, event: event}, userSessions[i].session);
         }
         resolve(userSessions);
     });
@@ -104,4 +136,6 @@ logd("create Function", " hello");
 exports.logd = logd;
 exports.randomString = randomString;
 exports.hashMessageID = hashMessageID;
+exports.deHashMessageID = deHashMessageID;
 exports.pushToAllUser = pushToAllUser;
+exports.pushToUserGenerater = pushToUserGenerater;

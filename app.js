@@ -1,9 +1,9 @@
-const telegram = require('./Contoller/Other/TelegramBot');
-process.on('uncaughtException', async function (err) {
-    // console.log('Caught exception: ' + err.stack);
-    await telegram.sendErrMessage(err);
-    throw err;
-});
+// const telegram = require('./Contoller/Other/TelegramBot');
+// process.on('uncaughtException', async function (err) {
+//     // console.log('Caught exception: ' + err.stack);
+//     await telegram.sendErrMessage(err);
+//     throw err;
+// });
 
 var createError = require('http-errors');
 var express = require('express');

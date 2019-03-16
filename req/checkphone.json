@@ -1,0 +1,20 @@
+{
+  "input": {
+    "method": "checkPhone",
+    "data": {
+      "phone_number": "+989156450284",
+      "country": "Iran (Islamic Republic of)",
+      "language": "English",
+      "device": {
+        "platform": "android",
+        "unique_device_key": "f00dadd6e6b41a2b",
+        "platform_version": "28",
+        "model": "SM-N950F_greatlte"
+      },
+      "token": ""
+    }
+  },
+  "outPut":{
+
+  }
+}

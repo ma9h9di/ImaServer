@@ -5,7 +5,7 @@ const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
 
-function call(chatID, messageIDs) {
+function call(chatID, messageIDs,userChat) {
     return new Promise(async (resolve) => {
         try {
             let answer;
@@ -20,6 +20,9 @@ function call(chatID, messageIDs) {
             * answer = await db.getMessages(chatID,messageIDs)
             */
             answer = await db.getMessage(chatID, messageIDs, pv.support.fullMessageKey);
+            for (let i = 0; i < answer.length; i++) {
+                answer[i].chatID=userChat.userSeenChatID;
+            }
             return resolve({data: {messages: answer}})
         } catch (e) {
             return resolve(new err(pv.errCode.internal_err).jsonErr());
@@ -28,13 +31,13 @@ function call(chatID, messageIDs) {
     });
 }
 
-async function callByNumber(chatID, startMessageData, numberMessage) {
+async function callByNumber(chatID, startMessageData, numberMessage,userChat) {
     return new Promise(async (resolve) => {
         let messageIDs = [];
         for (let id = startMessageData; id > startMessageData - numberMessage; id--) {
             messageIDs.push(id);
         }
-        const answer =await call(chatID, messageIDs);
+        const answer =await call(chatID, messageIDs,userChat);
         return resolve(answer)
     });
 

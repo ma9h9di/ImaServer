@@ -13,7 +13,7 @@ function call(userChat, user, status) {
             //write your code Mahdi Khazayi Nezhad
             let answer = {data:{successful: true}};
             await pushToAllUser(answer, userChat.chatID,'status_event',{
-                chatID: userChat.userSeenChatID,
+                chatID: userChat.chatID,
                 status: status,
                 userID: user.userID
             });

@@ -38,17 +38,19 @@ function call(data, user, userChat) {
             const updateKeys = ['lastMessageCount', 'lastMessageTime'];
             await db.updateChatUser(userChat, updateKeys, user.userID);
             await db.updateChatByMongoID(updateKeys, userChat);
-            newMessage.chatID = userChat.userSeenChatID;
+            newMessage.chatID = newMessage.hashID;
             delete newMessage.hashID;
             /*
             * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
             * elementesho update `lastMessageChangeTime` konim in update many
             * db.updateUserChat(userChat,['lastMessageCount'])
             */
+
             answer = {data: newMessage};
 
             const usersSession = await pushToAllUser(answer, userChat.chatID, 'message_event');
             await sendNotifSchedule(usersSession, user, newMessage);
+
             return resolve(answer)
         } catch (e) {
             return resolve(new err(pv.errCode.internal_err).jsonErr());

@@ -33,10 +33,10 @@ module.exports = {
                         startMessageData = Math.min(data.startMessage, startMessageData);
                         // startMessageData = Math.max(startMessageData, data.numberMessage);
                     }
-                    getMessages = await getMessagesApi.callByNumber(userChat.chatID, startMessageData,data.numberMessage);
+                    getMessages = await getMessagesApi.callByNumber(userChat.chatID, startMessageData,data.numberMessage,userChat);
 
                 } else if (data.hasOwnProperty('messageIDs')) {
-                    getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs);
+                    getMessages = await getMessagesApi.call(userChat.chatID, data.messageIDs,userChat);
                 }
                 else {
                     return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['messageIDs','numberMessage']}).jsonErr());

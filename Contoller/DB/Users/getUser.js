@@ -52,6 +52,31 @@ function getUsersInfo(usersIDs, selectedField) {
     });
 }
 
+function getUsersInfoContactPhoneNumber(phoneNumber, selectedField) {
+    return new Promise((resolve, reject) => {
+        try {
+            const userCollection = mongoUtil.getDb().collection("Users");
+            userCollection.find({userID: {$in: usersIDs}}).project(selectedField).toArray(function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                if (!result) {
+                    result = [];
+                }
+                let propArray = [];
+                for (let i = 0; i < result.length; i++) {
+                    // result[i].userID=result[i].userID!==null?result[i].userID:result[i]._id;
+                    propArray.push(result[i]);
+                }
+                return resolve(propArray);
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+}
+
+
 function getUserByID(id) {
     return new Promise(function (resolve, reject) {
         try {
