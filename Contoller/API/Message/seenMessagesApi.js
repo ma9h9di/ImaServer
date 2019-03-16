@@ -26,9 +26,9 @@ function call(userChat, user, maxSeenMessageCount) {
 
             //write your code Mahdi Khazayi Nezhad
             // answer = new err(pv.errCode.not_implemented).jsonErr();
-            if (userChat.lastSeenMessage >= maxSeenMessageCount) {
-                return resolve(answer);
-            }
+            // if (userChat.lastSeenMessage >= maxSeenMessageCount) {
+            //     return resolve(answer);
+            // }
             userChat.lastSeenMessage = maxSeenMessageCount;
             /*
              * do Mahdi Khazayi Nezhad 18/02/2019 (db) : #majid inja bayad ye userChat chato faghat yek
@@ -54,9 +54,9 @@ function call(userChat, user, maxSeenMessageCount) {
                 userID: user.userID
             };
             const usersSession = await pushToAllUser(answer, userChat.chatID, 'seen_event', seenData);
-            // workAtTimeObject.removeWork(seenData.chatID,seenData.lastSeenMessageCount,()=>{
-            //     sendSeenSchedule(usersSession, user, seenData);
-            // });
+            workAtTimeObject.removeWork(seenData.chatID,seenData.lastSeenMessageCount,()=>{
+                sendSeenSchedule(usersSession, user, seenData);
+            });
             return resolve(answer)
         } catch (e) {
 

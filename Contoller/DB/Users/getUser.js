@@ -52,6 +52,34 @@ function getUsersInfo(usersIDs, selectedField) {
     });
 }
 
+function getUsersInfoByContactPhoneNumber(phoneNumber, selectedField) {
+    return new Promise((resolve, reject) => {
+        try {
+            const userCollection = mongoUtil.getDb().collection("Users");
+            for (let i = 0; i < usersIDs; i++) {
+                usersIDs[i]=parseInt(usersIDs[i]);
+            }
+            userCollection.find({'contacts.phone_number':phoneNumber}).project(selectedField).toArray(function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                if (!result) {
+                    result = [];
+                }
+                let propArray = [];
+                for (let i = 0; i < result.length; i++) {
+                    // result[i].userID=result[i].userID!==null?result[i].userID:result[i]._id;
+                    propArray.push(result[i]);
+                }
+                return resolve(propArray);
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+}
+
+
 function getUsersInfoContactPhoneNumber(phoneNumber, selectedField) {
     return new Promise((resolve, reject) => {
         try {
@@ -136,7 +164,8 @@ module.exports =
         getUserByPhoneNumber: getUserByPhoneNumber,
         getUserByToken: getUserByToken,
         getUserByID: getUserByID,
-        getUsersInfo: getUsersInfo
+        getUsersInfo: getUsersInfo,
+        getUsersInfoByContactPhoneNumber: getUsersInfoByContactPhoneNumber
 
     }
 ;

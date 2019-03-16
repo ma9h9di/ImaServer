@@ -15,15 +15,26 @@ module.exports = function (user) {
                 user.firstName = data.first_name;
                 user.lastName = data.last_name;
                 user.email = data.email;
-/*
-* todo Mahdi Khazayi Nezhad 16/03/2019 (logic) :
-*/
+                /*
+                * todo Mahdi Khazayi Nezhad 16/03/2019 (logic) : newContact event
+                */
                 // new contact event
-                // let userSessions = await db.getUsersInfo(memberFormat, {session: 1, _id: 0, userID: 1});
-                // for (let i = 0; i < userSessions.length; i++) {
-                //     await pushToUserGenerater(orginalObject, {data: pushData, event: event}, userSessions[i].session);
-                // }
-                return resolve({'data': {successful: true}});
+                let orginalObject = {'data': {successful: true}};
+                await db.updateContactPhoneNumber(user.phone_number, user.userID);
+                let userSessions = await db.getUsersInfoByContactPhoneNumber(user.phone_number, {
+                    session: 1,
+                    _id: 0,
+                    userID: 1
+                });
+                for (let i = 0; i < userSessions.length; i++) {
+                    await pushToUserGenerater(orginalObject, {
+                        data: {
+                            phone_number: user.phone_number,
+                            userID: user.userID
+                        }, event: event
+                    }, userSessions[i].session);
+                }
+                return resolve(orginalObject);
             })
 
 

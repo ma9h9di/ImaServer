@@ -70,12 +70,32 @@ function updateUserByMongoID(changedKeysArray, newUser) {
 
 }
 
-function updateSessionUserByToken(token,newSocketID) {
+function updateSessionUserByToken(token, newSocketID) {
     return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
 
-            userCollection.updateOne({'session.token': token}, {$set: {'session.$.socketID':newSocketID}}, function (err, res) {
+            userCollection.updateOne({'session.token': token}, {$set: {'session.$.socketID': newSocketID}}, function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                // console.log("new updated document is: ", res.ops[0]);
+                return resolve({});
+            });
+        } catch (e) {
+            logd(e);
+            return reject(e);
+        }
+    });
+
+}
+
+function updateContactPhoneNumber(phone_number, userID) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var userCollection = mongoUtil.getDb().collection("Users");
+
+            userCollection.updateMany({'contacts.phone_number': phone_number}, {$set: {'contacts.$.userID': userID}}, function (err, res) {
                 if (err) {
                     throw err;
                 }
@@ -94,8 +114,8 @@ function deleteDataChatUser(userChat, userID) {
     return new Promise(async (resolve, reject) => {
         try {
             var userCollection = mongoUtil.getDb().collection("Users");
-            userID=parseInt(userID);
-            userChat.hashID=parseInt(userChat.hashID);
+            userID = parseInt(userID);
+            userChat.hashID = parseInt(userChat.hashID);
             userCollection.updateOne({userID: userID, 'chats.hashID': userChat.hashID},
                 {$set: userChat}, function (err, res) {
                     if (err) {
@@ -117,12 +137,12 @@ function updateChatUser(userChat, keys, userID) {
         try {
             let newChatUser = {};
             for (let i = 0; i < keys.length; i++) {
-                newChatUser['chats.$.'+keys[i]] = userChat[keys[i]];
+                newChatUser['chats.$.' + keys[i]] = userChat[keys[i]];
             }
             var userCollection = mongoUtil.getDb().collection("Users");//id user ha va chat ha nemikhaym mese ham bashan
-            userID=parseInt(userID);
-            userChat.hashID=parseInt(userChat.hashID);
-            userCollection.updateMany({ 'chats.hashID': userChat.hashID},
+            userID = parseInt(userID);
+            userChat.hashID = parseInt(userChat.hashID);
+            userCollection.updateMany({'chats.hashID': userChat.hashID},
                 {$set: newChatUser}, function (err, res) {
                     if (err) {
                         throw err;
@@ -144,7 +164,8 @@ module.exports =
         updateUserByMongoID: updateUserByMongoID,
         updateUserByPhoneNumber: updateUserByPhoneNumber,
         deleteDataChatUser: deleteDataChatUser,
+        updateContactPhoneNumber: updateContactPhoneNumber,
         updateChatUser: updateChatUser,
-        updateSessionUserByToken:updateSessionUserByToken
+        updateSessionUserByToken: updateSessionUserByToken
     }
 ;

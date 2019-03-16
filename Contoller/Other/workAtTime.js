@@ -50,7 +50,7 @@ function removeWork(chatID, messageID, clearSendNotif = () => {
     if (hashTable[chatID]) {
         for (let i = messageID; i > 0; i--) {
             if (hashTable[chatID][i] !== undefined) {
-                clearTimeout(hashTable[key]);
+                clearTimeout(hashTable[chatID][i]);
                 delete hashTable[chatID][i];
             } else {
                 break;
@@ -58,9 +58,7 @@ function removeWork(chatID, messageID, clearSendNotif = () => {
         }
         clearSendNotif();
     }
-    if (hashTable[chatID].size() === 0) {
-        delete hashTable[chatID];
-    }
+
 }
 
 module.exports.scheduleWork = scheduleWork;
