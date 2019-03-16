@@ -2,9 +2,21 @@
 const db = require("../../DB/db");
 const logd = require("../../Other/Funcion").logd;
 const pushToAllUser = require("../../Other/Funcion").pushToAllUser;
+const workAtTimeObject = require("../../Other/workAtTime");
 const pv = require("../../Other/PublicValue");
 const ObjectID = require('mongodb').ObjectID;
 const err = require('../../Model/error');
+
+function sendSeenSchedule(usersSession, user, seenMessage) {
+    return new Promise(async resolve => {
+        for (let i = 0; i < usersSession.length; i++) {
+            if (usersSession[i].userID !== user.userID) {
+                workAtTimeObject.sendSeenMessage(seenMessage,user,usersSession[i].session)
+            }
+        }
+        return resolve({});
+    })
+}
 
 function call(userChat, user, maxSeenMessageCount) {
     return new Promise(async (resolve) => {
@@ -36,13 +48,15 @@ function call(userChat, user, maxSeenMessageCount) {
                 }
 
             }
-
-            await pushToAllUser(answer, userChat.chatID, 'seen_event', {
+            const seenData={
                 chatID: userChat.userSeenChatID,
                 lastSeenMessageCount: userChat.lastSeenMessage,
                 userID: user.userID
+            };
+            const usersSession = await pushToAllUser(answer, userChat.chatID, 'seen_event', seenData);
+            workAtTimeObject.removeWork(seenData.chatID,seenData.lastSeenMessageCount,()=>{
+                sendSeenSchedule(usersSession, user, seenData);
             });
-
             return resolve(answer)
         } catch (e) {
 

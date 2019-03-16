@@ -217,7 +217,7 @@ const defaultValue = {
     addContactLimitation: 2000,
     addContactResetPeriod: 3 * 31 * 24 * 60 * 60 * 1000,     // 3 month
     descriptionLength: 300,
-    messageLengthNothif: 60,
+    messageLengthNothif: 60*1000,
     timeToSendNotif:60
 };
 

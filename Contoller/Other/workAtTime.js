@@ -1,6 +1,7 @@
 const pv = require('./PublicValue');
 const getNewMessageNotif = require('../Model/messageCreater').getNewMessageNotif;
 const sendNotification = require('./sendNotification').sendNotification;
+const sendData = require('./sendNotification').sendData;
 hashTable = {};
 
 function sendNotifMessage(newMessage, user, sessionUser) {
@@ -19,6 +20,21 @@ function sendNotifMessage(newMessage, user, sessionUser) {
             }
         )
     })
+
+}
+
+function sendSeenMessage(seenData, user, sessionUser) {
+    const fcmArrayTocken = [];
+    for (let i = 0; i < sessionUser.length; i++) {
+        fcmArrayTocken.push(sessionUser[i].device.notification.notification_token);
+    }
+    sendData(
+        fcmArrayTocken,
+        {
+            chatID: seenData.chatID + "",
+            messageID: seenData.lastSeenMessageCount + ""
+        }
+    )
 
 }
 
@@ -50,3 +66,4 @@ function removeWork(chatID, messageID, clearSendNotif = () => {
 module.exports.scheduleWork = scheduleWork;
 module.exports.removeWork = removeWork;
 module.exports.sendNotifMessage = sendNotifMessage;
+module.exports.sendSeenMessage = sendSeenMessage;

@@ -20,6 +20,7 @@ function sendNotifSchedule(usersSession, user, newMessage) {
     })
 }
 
+
 function call(data, user, userChat) {
     return new Promise(async (resolve) => {
         let newMessage = await getNewMessage(data.message, user, userChat, data.random_ID);
