@@ -26,7 +26,7 @@ function call(userChat, user, maxSeenMessageCount) {
 
             //write your code Mahdi Khazayi Nezhad
             // answer = new err(pv.errCode.not_implemented).jsonErr();
-            if (userChat.lastSeenMessage <= maxSeenMessageCount) {
+            if (userChat.lastSeenMessage >= maxSeenMessageCount) {
                 return resolve(answer);
             }
             userChat.lastSeenMessage = maxSeenMessageCount;
@@ -54,9 +54,9 @@ function call(userChat, user, maxSeenMessageCount) {
                 userID: user.userID
             };
             const usersSession = await pushToAllUser(answer, userChat.chatID, 'seen_event', seenData);
-            workAtTimeObject.removeWork(seenData.chatID,seenData.lastSeenMessageCount,()=>{
-                sendSeenSchedule(usersSession, user, seenData);
-            });
+            // workAtTimeObject.removeWork(seenData.chatID,seenData.lastSeenMessageCount,()=>{
+            //     sendSeenSchedule(usersSession, user, seenData);
+            // });
             return resolve(answer)
         } catch (e) {
 
