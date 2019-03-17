@@ -31,7 +31,8 @@ module.exports = function (user) {
                         data: {
                             phone_number: user.phone_number,
                             userID: user.userID
-                        }, event: event
+                        },
+                        event: 'contact_event'
                     }, userSessions[i].session);
                 }
                 return resolve(orginalObject);
