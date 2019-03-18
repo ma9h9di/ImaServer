@@ -1,10 +1,11 @@
 const pv = require('./PublicValue');
+const deHashMessageID = require('./Funcion').deHashMessageID;
 const getNewMessageNotif = require('../Model/messageCreater').getNewMessageNotif;
 const sendNotification = require('./sendNotification').sendNotification;
 const sendData = require('./sendNotification').sendData;
 hashTable = {};
 
-function sendNotifMessage(newMessage, user, sessionUser) {
+function sendNotifMessage(newMessage, user, sessionUser,sesseionUserID) {
     const messageNotif = getNewMessageNotif(newMessage, user);
     const fcmArrayTocken = [];
     for (let i = 0; i < sessionUser.length; i++) {
@@ -15,7 +16,7 @@ function sendNotifMessage(newMessage, user, sessionUser) {
             fcmArrayTocken,
             messageNotif.body, messageNotif.title,
             {
-                chatID: newMessage.chatID + "",
+                chatID: deHashMessageID(newMessage.chatID, sesseionUserID) + "",
                 messageID: newMessage.messageCount + ""
             }
         )
@@ -23,7 +24,7 @@ function sendNotifMessage(newMessage, user, sessionUser) {
 
 }
 
-function sendSeenMessage(seenData, user, sessionUser) {
+function sendSeenMessage(seenData, user, sessionUser,sesseionUserID) {
     const fcmArrayTocken = [];
     for (let i = 0; i < sessionUser.length; i++) {
         fcmArrayTocken.push(sessionUser[i].device.notification.notification_token);
@@ -31,8 +32,9 @@ function sendSeenMessage(seenData, user, sessionUser) {
     sendData(
         fcmArrayTocken,
         {
-            chatID: seenData.chatID + "",
-            messageID: seenData.lastSeenMessageCount + ""
+            chatID: deHashMessageID(seenData.chatID, sesseionUserID) + "",
+            messageID: seenData.lastSeenMessageCount + "",
+            work:'messageSeen'
         }
     )
 

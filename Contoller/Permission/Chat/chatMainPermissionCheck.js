@@ -35,7 +35,7 @@ function findMethodPermission(input, user, userHasThisChat) {
                     checkPerAnswer = await getChatsPermission.check(data, user, userHasThisChat);
                     break;
                 case pv.api.chat.getSortedUpdatedChatList:
-                    checkPerAnswer = await getSortedUpdatedChatListPermission.check(user);
+                    checkPerAnswer = await getSortedUpdatedChatListPermission.check(data,user);
                     break;
                 case pv.api.chat.checkChannelUsername://test
                     checkPerAnswer = await checkChannelUsernamePermission.check(data, user, userHasThisChat);

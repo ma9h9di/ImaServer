@@ -10,8 +10,8 @@ const err = require('../../Model/error');
 function sendSeenSchedule(usersSession, user, seenMessage) {
     return new Promise(async resolve => {
         for (let i = 0; i < usersSession.length; i++) {
-            if (usersSession[i].userID !== user.userID) {
-                workAtTimeObject.sendSeenMessage(seenMessage,user,usersSession[i].session)
+            if (usersSession[i].userID === user.userID) {
+                workAtTimeObject.sendSeenMessage(seenMessage,user,usersSession[i].session,usersSession[i].userID)
             }
         }
         return resolve({});

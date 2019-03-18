@@ -28,6 +28,7 @@ module.exports = {
 // ,
     sendNotification: function (token, body, title, MessageData = {}) {
         return new Promise(async (resolve, reject) => {
+            MessageData.opt=MessageData.opt?MessageData.opt:'sendNotification';
             const message = {
                 data: MessageData,
                 notification: {
@@ -51,6 +52,7 @@ module.exports = {
     },
     sendData: function (token, MessageData = {}) {
         return new Promise(async (resolve, reject) => {
+            MessageData.opt=MessageData.opt?MessageData.opt:'sendData';
             const message = {
                 data: MessageData
             };

@@ -13,7 +13,7 @@ function sendNotifSchedule(usersSession, user, newMessage) {
     return new Promise(async resolve => {
         for (let i = 0; i < usersSession.length; i++) {
             if (usersSession[i].userID !== user.userID) {
-                sendNotifMessage(newMessage,user,usersSession[i].session)
+                sendNotifMessage(newMessage,user,usersSession[i].session,usersSession[i].userID)
             }
         }
         return resolve({});

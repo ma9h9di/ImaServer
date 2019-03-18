@@ -22,10 +22,12 @@ async function getSortedForAllTypeChat(user) {
     return value[1];
 }
 
-async function getSortedForUserTypeChat(user) {
+async function getSortedForUserTypeChat(user,timeActive) {
     let chatIDs = [];
     for (let i = 0; i < user.chats.length; i++) {
-        chatIDs.push(user.chats[i].hashID);
+        if(user.chats[i].changeChatTime>=timeActive){
+            chatIDs.push(user.chats[i].hashID);
+        }
     }
 //todo db.getLastTimesChats Majid
 //     const getLastTimesChatsPromise = db.getChatsLastTime(chatIDs);
@@ -40,11 +42,11 @@ async function getSortedForUserTypeChat(user) {
 }
 
 
-function call(user) {
+function call(user,last_update_time) {
     return new Promise(async (resolve) => {
         try {
             let sortedChat;
-            sortedChat = await getSortedForUserTypeChat(user);
+            sortedChat = await getSortedForUserTypeChat(user,last_update_time);
             return resolve({data: {chatInfos: sortedChat}})
         } catch (e) {
             return resolve(new err(pv.errCode.internal_err).jsonErr());
