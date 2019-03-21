@@ -26,6 +26,7 @@ function updateDevice(device) {
     return new Promise(async (resolve, reject) => {
         try {
             var deviceCollection = mongoUtil.getDb().collection("Devices");
+            delete device._id;
             deviceCollection.updateMany({unique_device_key: device.unique_device_key}, {$set: device}, function (err, res) {
                 if (err) {
                     throw err;
