@@ -56,9 +56,6 @@ function getUsersInfoByContactPhoneNumber(phoneNumber, selectedField) {
     return new Promise((resolve, reject) => {
         try {
             const userCollection = mongoUtil.getDb().collection("Users");
-            for (let i = 0; i < usersIDs; i++) {
-                usersIDs[i]=parseInt(usersIDs[i]);
-            }
             userCollection.find({'contacts.phone_number':phoneNumber}).project(selectedField).toArray(function (err, result) {
                 if (err) {
                     throw err;

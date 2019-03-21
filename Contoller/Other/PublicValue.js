@@ -62,6 +62,9 @@ const allApi = {
     },
     downloadApi: {
         profileImage: 'profileImage'
+    },
+    basic: {
+        cnt:'cnt'
     }
 };
 
@@ -271,6 +274,7 @@ const errCode = {
         access_level_denied: 'access_level_denied',
         username_pattern_denied: 'username_pattern_denied',
         user_exist: 'user_exist',
+        your_self_user: 'your_self_user',
     },
     message: {
         message_not_found: 'message_not_found',

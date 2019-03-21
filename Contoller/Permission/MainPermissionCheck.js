@@ -158,6 +158,8 @@ function callBackAfterUser(user, input, client) {
                     return reject(e);
                 }
                 break;
+            case pv.api.basic.cnt:
+                return resolve({});
             default:
                 return reject(new err(pv.errCode.method_not_found).jsonErr());
 

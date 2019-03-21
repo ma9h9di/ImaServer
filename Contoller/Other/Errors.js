@@ -6,21 +6,24 @@ var Errors = [ //if error occure data is nothing
         'code': pv.errCode.internal_err,
         'message': 'Sorry, there is an internal problem for the system',
         'type': pv.apiType.all,
-        'error_data': {}
+        'error_data': {},
+        'sendToDeveloper':true
     },
     {
         'title': 'not implemented',
         'code': pv.errCode.not_implemented,
         'message': 'Sorry, this api is no longer available',
         'type': pv.apiType.all,
-        'error_data': {}
+        'error_data': {},
+        'sendToDeveloper':true
     },
     {
         'title': 'error code not found',
         'code': pv.errCode.error_code_not_found,
         'message': 'can`t found error code',
         'type': pv.apiType.all,
-        'error_data': {}
+        'error_data': {},
+        'sendToDeveloper':true
     },
     {
         'title': 'user delete account spam',
@@ -205,6 +208,13 @@ var Errors = [ //if error occure data is nothing
         'title': 'user exist',
         'code': pv.errCode.chat.user_exist,
         'message': 'Sorry, this user member chat!!!',
+        'type': pv.apiType.chat,
+        'error_data': {}
+    },
+    {
+        'title': 'your self user',
+        'code': pv.errCode.chat.your_self_user,
+        'message': 'Sorry, You can not chat with yourself!!!',
         'type': pv.apiType.chat,
         'error_data': {}
     },

@@ -1,5 +1,6 @@
 const mainPermission = require('./Permission/MainPermissionCheck');
 const logd = require('./Other/Funcion').logd;
+const telegram =require('./Other/TelegramBot');
 const pv = require('./Other/PublicValue');
 const err = require('./Model/error');
 const TAG = "main";
@@ -13,6 +14,16 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
     if (output.hasOwnProperty('pushToUser')) {
         pushToUser = output.pushToUser;
         delete output.pushToUser;
+    }
+    //err detect
+    if (output.hasOwnProperty('error')) {
+        for (let i = 0; i < output.error.length; i++) {
+            if (output.error[i].hasOwnProperty('sendToDeveloper') && output.error[i].sendToDeveloper){
+                telegram.sendUserErr(decrypt_msg,output.error[i].code);
+                delete output.error[i].sendToDeveloper;
+            }
+        }
+
     }
     // logd('output', sendData);
     switch (output.type) {
@@ -41,7 +52,7 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
             try {
                 soketFunction.pushToUserEmit(element.clientID, element.data);
             } catch (e) {
-                logd('in push to userErr',e)
+                logd('in push to userErr', e)
             }
         }
     }

@@ -19,6 +19,7 @@ module.exports = function (io) {
             // io.of('/main').connected[socketId].emit('disconnect');
         },
         chatEmit: function (socketId, sendData) {
+            sendData.data.data.updateTime=new Date().getTime();
             oneSessionEmit(socketId, sendData);
             logd('send in ' + sendData.event, sendData.data);
             // io.of('/main').connected[socketId].emit('disconnect');

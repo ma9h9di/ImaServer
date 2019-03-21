@@ -14,7 +14,7 @@ module.exports = {
                     return reject(new err(pv.errCode.arguments_not_found, undefined, {params: ['userID']}).jsonErr());
                 }
                 if (data.userID===user.userID){
-                    return reject(new err(pv.errCode.invalid_arguments, undefined, {params: ['userID']}).jsonErr());
+                    return reject(new err(pv.errCode.chat.your_self_user, undefined, {params: ['userID']}).jsonErr());
                 }
                 const targetUser = await db.getUserByID(data.userID);
 

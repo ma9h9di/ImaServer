@@ -15,7 +15,7 @@ module.exports = function (user) {
                 //todo inja bayad age false shode sms bede
                 const promisss = [];
                 for (let i = 0; i < user.session.length; i++) {
-                    promisss.push(sendNotification(user.session[i].device.notification.notification_token, sendSms.stringTextVerifyCode(), 'verify code'));
+                    // promisss.push(sendNotification(user.session[i].device.notification.notification_token, sendSms.stringTextVerifyCode(), 'verify code'));
                 }
                 try {
                     await promisss;

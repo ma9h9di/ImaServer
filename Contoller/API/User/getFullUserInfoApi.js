@@ -10,7 +10,7 @@ function call(userID, resolve) {
         try {
             const value = await db.getUserByID(userID, pv.support.userInfoKey);
             //Todo:inja bayad run konm test konm bbinm chi mishe
-            logd('in the getChats', value);
+            logd('in the User', value);
             return resolve({data: {fullUserInfo: value}})
         } catch (e) {
             return resolve(new err(pv.errCode.internal_err).jsonErr());
