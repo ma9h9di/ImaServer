@@ -229,10 +229,16 @@ function check(input, client) {
             } else {
                 if (!data.hasOwnProperty('token')) {
                     return reject(new err(pv.errCode.token_field_not_found).jsonErr());
+                }else if (data.token === ''){
+                    return reject(new err(pv.errCode.invalid_arguments, undefined, {params: ['token']}).jsonErr());
                 }
+
                 user = await db.getUserByToken(data.token);
                 //session work
-                await clinetSessionSet(user, data.token, client);
+                if (user){
+                    await clinetSessionSet(user, data.token, client);
+
+                }
             }
             try {
                 const apiAnswer = await callBackAfterUser(user, input, client);
