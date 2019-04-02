@@ -27,7 +27,8 @@ module.exports = {
                 let checkAnswer;
                 switch (input.method) {
                     case pv.api.contacts.getAllContacts:
-                        checkAnswer = await getAllContacts.getAllContacts(user);
+                        data.time_start=data.time_start?data.time_start:0;
+                        checkAnswer = await getAllContacts.getAllContacts(data.time_start,user);
                         break;
 
                     case pv.api.contacts.addContacts:

@@ -29,6 +29,8 @@ const getMembersChat = require('./Chat/getMembersChat');
 const getMessage = require('./Message/getMessage');
 const setMessage = require('./Message/setMessage');
 
+const logDb = require('./Log/logDb');
+
 module.exports = {
     getUserByPhoneNumber: getUser.getUserByPhoneNumber,
     getUserByToken: getUser.getUserByToken,
@@ -74,6 +76,10 @@ module.exports = {
     getMessage:getMessage.getMessage,
     addMessage:setMessage.addMessage,
     updateSeenMessages:setMessage.updateSeenMessages,
+
+
+    //Log
+    insertLog:logDb.insertLog,
 
 };
 

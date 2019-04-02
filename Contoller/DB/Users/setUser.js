@@ -93,9 +93,14 @@ function updateSessionUserByToken(token, newSocketID) {
 function updateContactPhoneNumber(phone_number, userID) {
     return new Promise(async (resolve, reject) => {
         try {
-            var userCollection = mongoUtil.getDb().collection("Users");
-
-            userCollection.updateMany({'contacts.phone_number': phone_number}, {$set: {'contacts.$.userID': userID}}, function (err, res) {
+            const userCollection = mongoUtil.getDb().collection("Users");
+            let time = new Date().getTime();
+            userCollection.updateMany({'contacts.phone_number': phone_number}, {
+                $set: {
+                    'contacts.$.userID': userID,
+                    'contacts.$.addTime': time
+                }
+            }, function (err, res) {
                 if (err) {
                     throw err;
                 }

@@ -39,6 +39,11 @@ const logd = function (name, str) {
 
     log("--> " + file + ":" + line + "\t" + name, str);
 };
+const logServer = function (jsonLog) {
+    jsonLog.insertTime=new Date().getTime();
+
+    require('./../DB/db').insertLog(jsonLog);
+};
 
 function randomString(length) {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
@@ -134,6 +139,7 @@ async function pushToAllUser(orginalObject, chatID, event, pushData = undefined)
 
 logd("create Function", " hello");
 exports.logd = logd;
+exports.logServer = logServer;
 exports.randomString = randomString;
 exports.hashMessageID = hashMessageID;
 exports.deHashMessageID = deHashMessageID;

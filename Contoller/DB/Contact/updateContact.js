@@ -12,6 +12,7 @@ function updateContact(user, contact) {
             console.log(user.phone_number);
             console.log(contact.phone_number);
             console.log(contact);
+            const time = new Date().getTime();
 
             userCollection.updateOne({
                     "phone_number": user.phone_number,
@@ -21,6 +22,7 @@ function updateContact(user, contact) {
                     $set: {
                         "contacts.$.first_name": contact.first_name,
                         "contacts.$.last_name": contact.last_name,
+                        "contacts.$.addTime": time,
                     }
                 },
                 function (err, res) {

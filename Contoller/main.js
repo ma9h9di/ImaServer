@@ -1,5 +1,6 @@
 const mainPermission = require('./Permission/MainPermissionCheck');
 const logd = require('./Other/Funcion').logd;
+const logServer = require('./Other/Funcion').logServer;
 const telegram =require('./Other/TelegramBot');
 const pv = require('./Other/PublicValue');
 const err = require('./Model/error');
@@ -25,7 +26,8 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
         }
 
     }
-    // logd('output', sendData);
+    //save log
+    logServer({input:decrypt_msg,output:sendData});
     switch (output.type) {
         case pv.apiType.err:
             soketFunction.ErrorEmit(client.id, sendData);
@@ -50,6 +52,9 @@ function sendingMessage(output, decrypt_msg, client, soketFunction) {
         for (let i = 0; i < pushToUser.length; i++) {
             let element = pushToUser[i];
             try {
+                //save log
+                logServer({input:decrypt_msg,push:element});
+
                 soketFunction.pushToUserEmit(element.clientID, element.data);
             } catch (e) {
                 logd('in push to userErr', e)
@@ -75,6 +80,7 @@ module.exports = {
             client.on('run', async function (msg, errs) {
                 //todo decrypt msg
                 const decrypt_msg = msg;
+                decrypt_msg.inputTime=new Date().getTime();
                 try {
                     try {
                         const mainCheck = await mainPermission.check(decrypt_msg, client);

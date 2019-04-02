@@ -1,10 +1,10 @@
 var db = require("../../DB/db");
 const err = require('../../Model/error');
 
-function getAllContacts(user) {
+function getAllContacts(timeStart,user) {
     return new Promise(async (resolve) => {
         try {
-            let result = await db.getAllContacts(user);
+            let result = await db.getAllContacts(user,timeStart);
 
             result = result.contacts;
             let inImaContact = [];
@@ -27,7 +27,6 @@ function getAllContacts(user) {
 
 
     });
-
 }
 
 module.exports = {

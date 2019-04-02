@@ -15,10 +15,12 @@ function call(contacts, user) {
         const values = await Promise.all(promise);
 
         logd('in addContact in then promise', values.length);
+        const time=new Date().getTime();
         for (let i = 0; i < values.length; i++) {
             if (values[i]) {
                 contacts[i].userID = values[i].userID;
             }
+            contacts[i].addTime=time;
             lookedUpContacts.push(contacts[i]);
         }
         logd('in addContact in then promise', lookedUpContacts.length);
