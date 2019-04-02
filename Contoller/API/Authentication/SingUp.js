@@ -29,8 +29,10 @@ module.exports = function (user) {
                 for (let i = 0; i < userSessions.length; i++) {
                     await pushToUserGenerater(orginalObject, {
                         data: {
-                            phone_number: user.phone_number,
-                            userID: user.userID
+                            data: {
+                                phone_number: user.phone_number,
+                                userID: user.userID
+                            }
                         },
                         event: 'contact_event'
                     }, userSessions[i].session);

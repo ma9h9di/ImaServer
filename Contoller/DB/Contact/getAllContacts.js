@@ -21,10 +21,10 @@ function getAllContacts(user, timeStart) {
                     throw err;
                 }
                 if (!res) {
-                    return resolve(false);
-                } else {
-                    return resolve(res);
+                    res = {contacts: []};
                 }
+                return resolve(res);
+
             });
         } catch (e) {
             logd(e);
