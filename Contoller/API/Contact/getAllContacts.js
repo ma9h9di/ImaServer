@@ -18,6 +18,7 @@ function getAllContacts(timeStart,user) {
             const reData = {
                 inImaContact: inImaContact,
                 outImaContact: contact,
+                time_start:new Date().getTime()
             };
             return resolve({data: reData});
         } catch (e) {
