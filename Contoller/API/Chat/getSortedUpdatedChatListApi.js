@@ -24,9 +24,11 @@ async function getSortedForAllTypeChat(user) {
 
 async function getSortedForUserTypeChat(user,timeActive) {
     let chatIDs = [];
+    const chats=[];
     for (let i = 0; i < user.chats.length; i++) {
         if(user.chats[i].changeChatTime>=timeActive){
             chatIDs.push(user.chats[i].hashID);
+            chats.push(user.chats[i]);
         }
     }
 //todo db.getLastTimesChats Majid
@@ -35,8 +37,8 @@ async function getSortedForUserTypeChat(user,timeActive) {
     // const value = await Promise.all([promise]);
 //Todo:inja bayad run konm test konm bbinm chi mishe
     for (let i = 0; i < value.length; i++) {
-        value[i].lastChangeTime = user.chats[i].lastMessageTime;
-        value[i].chatID = user.chats[i].chatID;
+        value[i].lastChangeTime = chats[i].lastMessageTime;
+        value[i].chatID = chats[i].chatID;
     }
     return value;
 }

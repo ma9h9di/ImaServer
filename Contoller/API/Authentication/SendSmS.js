@@ -16,7 +16,7 @@ module.exports = function (user) {
         return {
             uname: 'ma7h5di',
             //todo in bayad 2 vardashte beshe
-            // pass: '12170142',
+            pass: '12170142',
             from: '+98100020400',
             message: pv.string[user.language].verifySmsMessage.replace('{{code}}', user.authentication.validationCode),
             to: [user.phone_number],
