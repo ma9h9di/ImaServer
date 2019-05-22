@@ -125,6 +125,7 @@ const supportValue = {
         'lastEditTime': 1,
         'messageCount': 1,
         'type': 1,
+        'extra_data': 1,
         'hashID': 1
     },
     limitedChatKey: {
@@ -281,6 +282,7 @@ const errCode = {
         access_denied_message: 'access_denied_message',
         message_type_not_denied: 'message_type_not_denied',
         access_denied_send: 'access_denied_send',
+        replay_message_not_found: 'replay_message_not_found'
     }
 };
 const fileType = {
@@ -292,7 +294,8 @@ const fileCategory = {
     profile: 'profile'
 };
 const messageType = {
-    text: 'text'
+    text: 'text',
+    money: 'money',
 };
 
 module.exports = {

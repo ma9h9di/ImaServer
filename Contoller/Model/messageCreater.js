@@ -19,6 +19,7 @@ function newMessage(temp, user, userChat, random_id) {
         changeMessageTime: new Date().getTime(),//nemikhay
         seenCount: 0,
         messageText: temp.text,
+        extra_data: temp.extra_data,
         senderUserID: user.userID,
         hashID: userChat.hashID,//nemikhay
         random_id: random_id,
@@ -37,6 +38,7 @@ function getNewMessage(messageTemp, user, userChat, random_id) {
     let type = messageTemp.type;
     return new Promise(async (resolve, reject) => {
         switch (type) {
+            case messageType.money:
             case messageType.text: {
                 const newM = newMessage(messageTemp, user, userChat, random_id);
                 newM.type = type;

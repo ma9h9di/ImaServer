@@ -7,7 +7,7 @@ var Errors = [ //if error occure data is nothing
         'message': 'Sorry, there is an internal problem for the system',
         'type': pv.apiType.all,
         'error_data': {},
-        'sendToDeveloper':true
+        'sendToDeveloper': true
     },
     {
         'title': 'not implemented',
@@ -15,7 +15,7 @@ var Errors = [ //if error occure data is nothing
         'message': 'Sorry, this api is no longer available',
         'type': pv.apiType.all,
         'error_data': {},
-        'sendToDeveloper':true
+        'sendToDeveloper': true
     },
     {
         'title': 'error code not found',
@@ -23,7 +23,7 @@ var Errors = [ //if error occure data is nothing
         'message': 'can`t found error code',
         'type': pv.apiType.all,
         'error_data': {},
-        'sendToDeveloper':true
+        'sendToDeveloper': true
     },
     {
         'title': 'user delete account spam',
@@ -51,14 +51,18 @@ var Errors = [ //if error occure data is nothing
         'code': pv.errCode.invalid_arguments,
         'message': 'use bad argument',
         'type': pv.apiType.all,
-        'error_data': {}
+        'error_data': {},
+        'sendToDeveloper': true
+
     },
     {
         'title': 'arguments not found',
         'code': pv.errCode.arguments_not_found,
         'message': 'same of argument dose not exist',
         'type': pv.apiType.all,
-        'error_data': {}
+        'error_data': {},
+        'sendToDeveloper': true
+
     },
     {
         'title': 'method not found',
@@ -245,6 +249,13 @@ var Errors = [ //if error occure data is nothing
         'title': 'access denied send',
         'code': pv.errCode.message.access_denied_send,
         'message': 'Sorry, you can`t send message this chat',
+        'type': pv.apiType.message,
+        'error_data': {}
+    },
+    {
+        'title': 'access denied send',
+        'code': pv.errCode.message.replay_message_not_found,
+        'message': 'Sorry, replay message not exist in this chat',
         'type': pv.apiType.message,
         'error_data': {}
     }

@@ -62,12 +62,17 @@ module.exports = function (user) {
                 console.log(option);
                 request.post(option, function (error, response, body) {
                     // console.log(response);
-                    console.log(error);
-                    body = JSON.parse(body);
-                    console.log(body);
-                    //todo in bayad beshe 0
-                    // return resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
-                    return resolve({'data': {'successful': true}});
+                    try {
+                        console.log(error);
+                        body = JSON.parse(body);
+                        console.log(body);
+                        //todo in bayad beshe 0
+                        // return resolve({'data': {'successful': (body[0] + '') === (0 + '')}});
+                        return resolve({'data': {'successful': true}});
+                    } catch (e) {
+                        return resolve({'data': {'successful': false}});
+                    }
+
                 });
             });
         },

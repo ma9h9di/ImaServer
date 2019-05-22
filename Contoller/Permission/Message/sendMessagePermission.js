@@ -56,7 +56,12 @@ module.exports = {
                 let answerCall;
 
                 if (editMessageID === undefined) {
-
+                    if (data.hasOwnProperty('replay_id')) {
+                        const replay_message = await db.getMessage(userChat.chatID, [data.replay_id])[0];
+                        if (!replay_message) {
+                            reject(new err(pv.errCode.replay_message_not_found).jsonErr());
+                        }
+                    }
                     answerCall = await sendMessageApi.call(data, user, userChat);
                 } else {
                     try {
@@ -72,6 +77,7 @@ module.exports = {
                         else {
                             return reject(new err(pv.errCode.message.access_denied_message, undefined, {messageID: editMessageID}).jsonErr());
                         }
+
 
                     } catch (e) {
                         return reject(new err(pv.errCode.message.message_not_found, undefined, {messageID: editMessageID}).jsonErr());
